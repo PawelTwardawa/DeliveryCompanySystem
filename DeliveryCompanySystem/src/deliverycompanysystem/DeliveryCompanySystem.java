@@ -5,6 +5,8 @@
  */
 package deliverycompanysystem;
 
+import java.io.Console;
+import org.hibernate.*;
 /**
  *
  * @author Paweł
@@ -15,6 +17,8 @@ public class DeliveryCompanySystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        System.out.print("napis");
         // TODO code application logic here
     }
     
