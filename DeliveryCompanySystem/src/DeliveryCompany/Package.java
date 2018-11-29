@@ -16,14 +16,59 @@ import javax.persistence.TemporalType;
  */
 public class Package {
     private int id;
-    private int id_sender;
-    private int id_receiver;
+    //private int id_sender;
+    private Data sender;
+    //private int id_receiver;
+    private Data receiver;
     private String location;
-    private int id_courier;
-    private int id_dimensions;
+    //private int id_courier;
+    private Courier curier;
+    //private int id_dimensions;
+    private Dimensions dimensions;
     private int telephone;
     private java.sql.Date date;
-    private int id_client;
+    //private int id_client;
+    private Client client;
+
+    public Data getSender() {
+        return sender;
+    }
+
+    public void setSender(Data sender) {
+        this.sender = sender;
+    }
+
+    public Data getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(Data receiver) {
+        this.receiver = receiver;
+    }
+
+    public Courier getCurier() {
+        return curier;
+    }
+
+    public void setCurier(Courier curier) {
+        this.curier = curier;
+    }
+
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(Dimensions dimensions) {
+        this.dimensions = dimensions;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public int getId() {
         return id;
@@ -32,7 +77,7 @@ public class Package {
     public void setId(int id) {
         this.id = id;
     }
-
+/*
     public int getId_sender() {
         return id_sender;
     }
@@ -48,7 +93,7 @@ public class Package {
     public void setId_receiver(int id_receiver) {
         this.id_receiver = id_receiver;
     }
-
+*/
     public String getLocation() {
         return location;
     }
@@ -56,7 +101,7 @@ public class Package {
     public void setLocation(String location) {
         this.location = location;
     }
-
+/*
     public int getId_courier() {
         return id_courier;
     }
@@ -72,7 +117,7 @@ public class Package {
     public void setId_dimensions(int id_dimensions) {
         this.id_dimensions = id_dimensions;
     }
-
+*/
     public int getTelephone() {
         return telephone;
     }
@@ -88,7 +133,7 @@ public class Package {
     public void setDate(java.sql.Date date) {
         this.date = date;
     }
-
+/*
     public int getId_client() {
         return id_client;
     }
@@ -96,7 +141,7 @@ public class Package {
     public void setId_client(int id_client) {
         this.id_client = id_client;
     }
-
+*/
     
     
 }

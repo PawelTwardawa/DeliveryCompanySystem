@@ -11,7 +11,17 @@ package DeliveryCompany;
  */
 public class Storeman {
     private int id;
-    private int username;
+    //private int username;
+    
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;
@@ -20,7 +30,7 @@ public class Storeman {
     public void setId(int id) {
         this.id = id;
     }
-
+/*
     public int getUsername() {
         return username;
     }
@@ -28,5 +38,5 @@ public class Storeman {
     public void setUsername(int username) {
         this.username = username;
     }
-    
+    */
 }

@@ -13,7 +13,17 @@ public class Data {
     private int id;
     private String firstName;
     private String lastName;
-    private int id_address;
+    //private int id_address;
+    
+    private Address address;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public int getId() {
         return id;
@@ -38,7 +48,7 @@ public class Data {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+/*
     public int getId_address() {
         return id_address;
     }
@@ -46,5 +56,5 @@ public class Data {
     public void setId_address(int id_address) {
         this.id_address = id_address;
     }
-    
+   */ 
 }

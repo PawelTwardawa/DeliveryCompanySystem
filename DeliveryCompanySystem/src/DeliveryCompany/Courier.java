@@ -11,7 +11,16 @@ package DeliveryCompany;
  */
 public class Courier {
     private int id;
-    private String username;
+    //private String username;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getId() {
         return id;
@@ -20,7 +29,7 @@ public class Courier {
     public void setId(int id) {
         this.id = id;
     }
-
+/*
     public String getUsername() {
         return username;
     }
@@ -28,6 +37,6 @@ public class Courier {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+    */
     
 }

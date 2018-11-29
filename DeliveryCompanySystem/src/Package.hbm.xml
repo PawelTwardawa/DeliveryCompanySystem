@@ -7,14 +7,25 @@
      <generator class="assigned"></generator>  
     </id>  
     
+    <!-- 
     <property name="id_sender" column="ID_sender"></property>  
-    <property name="id_receiver" column="ID_receiver"></property>  
+    <property name="id_receiver" column="ID_receiver"></property>
+    -->
+    <many-to-one name="sender" column="ID_sender" class="DeliveryCompany.Data"  cascade="all"/>
+    <many-to-one name="receiver" column="ID_receiver" class="DeliveryCompany.Data"  cascade="all"/>
     <property name="location" column="Location"></property> 
+    <!--
     <property name="id_courier" column="ID_courier"></property>  
     <property name="id_dimensions" column="ID_dimensions"></property>  
+    -->
+    <many-to-one name="curier" column="ID_courier" class="DeliveryCompany.Courier"  cascade="all"/>
+    <many-to-one name="dimensions" column="ID_dimensions" class="DeliveryCompany.Dimensions"  cascade="all"/>
     <property name="telephone" column="TelephoneNumber"></property>  
     <property name="date" column="Date"></property>  
+    <!--
     <property name="id_client" column="ID_client"></property>  
+    -->
+    <many-to-one name="client" column="ID_client" class="DeliveryCompany.Client"  cascade="all"/>
             
   </class>  
             
