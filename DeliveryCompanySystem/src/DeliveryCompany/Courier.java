@@ -11,6 +11,7 @@ package DeliveryCompany;
  */
 public class Courier {
     private int id;
+    private String username;
 
     public int getId() {
         return id;
@@ -27,6 +28,6 @@ public class Courier {
     public void setUsername(String username) {
         this.username = username;
     }
-    private String username;
+    
     
 }

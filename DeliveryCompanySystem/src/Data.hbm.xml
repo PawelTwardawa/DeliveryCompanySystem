@@ -9,7 +9,7 @@
             
     <property name="firstName" column="FirstName"></property>  
     <property name="lastName" column="LastName"></property>
-    <property name="id_address" column="Address"></property>
+    <property name="id_address" column="ID_address"></property>
 
             
   </class>  

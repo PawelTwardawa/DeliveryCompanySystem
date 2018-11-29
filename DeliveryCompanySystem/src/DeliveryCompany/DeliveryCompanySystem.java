@@ -7,6 +7,7 @@ package DeliveryCompany;
 
 
 import java.io.Console;
+import java.util.List;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.*;
@@ -50,22 +51,57 @@ public class DeliveryCompanySystem {
         
         sessionObj.save(user);
         */
-        
+/*
         Email email = new Email();
         email.setId(0);
         email.setEmail("email@email.com");
         email.setConfirmation(false);
         
         sessionObj.save(email);
+        */
+        /*
+        String hql = "FROM User";
+        Query query = sessionObj.createQuery(hql);
+        List<User> results = query.list();
+        
+            for (User us : results) {
+                System.out.println(us.getUsername());
+            }
+
+        Query query2 = sessionObj.createQuery("SELECT Username, Password FROM User");
+        List<Object[]> users = (List<Object[]>)query2.list();
+        
+            for (Object[] user : users) {
+                System.out.println(user[0] + " " + user[1]);
+            }
+        */
+        Email email = new Email();
+        //email.setId(4);
+        email.setEmail("test@test.pwr");
+        email.setConfirmation(false);
+        
+        
+        User user = new User();
+        user.setUsername("testJoin2");
+        user.setPassword("pass1234");
+        user.setUserType("Client");
+        user.setID_email(email);
+        
+        sessionObj.save(user);
+            
+            
         sessionObj.getTransaction().commit();
         }
         catch(Exception ex)
         {
+            System.err.println(ex.getMessage());
+            /*
             if(null != sessionObj.getTransaction()) {
 				System.out.println("\n.......Transaction Is Being Rolled Back.......");
 				sessionObj.getTransaction().rollback();
 			}
             ex.printStackTrace();
+            */
         }
         finally
         {
@@ -75,6 +111,7 @@ public class DeliveryCompanySystem {
             //}
         }
         System.out.print("end");
+        System.exit(0);
     }
     
 }

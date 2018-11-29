@@ -11,7 +11,7 @@ package DeliveryCompany;
  */
 public class Storeman {
     private int id;
-    private String uesrname;
+    private int username;
 
     public int getId() {
         return id;
@@ -21,13 +21,12 @@ public class Storeman {
         this.id = id;
     }
 
-    public String getUesrname() {
-        return uesrname;
+    public int getUsername() {
+        return username;
     }
 
-    public void setUesrname(String uesrname) {
-        this.uesrname = uesrname;
+    public void setUsername(int username) {
+        this.username = username;
     }
-    
     
 }

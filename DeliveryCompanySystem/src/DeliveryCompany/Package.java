@@ -6,6 +6,9 @@
 package DeliveryCompany;
 
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -19,7 +22,7 @@ public class Package {
     private int id_courier;
     private int id_dimensions;
     private int telephone;
-    private Date date;
+    private java.sql.Date date;
     private int id_client;
 
     public int getId() {
@@ -78,11 +81,11 @@ public class Package {
         this.telephone = telephone;
     }
 
-    public Date getDate() {
+    public java.sql.Date getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(java.sql.Date date) {
         this.date = date;
     }
 
@@ -93,5 +96,7 @@ public class Package {
     public void setId_client(int id_client) {
         this.id_client = id_client;
     }
+
+    
     
 }

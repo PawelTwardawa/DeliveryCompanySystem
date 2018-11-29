@@ -2,15 +2,15 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
   
  <hibernate-mapping>  
-  <class name="DeliveryCompany.User" table="User">  
-    <id name="Username">  
+  <class name="DeliveryCompany.Dimensions" table="Dimensions">  
+    <id name="id">  
      <generator class="assigned"></generator>  
     </id>  
             
-    <property name="Password" column="Password"></property>  
-    <property name="UserType" column="UserType"></property>  
-    <many-to-one name="ID_email" class="DeliveryCompany.Email"  cascade="all"/>  
-    
+    <property name="width" column="Width"></property> 
+    <property name="height" column="Height"></property> 
+    <property name="depth" column="Depth"></property> 
+
             
   </class>  
             

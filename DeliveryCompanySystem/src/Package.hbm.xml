@@ -8,7 +8,7 @@
     </id>  
     
     <property name="id_sender" column="ID_sender"></property>  
-    <property name="id_recceiver" column="ID_receiver"></property>  
+    <property name="id_receiver" column="ID_receiver"></property>  
     <property name="location" column="Location"></property> 
     <property name="id_courier" column="ID_courier"></property>  
     <property name="id_dimensions" column="ID_dimensions"></property>  
