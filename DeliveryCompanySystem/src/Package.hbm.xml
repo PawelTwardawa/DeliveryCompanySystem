@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  
+ <hibernate-mapping>  
+  <class name="DeliveryCompany.Package" table="Package">  
+    <id name="id">  
+     <generator class="assigned"></generator>  
+    </id>  
+    
+    <property name="id_sender" column="ID_sender"></property>  
+    <property name="id_recceiver" column="ID_receiver"></property>  
+    <property name="location" column="Location"></property> 
+    <property name="id_courier" column="ID_courier"></property>  
+    <property name="id_dimensions" column="ID_dimensions"></property>  
+    <property name="telephone" column="TelephoneNumber"></property>  
+    <property name="date" column="Date"></property>  
+    <property name="id_client" column="ID_client"></property>  
+            
+  </class>  
+            
+ </hibernate-mapping>  

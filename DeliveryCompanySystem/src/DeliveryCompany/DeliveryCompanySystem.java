@@ -41,7 +41,7 @@ public class DeliveryCompanySystem {
         {
         sessionObj = buildSessionFactory().openSession();
         sessionObj.beginTransaction();
-        
+        /*
         User user = new User();
         user.setUsername("pawel");
         user.setPassword("pass1234");
@@ -49,7 +49,14 @@ public class DeliveryCompanySystem {
         user.setID_email(3);
         
         sessionObj.save(user);
+        */
         
+        Email email = new Email();
+        email.setId(0);
+        email.setEmail("email@email.com");
+        email.setConfirmation(false);
+        
+        sessionObj.save(email);
         sessionObj.getTransaction().commit();
         }
         catch(Exception ex)
