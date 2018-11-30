@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DeliveryCompany;
+package DeliveryCompany.database.structure;
 
 /**
  *
  * @author Paweł
  */
-public class Client {
+public class Courier {
     private int id;
     //private String username;
     private User user;
@@ -21,7 +21,7 @@ public class Client {
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -36,6 +36,7 @@ public class Client {
 
     public void setUsername(String username) {
         this.username = username;
-    } 
-*/
+    }
+    */
+    
 }

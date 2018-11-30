@@ -1,15 +1,11 @@
-<?xml version='1.0' encoding='UTF-8'?>  
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-  
- <hibernate-mapping>  
-  <class name="DeliveryCompany.Email" table="Email">  
-    <id name="id">  
-     <generator class="increment"></generator>  
-    </id>  
-            
-    <property name="email" column="Email"></property>  
-    <property name="confirmation" column="Confirmation"></property>  
-            
-  </class>  
-            
- </hibernate-mapping>  
+<hibernate-mapping>
+  <class name="DeliveryCompany.database.structure.Email" table="Email">
+    <id name="id">
+      <generator class="increment"/>
+    </id>
+    <property column="Email" name="email"/>
+    <property column="Confirmation" name="confirmation"/>
+  </class>
+</hibernate-mapping>

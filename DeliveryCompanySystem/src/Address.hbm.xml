@@ -1,19 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>  
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-  
- <hibernate-mapping>  
-  <class name="DeliveryCompany.Address" table="Address">  
-    <id name="id">  
-     <generator class="increment"></generator>  
-    </id>  
-            
-    <property name="houseNumber" column="HouseNumber"></property>  
-    <property name="apartmentNumber" column="ApartmentNumber"></property> 
-    <property name="street" column="Street"></property> 
-    <property name="postCode" column="PostCode"></property> 
-    <property name="city" column="City"></property> 
-
-            
-  </class>  
-            
- </hibernate-mapping>  
+<hibernate-mapping>
+  <class name="DeliveryCompany.database.structure.Address" table="Address">
+    <id name="id">
+      <generator class="increment"/>
+    </id>
+    <property column="HouseNumber" name="houseNumber"/>
+    <property column="ApartmentNumber" name="apartmentNumber"/>
+    <property column="Street" name="street"/>
+    <property column="PostCode" name="postCode"/>
+    <property column="City" name="city"/>
+  </class>
+</hibernate-mapping>

@@ -1,17 +1,12 @@
-<?xml version='1.0' encoding='UTF-8'?>  
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-  
- <hibernate-mapping>  
-  <class name="DeliveryCompany.User" table="User">  
-    <id name="Username">  
-     <generator class="assigned"></generator>  
-    </id>  
-            
-    <property name="Password" column="Password"></property>  
-    <property name="UserType" column="UserType"></property>  
-    <many-to-one name="ID_email" class="DeliveryCompany.Email"  cascade="all"/>  
-    
-            
-  </class>  
-            
- </hibernate-mapping>  
+<hibernate-mapping>
+  <class name="DeliveryCompany.database.structure.User" table="User">
+    <id name="Username">
+      <generator class="assigned"/>
+    </id>
+    <property column="Password" name="Password"/>
+    <property column="UserType" name="UserType"/>
+    <many-to-one cascade="all" class="DeliveryCompany.database.structure.Email" name="ID_email"/>
+  </class>
+</hibernate-mapping>

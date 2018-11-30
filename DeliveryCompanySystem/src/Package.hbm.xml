@@ -1,32 +1,28 @@
-<?xml version='1.0' encoding='UTF-8'?>  
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-  
- <hibernate-mapping>  
-  <class name="DeliveryCompany.Package" table="Package">  
-    <id name="id">  
-     <generator class="assigned"></generator>  
-    </id>  
-    
+<hibernate-mapping>
+  <class name="DeliveryCompany.database.structure.Package" table="Package">
+    <id name="id">
+      <generator class="assigned"/>
+    </id>
     <!-- 
     <property name="id_sender" column="ID_sender"></property>  
     <property name="id_receiver" column="ID_receiver"></property>
     -->
-    <many-to-one name="sender" column="ID_sender" class="DeliveryCompany.Data"  cascade="all"/>
-    <many-to-one name="receiver" column="ID_receiver" class="DeliveryCompany.Data"  cascade="all"/>
-    <property name="location" column="Location"></property> 
+    <many-to-one cascade="all" class="DeliveryCompany.database.structure.Data" column="ID_sender" name="sender"/>
+    <many-to-one cascade="all" class="DeliveryCompany.database.structure.Data" column="ID_receiver" name="receiver"/>
+    <property column="Location" name="location"/>
     <!--
     <property name="id_courier" column="ID_courier"></property>  
     <property name="id_dimensions" column="ID_dimensions"></property>  
     -->
-    <many-to-one name="curier" column="ID_courier" class="DeliveryCompany.Courier"  cascade="all"/>
-    <many-to-one name="dimensions" column="ID_dimensions" class="DeliveryCompany.Dimensions"  cascade="all"/>
-    <property name="telephone" column="TelephoneNumber"></property>  
-    <property name="date" column="Date"></property>  
+    <many-to-one cascade="all" class="DeliveryCompany.database.structure.Courier" column="ID_courier" name="curier"/>
+    <many-to-one cascade="all" class="DeliveryCompany.database.structure.Dimensions" column="ID_dimensions" name="dimensions"/>
+    <property column="TelephoneNumber" name="telephone"/>
+    <property column="Date" name="date"/>
     <!--
     <property name="id_client" column="ID_client"></property>  
     -->
-    <many-to-one name="client" column="ID_client" class="DeliveryCompany.Client"  cascade="all"/>
-            
-  </class>  
-            
- </hibernate-mapping>  
+    <many-to-one cascade="all" class="DeliveryCompany.database.structure.Client" column="ID_client" name="client"/>
+  </class>
+</hibernate-mapping>

@@ -3,9 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DeliveryCompany;
+package DeliveryCompany.app;
 
 
+import DeliveryCompany.app.functionality.ClientFunc;
+import DeliveryCompany.database.structure.Courier;
+import DeliveryCompany.database.structure.Dimensions;
+import DeliveryCompany.database.structure.Client;
+import DeliveryCompany.database.structure.Address;
+import DeliveryCompany.database.structure.User;
+import DeliveryCompany.database.structure.Email;
+import DeliveryCompany.database.structure.Package;
+import DeliveryCompany.database.structure.Data;
+import DeliveryCompany.database.init.DatabaseInit;
 import java.awt.Dimension;
 import java.io.Console;
 import java.sql.Date;
@@ -24,26 +34,65 @@ public class DeliveryCompanySystem {
      * @param args the command line arguments
      */
     static Session sessionObj;
-    static SessionFactory SessionFactoryObj;
-    
-    private static SessionFactory buildSessionFactory()
-    {
-        Configuration configObj = new Configuration();
-        configObj.configure("hibernate.cfg.xml");
-        
-        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
-        
-        SessionFactoryObj = configObj.buildSessionFactory(serviceRegistryObj);
-        return SessionFactoryObj;
-    }
+    //static SessionFactory SessionFactoryObj;
     
     public static void main(String[] args) {
         
         System.out.print("start");
-        try
+        
+        
+        sessionObj = DatabaseInit.getInstance().getSession();
+        //sessionObj.beginTransaction();
+        
+        
+        
+        /*
+        Query userQuery = sessionObj.createQuery("FROM User WHERE Username = 'pawel'");
+        User user = (User)userQuery.uniqueResult();
+        
+        Client client;
+        
+        Query q = sessionObj.createQuery("FROM Client WHERE user = :us");
+        q.setParameter("us", user);
+        Client clients = (Client)q.uniqueResult();
+        
+        
+        ClientFunc clientFunc = new ClientFunc(clients);
+        //clientFunc.getPackageLocation(1);
+        
+        List<Package> pack = clientFunc.getAllSentPackage();
+        */
+        
+        
+        
+        /*
+        Query userQuery = sessionObj.createQuery("FROM User WHERE Username = 'pawel'");
+        User user = (User)userQuery.uniqueResult();
+        
+        Client client;
+        
+        Query q = sessionObj.createQuery("FROM Client");
+        List<Client> clients = q.list();
+        for(Client obj : clients)
         {
-        sessionObj = buildSessionFactory().openSession();
-        sessionObj.beginTransaction();
+            if(obj.getUser().getUsername() == user.getUsername())
+            {
+                
+            }
+        }
+        */
+        
+        
+        
+        //ClientFunc clientFunc = new ClientFunc(client)
+        
+        //try
+        //{
+        //sessionObj = buildSessionFactory().openSession();
+           //sessionObj =  DatabaseInit.getSession();
+        //sessionObj =   DatabaseInit.getInstance().getSession();
+        //sessionObj =  DatabaseInit.buildSession().openSession();
+        //sessionObj.beginTransaction();
         /*
         User user = new User();
         user.setUsername("pawel");
@@ -60,7 +109,7 @@ public class DeliveryCompanySystem {
         email.setConfirmation(false);
         
         sessionObj.save(email);
-        */
+  */      
         /*
         String hql = "FROM User";
         Query query = sessionObj.createQuery(hql);
@@ -77,15 +126,15 @@ public class DeliveryCompanySystem {
                 System.out.println(user[0] + " " + user[1]);
             }
         */
-        
+        /*
         Email emailClient = new Email();
         //email.setId(4);
-        emailClient.setEmail("janKowalski@email.com");
+        emailClient.setEmail("pawelKowalski@email.com");
         emailClient.setConfirmation(false);
         
         
         User userClient = new User();
-        userClient.setUsername("kowalski");
+        userClient.setUsername("pawel");
         userClient.setPassword("pass1234");
         userClient.setUserType("Client");
         userClient.setID_email(emailClient);
@@ -94,10 +143,10 @@ public class DeliveryCompanySystem {
         client.setUser(userClient);
         
         Email emailCourier = new Email();
-        emailCourier.setEmail("KurierKowalski@delivery.com");
+        emailCourier.setEmail("KurierAdamczykk@delivery.com");
         
         User userCourier = new User();
-        userCourier.setUsername("kurier1");
+        userCourier.setUsername("kurier3");
         userCourier.setPassword("pass1234");
         userCourier.setUserType("Courier");
         userCourier.setID_email(emailCourier);
@@ -106,34 +155,34 @@ public class DeliveryCompanySystem {
         courier.setUser(userCourier);
         
         Address addressSender = new Address();
-        addressSender.setCity("Wroclaw");
-        addressSender.setPostCode("34343");
-        addressSender.setStreet("Niewiadoma");
-        addressSender.setHouseNumber("7");
-        addressSender.setApartmentNumber("10");
+        addressSender.setCity("Poznan");
+        addressSender.setPostCode("27903");
+        addressSender.setStreet("Warszawska");
+        addressSender.setHouseNumber("4");
+        addressSender.setApartmentNumber("15");
         
         Address addressReceiver = new Address();
-        addressReceiver.setCity("Warszawa");
-        addressReceiver.setPostCode("33678");
-        addressReceiver.setStreet("Uliczna");
-        addressReceiver.setHouseNumber("73");
-        addressReceiver.setApartmentNumber("1");
+        addressReceiver.setCity("Krakow");
+        addressReceiver.setPostCode("23468");
+        addressReceiver.setStreet("Wroclawska");
+        addressReceiver.setHouseNumber("34");
+        addressReceiver.setApartmentNumber("6");
         
         
         Data sender = new Data();
-        sender.setFirstName("Jakub");
-        sender.setLastName("Nowak");
+        sender.setFirstName("Pawel");
+        sender.setLastName("Adamczyk");
         sender.setAddress(addressSender);
         
         Data receiver = new Data();
-        receiver.setFirstName("Adam");
-        receiver.setLastName("Greg");
+        receiver.setFirstName("Ewa");
+        receiver.setLastName("Path");
         receiver.setAddress(addressReceiver);
         
         Dimensions dim = new Dimensions();
-        dim.setWidth(10);
-        dim.setHeight(10);
-        dim.setDepth(10);
+        dim.setWidth(6);
+        dim.setHeight(12);
+        dim.setDepth(8);
         
         Package pack = new Package();
         pack.setSender(sender);
@@ -141,14 +190,14 @@ public class DeliveryCompanySystem {
         pack.setLocation("w drodze ");
         pack.setCurier(courier);
         pack.setDimensions(dim);
-        pack.setTelephone(787878787);
+        pack.setTelephone(565656565);
         pack.setDate(new Date(2018, 11, 29));
         pack.setClient(client);
         
         
         
         sessionObj.save(pack);
-            
+           */ 
         /*
         Address addr = new Address();
         addr.setCity("Warszawa");
@@ -165,11 +214,11 @@ public class DeliveryCompanySystem {
         sessionObj.save(data);
         */
             
-        sessionObj.getTransaction().commit();
-        }
-        catch(Exception ex)
-        {
-            System.err.println(ex.getMessage());
+        //sessionObj.getTransaction().commit();
+        //}
+        //catch(Exception ex)
+        //{
+            //System.err.println(ex.getMessage());
             /*
             if(null != sessionObj.getTransaction()) {
 				System.out.println("\n.......Transaction Is Being Rolled Back.......");
@@ -177,7 +226,8 @@ public class DeliveryCompanySystem {
 			}
             ex.printStackTrace();
             */
-        }
+        //}
+        /*
         finally
         {
             //if(sessionObj != null)
@@ -185,6 +235,7 @@ public class DeliveryCompanySystem {
                 sessionObj.close();
             //}
         }
+*/
         System.out.print("end");
         System.exit(0);
     }
