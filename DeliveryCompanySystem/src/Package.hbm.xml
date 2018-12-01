@@ -24,5 +24,6 @@
     <property name="id_client" column="ID_client"></property>  
     -->
     <many-to-one cascade="all" class="DeliveryCompany.database.structure.Client" column="ID_client" name="client"/>
+    <property column="DeliveredStatus" name="DeliveredStatus"/>
   </class>
 </hibernate-mapping>

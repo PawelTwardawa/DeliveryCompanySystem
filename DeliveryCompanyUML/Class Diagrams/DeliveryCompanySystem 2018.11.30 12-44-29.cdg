@@ -2,24 +2,7 @@
 
 <ClassDiagram name="DeliveryCompanySystem">
   <ClassDiagramComponents>
-    <Class name="DeliveryCompanySystem" package="DeliveryCompany.app" visibility="public" xPosition="20.0" yPosition="20.0">
-      <Fields>
-        <Field name="sessionObj" type="Session" visibility="package" isStatic="true"/>
-      </Fields>
-      <Constructors/>
-      <Methods>
-        <Method name="main" returnType="void" visibility="public" isStatic="true">
-          <Argument type="String[]" name="args"/>
-        </Method>
-      </Methods>
-    </Class>
-    <Enum name="DeliveryStatus" package="DeliveryCompany.app.enumerate" visibility="public" xPosition="320.0" yPosition="20.0">
-      <Literals>
-        <Literal name="delivered"/>
-        <Literal name="undelivered"/>
-      </Literals>
-    </Enum>
-    <Class name="ClientFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="620.0" yPosition="20.0">
+    <Class name="ClientFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="320.0" yPosition="48.0">
       <Fields>
         <Field name="client" type="Client" visibility="package"/>
         <Field name="session" type="Session" visibility="package"/>
@@ -47,7 +30,7 @@
         <Method name="getAllSentPackage" returnType="List&lt;Package&gt;" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="CourierFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="920.0" yPosition="20.0">
+    <Class name="CourierFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="43.0" yPosition="333.0">
       <Fields>
         <Field name="courier" type="Courier" visibility="package"/>
         <Field name="session" type="Session" visibility="package"/>
@@ -64,7 +47,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="StoremanFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="1220.0" yPosition="20.0">
+    <Class name="StoremanFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="1142.0" yPosition="77.0">
       <Fields>
         <Field name="storeman" type="Storeman" visibility="private"/>
         <Field name="session" type="Session" visibility="package"/>
@@ -81,7 +64,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="DatabaseInit" package="DeliveryCompany.database.init" visibility="public" xPosition="1520.0" yPosition="20.0">
+    <Class name="DatabaseInit" package="DeliveryCompany.database.init" visibility="public" xPosition="2067.0" yPosition="1190.0">
       <Fields>
         <Field name="instance" type="DatabaseInit" visibility="private" isStatic="true"/>
         <Field name="sessionObj" type="Session" visibility="package" isStatic="true"/>
@@ -94,7 +77,7 @@
         <Method name="getInstance" returnType="DatabaseInit" visibility="public" isStatic="true"/>
       </Methods>
     </Class>
-    <Class name="Address" package="DeliveryCompany.database.structure" visibility="public" xPosition="1820.0" yPosition="20.0">
+    <Class name="Address" package="DeliveryCompany.database.structure" visibility="public" xPosition="1592.0" yPosition="2.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="houseNumber" type="String" visibility="private"/>
@@ -131,7 +114,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Client" package="DeliveryCompany.database.structure" visibility="public" xPosition="2120.0" yPosition="20.0">
+    <Class name="Client" package="DeliveryCompany.database.structure" visibility="public" xPosition="1122.0" yPosition="381.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="user" type="User" visibility="private"/>
@@ -148,7 +131,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Courier" package="DeliveryCompany.database.structure" visibility="public" xPosition="20.0" yPosition="420.0">
+    <Class name="Courier" package="DeliveryCompany.database.structure" visibility="public" xPosition="78.0" yPosition="793.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="user" type="User" visibility="private"/>
@@ -165,7 +148,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Data" package="DeliveryCompany.database.structure" visibility="public" xPosition="320.0" yPosition="420.0">
+    <Class name="Data" package="DeliveryCompany.database.structure" visibility="public" xPosition="1592.0" yPosition="1001.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="firstName" type="String" visibility="private"/>
@@ -192,7 +175,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Dimensions" package="DeliveryCompany.database.structure" visibility="public" xPosition="620.0" yPosition="420.0">
+    <Class name="Dimensions" package="DeliveryCompany.database.structure" visibility="public" xPosition="1288.0" yPosition="1387.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="width" type="int" visibility="private"/>
@@ -219,7 +202,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Email" package="DeliveryCompany.database.structure" visibility="public" xPosition="920.0" yPosition="420.0">
+    <Class name="Email" package="DeliveryCompany.database.structure" visibility="public" xPosition="2054.0" yPosition="747.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="email" type="String" visibility="private"/>
@@ -241,7 +224,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Package" package="DeliveryCompany.database.structure" visibility="public" xPosition="1220.0" yPosition="420.0">
+    <Class name="Package" package="DeliveryCompany.database.structure" visibility="public" xPosition="549.0" yPosition="1040.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="sender" type="Data" visibility="private"/>
@@ -293,7 +276,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Storeman" package="DeliveryCompany.database.structure" visibility="public" xPosition="1520.0" yPosition="420.0">
+    <Class name="Storeman" package="DeliveryCompany.database.structure" visibility="public" xPosition="1426.0" yPosition="567.0">
       <Fields>
         <Field name="id" type="int" visibility="private"/>
         <Field name="user" type="User" visibility="private"/>
@@ -310,7 +293,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="User" package="DeliveryCompany.database.structure" visibility="public" xPosition="1820.0" yPosition="420.0">
+    <Class name="User" package="DeliveryCompany.database.structure" visibility="public" xPosition="683.0" yPosition="551.0">
       <Fields>
         <Field name="Username" type="String" visibility="private"/>
         <Field name="Password" type="String" visibility="private"/>
@@ -337,38 +320,44 @@
         </Method>
       </Methods>
     </Class>
+    <Enum name="DeliveryStatus" package="DeliveryCompany.app.enumerate" visibility="public" xPosition="86.0" yPosition="69.0">
+      <Literals>
+        <Literal name="delivered"/>
+        <Literal name="undelivered"/>
+      </Literals>
+    </Enum>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
     <HasRelation name="client" source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Client" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="user" source="DeliveryCompany.database.structure.Client" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Dimensions" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="storeman" source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.database.structure.Storeman" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="user" source="DeliveryCompany.database.structure.Storeman" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.database.structure.Package" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="address" source="DeliveryCompany.database.structure.Data" target="DeliveryCompany.database.structure.Address" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Package" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.app.functionality.ClientFunc"/>
-    <HasRelation name="sender" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.database.structure.User" target="DeliveryCompany.database.structure.Email" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="curier" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Courier" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.database.structure.Client" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="user" source="DeliveryCompany.database.structure.Courier" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.database.structure.Courier" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="receiver" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="dimensions" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Dimensions" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Dimensions" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="ID_email" source="DeliveryCompany.database.structure.User" target="DeliveryCompany.database.structure.Email" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="client" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Client" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="courier" source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.database.structure.Courier" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="instance" source="DeliveryCompany.database.init.DatabaseInit" target="DeliveryCompany.database.init.DatabaseInit" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.database.structure.Data" target="DeliveryCompany.database.structure.Address" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.database.init.DatabaseInit" target="DeliveryCompany.database.structure.Data" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.database.structure.Courier" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.app.enumerate.DeliveryStatus" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Client" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Client" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Courier" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="sender" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="storeman" source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.database.structure.Storeman" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Dimensions" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="courier" source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.database.structure.Courier" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ID_email" source="DeliveryCompany.database.structure.User" target="DeliveryCompany.database.structure.Email" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="dimensions" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Dimensions" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.app.enumerate.DeliveryStatus" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="DeliveryCompany.database.structure.Storeman" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Client" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="client" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Client" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="curier" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Courier" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Courier" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="DeliveryCompany.database.init.DatabaseInit" target="DeliveryCompany.database.init.DatabaseInit" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.init.DatabaseInit" target="DeliveryCompany.database.structure.Data" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="DeliveryCompany.database.structure.Storeman" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Package" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="DeliveryCompany.database.structure.Courier" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.database.structure.Courier" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.database.structure.Package" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.User" target="DeliveryCompany.database.structure.Email" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Client" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.app.functionality.ClientFunc"/>
+    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="address" source="DeliveryCompany.database.structure.Data" target="DeliveryCompany.database.structure.Address" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="receiver" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Data" target="DeliveryCompany.database.structure.Address" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Dimensions" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="DeliveryCompany.database.structure.Client" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>

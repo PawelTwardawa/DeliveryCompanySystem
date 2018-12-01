@@ -27,13 +27,12 @@ public class StoremanFunc extends ClientFunc{
         this.storeman = storeman;
         this.session = DatabaseInit.getInstance().getSession();
     }
-    
-    //TODO: przetestowac ta funkcje
+   
     public void changePackageCourier(int packageNumber, Courier courier)
     {
         session.beginTransaction();
         
-        Query q = session.createQuery("UPDATE Package set courier = :c WHERE id = :id");
+        Query q = session.createQuery("UPDATE Package SET curier = :c WHERE id = :id");
         q.setParameter("c", courier);
         q.setParameter("id", packageNumber);
         

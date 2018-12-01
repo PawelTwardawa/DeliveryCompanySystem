@@ -5,6 +5,8 @@
  */
 package DeliveryCompany.database.structure;
 
+import java.util.Objects;
+
 /**
  *
  * @author Paweł
@@ -17,6 +19,38 @@ public class Address {
     private String postCode;
     private String city;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Address other = (Address) obj;
+        if (!Objects.equals(this.houseNumber, other.houseNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.apartmentNumber, other.apartmentNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.street, other.street)) {
+            return false;
+        }
+        if (!Objects.equals(this.postCode, other.postCode)) {
+            return false;
+        }
+        if (!Objects.equals(this.city, other.city)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
     public int getId() {
         return id;
     }

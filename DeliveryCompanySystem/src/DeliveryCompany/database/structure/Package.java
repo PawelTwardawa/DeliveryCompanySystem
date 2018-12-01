@@ -22,13 +22,23 @@ public class Package {
     private Data receiver;
     private String location;
     //private int id_courier;
-    private Courier curier;
+    private Courier curier; // TODO: zmienic na cOurier
     //private int id_dimensions;
     private Dimensions dimensions;
     private int telephone;
-    private java.sql.Date date;
+    //private java.sql.Date date;
+    private Date date;
     //private int id_client;
     private Client client;
+    private String DeliveredStatus;
+
+    public String getDeliveredStatus() {
+        return DeliveredStatus;
+    }
+
+    public void setDeliveredStatus(String DeliveredStatus) {
+        this.DeliveredStatus = DeliveredStatus;
+    }
 
     public Data getSender() {
         return sender;
@@ -125,7 +135,7 @@ public class Package {
     public void setTelephone(int telephone) {
         this.telephone = telephone;
     }
-
+/*
     public java.sql.Date getDate() {
         return date;
     }
@@ -133,6 +143,7 @@ public class Package {
     public void setDate(java.sql.Date date) {
         this.date = date;
     }
+    */
 /*
     public int getId_client() {
         return id_client;
@@ -142,6 +153,14 @@ public class Package {
         this.id_client = id_client;
     }
 */
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
     
     
 }

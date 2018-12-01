@@ -6,7 +6,12 @@
 package DeliveryCompany.app;
 
 
+import DeliveryCompany.app.enumerate.DeliveryStatus;
+import DeliveryCompany.app.enumerate.UserType;
 import DeliveryCompany.app.functionality.ClientFunc;
+import DeliveryCompany.app.functionality.CourierFunc;
+import DeliveryCompany.app.functionality.StoremanFunc;
+import DeliveryCompany.app.functionality.UserFunc;
 import DeliveryCompany.database.structure.Courier;
 import DeliveryCompany.database.structure.Dimensions;
 import DeliveryCompany.database.structure.Client;
@@ -16,6 +21,7 @@ import DeliveryCompany.database.structure.Email;
 import DeliveryCompany.database.structure.Package;
 import DeliveryCompany.database.structure.Data;
 import DeliveryCompany.database.init.DatabaseInit;
+import DeliveryCompany.database.structure.CourierData;
 import java.awt.Dimension;
 import java.io.Console;
 import java.sql.Date;
@@ -36,7 +42,7 @@ public class DeliveryCompanySystem {
     static Session sessionObj;
     //static SessionFactory SessionFactoryObj;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         
         System.out.print("start");
         
@@ -44,22 +50,79 @@ public class DeliveryCompanySystem {
         sessionObj = DatabaseInit.getInstance().getSession();
         //sessionObj.beginTransaction();
         
+        UserFunc uf = new UserFunc();
+        //System.out.println(uf.Registry("anna", "password1234", "anna@email.com", UserType.Client));
         
+        System.out.println(uf.Login("adam", "password1234").getUsername());
+        
+        
+        /*
+        Query userQuery = sessionObj.createQuery("FROM User WHERE Username = 'kurier1'");
+        User user = (User)userQuery.uniqueResult();
+        
+        Query q = sessionObj.createQuery("FROM Courier WHERE user = :u");
+        q.setParameter("u", user);
+        Courier courier = (Courier)q.uniqueResult();
+        
+        CourierFunc courierFunc = new CourierFunc(courier);
+        
+        List<CourierData> data = courierFunc.getTransportedPackage();
+        //courierFunc.setDeliveryStatus(DeliveryStatus.delivered, 1);
+        */
+        /*
+        StoremanFunc storemanFunc = new StoremanFunc(null);
+        
+        storemanFunc.changePackageCourier(3, courier);
+        */
         
         /*
         Query userQuery = sessionObj.createQuery("FROM User WHERE Username = 'pawel'");
         User user = (User)userQuery.uniqueResult();
         
-        Client client;
         
         Query q = sessionObj.createQuery("FROM Client WHERE user = :us");
         q.setParameter("us", user);
         Client clients = (Client)q.uniqueResult();
         
-        
+        sessionObj.getTransaction().commit();
         ClientFunc clientFunc = new ClientFunc(clients);
-        //clientFunc.getPackageLocation(1);
+        //String loc = clientFunc.getPackageLocation(1);
+        //System.err.println(loc);
         
+        Address addressSender = new Address();
+        addressSender.setCity("Poznan");
+        addressSender.setPostCode("27903");
+        addressSender.setStreet("Warszawska");
+        addressSender.setHouseNumber("4");
+        addressSender.setApartmentNumber("15");
+        
+        Address addressReceiver = new Address();
+        addressReceiver.setCity("Krakow");
+        addressReceiver.setPostCode("23468");
+        addressReceiver.setStreet("Wroclawska");
+        addressReceiver.setHouseNumber("34");
+        addressReceiver.setApartmentNumber("6");
+        
+        
+        Data sender = new Data();
+        sender.setFirstName("Pawel");
+        sender.setLastName("Adamczyk");
+        sender.setAddress(addressSender);
+        
+        Data receiver = new Data();
+        receiver.setFirstName("Anna");
+        receiver.setLastName("Brat");
+        receiver.setAddress(addressReceiver);
+        
+        Dimensions dim = new Dimensions();
+        dim.setWidth(6);
+        dim.setHeight(12);
+        dim.setDepth(8);
+        
+        clientFunc.SendPackage(sender, addressSender, receiver, addressReceiver, dim, 123456789); 
+        
+        */
+        /*
         List<Package> pack = clientFunc.getAllSentPackage();
         */
         
@@ -129,12 +192,12 @@ public class DeliveryCompanySystem {
         /*
         Email emailClient = new Email();
         //email.setId(4);
-        emailClient.setEmail("pawelKowalski@email.com");
+        emailClient.setEmail("pawelNo@email.com");
         emailClient.setConfirmation(false);
         
         
         User userClient = new User();
-        userClient.setUsername("pawel");
+        userClient.setUsername("robert");
         userClient.setPassword("pass1234");
         userClient.setUserType("Client");
         userClient.setID_email(emailClient);
@@ -143,10 +206,10 @@ public class DeliveryCompanySystem {
         client.setUser(userClient);
         
         Email emailCourier = new Email();
-        emailCourier.setEmail("KurierAdamczykk@delivery.com");
+        emailCourier.setEmail("KurierAdrian@delivery.com");
         
         User userCourier = new User();
-        userCourier.setUsername("kurier3");
+        userCourier.setUsername("kurier4");
         userCourier.setPassword("pass1234");
         userCourier.setUserType("Courier");
         userCourier.setID_email(emailCourier);
