@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="DeliveryCompany.database.structure.Data" table="Data">
+    <id name="id">
+      <generator class="increment"/>
+    </id>
+    <property column="FirstName" name="firstName"/>
+    <property column="LastName" name="lastName"/>
+    <many-to-one cascade="all" class="DeliveryCompany.database.structure.Address" column="ID_address" name="address"/>
+  </class>
+</hibernate-mapping>

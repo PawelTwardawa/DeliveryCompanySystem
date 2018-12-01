@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="DeliveryCompany.database.structure.CourierData" table="CourierData">
+    <id name="ID">
+      <generator class="assigned"/>
+    </id>
+    <property column="ID_courier" name="ID_courier"/>
+    <property column="ID_client" name="ID_client"/>
+    <property column="TelephoneNumber" name="TelephoneNumber"/>
+    <property column="ReceiverFirstName" name="ReceiverFirstName"/>
+    <property column="ReceiverLastName" name="ReceiverLastName"/>
+    <property column="ReceiverCity" name="ReceiverCity"/>
+    <property column="ReceiverPostCode" name="ReceiverPostCode"/>
+    <property column="ReceiverStreet" name="ReceiverStreet"/>
+    <property column="ReceiverHouseNumber" name="ReceiverHouseNumber"/>
+    <property column="ReceiverApartmentNumber" name="ReceiverApartmentNumber"/>
+  </class>
+</hibernate-mapping>

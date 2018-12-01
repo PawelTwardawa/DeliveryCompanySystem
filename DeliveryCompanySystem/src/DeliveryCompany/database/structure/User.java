@@ -3,7 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DeliveryCompany;
+package DeliveryCompany.database.structure;
+
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -13,8 +18,20 @@ public class User {
     private String Username;
     private String Password;
     private String UserType;
-    private int ID_email;
+    //private int ID_email;
+
+    //@JoinColumn(name ="ID_email")
+    private Email ID_email;
     
+    public Email getID_email() {
+        return ID_email;
+    }
+    
+    public void setID_email(Email ID_email) {
+        this.ID_email = ID_email;
+    }
+
+ 
     
     public String getUsername()
     {
@@ -45,7 +62,7 @@ public class User {
     {
         UserType = type;
     }
-    
+    /*
     public int getID_email()
     {
         return ID_email;
@@ -55,4 +72,5 @@ public class User {
     {
         ID_email = email;
     }
+*/
 }
