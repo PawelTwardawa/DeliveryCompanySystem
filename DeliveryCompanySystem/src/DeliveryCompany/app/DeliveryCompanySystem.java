@@ -12,7 +12,7 @@ import DeliveryCompany.app.functionality.ClientFunc;
 import DeliveryCompany.app.functionality.CourierFunc;
 import DeliveryCompany.app.functionality.StoremanFunc;
 import DeliveryCompany.app.functionality.UserFunc;
-import DeliveryCompany.app.gui.Login;
+import DeliveryCompany.app.gui.LoginRegistry;
 import DeliveryCompany.database.structure.Courier;
 import DeliveryCompany.database.structure.Dimensions;
 import DeliveryCompany.database.structure.Client;
@@ -27,6 +27,7 @@ import java.awt.Dimension;
 import java.io.Console;
 import java.sql.Date;
 import java.util.List;
+import javafx.stage.Stage;
 import net.sf.ehcache.search.aggregator.Count;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -47,7 +48,6 @@ public class DeliveryCompanySystem {
     public static void main(String[] args) throws Exception {
         
         System.out.print("start");
-        
         
         /*
         sessionObj = DatabaseInit.getInstance().getSession();

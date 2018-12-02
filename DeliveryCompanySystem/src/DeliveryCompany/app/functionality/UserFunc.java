@@ -32,7 +32,8 @@ public class UserFunc {
     
     Session session;
 
-    public UserFunc() throws NoSuchAlgorithmException {
+    public UserFunc() //throws NoSuchAlgorithmException {
+    {
         this.session = DatabaseInit.getInstance().getSession();
     }
     
