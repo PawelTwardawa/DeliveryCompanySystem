@@ -10,8 +10,21 @@ package DeliveryCompany.app.enumerate;
  * @author Paweł
  */
 public enum UserType {
-    Client,
-    Courier,
-    Storeman
+    Client("Client"),
+    Courier("Courier"),
+    Storeman("Storeman");
+    
+    private final String type;
+    
+    UserType(final String type)
+    {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return type;
+    }
+    
     
 }
