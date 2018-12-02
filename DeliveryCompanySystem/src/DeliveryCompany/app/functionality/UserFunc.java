@@ -7,14 +7,19 @@ package DeliveryCompany.app.functionality;
 
 import DeliveryCompany.app.enumerate.RegisterStatus;
 import DeliveryCompany.app.enumerate.UserType;
+import static DeliveryCompany.app.enumerate.UserType.Storeman;
 import DeliveryCompany.database.init.DatabaseInit;
+import DeliveryCompany.database.structure.Client;
+import DeliveryCompany.database.structure.Courier;
 import DeliveryCompany.database.structure.Email;
+import DeliveryCompany.database.structure.Storeman;
 import DeliveryCompany.database.structure.User;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import javassist.bytecode.stackmap.BasicBlock;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
@@ -99,7 +104,60 @@ public class UserFunc {
             e.printStackTrace();
         }
         return generatedPassword;
-    }   
+    }
+    
+    public <T> T getMembership( User user)
+    {
+        if(user == null)
+            return null;
+        
+        session.beginTransaction();
+        try
+        {
+            switch(UserType.valueOf(user.getUserType()))
+            {
+                case Client:
+                {
+                    Query q = session.createQuery("FROM Client WHERE user = :u");
+                    q.setParameter("u", user);
+                    Client obj = (Client)q.uniqueResult();
+
+                    session.getTransaction().commit();
+
+                    return (T) obj;
+                }
+                case Courier:
+                {
+                    Query q = session.createQuery("FROM Courier WHERE user = :u");
+                    q.setParameter("u", user);
+                    Courier obj = (Courier)q.uniqueResult();
+
+                    session.getTransaction().commit();
+
+                    return (T) obj;
+                }
+                case Storeman:
+                {
+                    Query q = session.createQuery("FROM Storeman WHERE user = :u");
+                    q.setParameter("u", user);
+                    Storeman obj = (Storeman)q.uniqueResult();
+
+                    session.getTransaction().commit();
+
+                    return (T) obj;
+                }
+                default:
+                {
+                    session.getTransaction().commit();
+                }
+            }
+        }
+        catch(IllegalArgumentException ex)
+        {
+            System.err.println(ex.getMessage());
+        }
+        return null;
+    }
     
     public boolean confirmEmail()
     {

@@ -26,6 +26,7 @@ import java.awt.Dimension;
 import java.io.Console;
 import java.sql.Date;
 import java.util.List;
+import net.sf.ehcache.search.aggregator.Count;
 import org.hibernate.*;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.*;
@@ -53,7 +54,14 @@ public class DeliveryCompanySystem {
         UserFunc uf = new UserFunc();
         //System.out.println(uf.Registry("anna", "password1234", "anna@email.com", UserType.Client));
         
-        System.out.println(uf.Login("adam", "password1234").getUsername());
+        User user = uf.Login("adam", "password1234");
+        
+        
+        
+        
+        System.out.println(((Client)uf.getMembership(user)).getUser().getUserType());
+        
+        System.out.println(user.getUsername());
         
         
         /*
