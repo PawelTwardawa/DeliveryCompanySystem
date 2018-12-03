@@ -36,6 +36,7 @@ public class LoginRegistry extends Application{
 
     Stage window;
     
+    
     public static void main(String[] args)
     {
         launch(args);
@@ -156,7 +157,7 @@ public class LoginRegistry extends Application{
     
     private void Registry(Stage window, String username)
     {
-        window.setTitle("Login");
+        window.setTitle("Registry");
         
         //Grid
         GridPane grid = new GridPane();
@@ -264,8 +265,8 @@ public class LoginRegistry extends Application{
                 labelPasswordError.setText("");
             }
             
-            try
-            {
+            //try
+            //{
                 RegisterStatus stat =  userFunc.Registry(inputUsername.getText(), inputPassword.getText(), inputEmail.getText(), UserType.Client);
                 
                 switch(stat)
@@ -286,12 +287,14 @@ public class LoginRegistry extends Application{
                         break;
                     }
                 }
+                /*
             }
             catch(Exception ex)
             {
-                System.err.println(ex.getStackTrace());
+                System.err.println(ex.getCause() + " " + ex.getMessage() + " " + ex.getStackTrace());
+                return;
             }
-            
+            */
             Login(window, inputUsername.getText());           
         });
         
