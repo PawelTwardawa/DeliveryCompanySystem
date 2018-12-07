@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="DeliveryCompanySystem">
+  <ClassDiagramComponents>
+    <Class name="DeliveryCompanySystem" package="DeliveryCompany.app" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="sessionObj" type="Session" visibility="package" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ClientFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="client" type="Client" visibility="package"/>
+        <Field name="session" type="Session" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Client" name="client"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setClient" returnType="void" visibility="public">
+          <Argument type="Client" name="client"/>
+        </Method>
+        <Method name="chooseCourier" returnType="Courier" visibility="private"/>
+        <Method name="findAddress" returnType="Address" visibility="private">
+          <Argument type="Address" name="address"/>
+        </Method>
+        <Method name="findData" returnType="Data" visibility="private">
+          <Argument type="Data" name="data"/>
+          <Argument type="Address" name="address"/>
+        </Method>
+        <Method name="setData" returnType="Data" visibility="private">
+          <Argument type="Data" name="data"/>
+          <Argument type="Address" name="address"/>
+        </Method>
+        <Method name="SendPackage" returnType="void" visibility="public">
+          <Argument type="Data" name="sender"/>
+          <Argument type="Address" name="addressSender"/>
+          <Argument type="Data" name="receiver"/>
+          <Argument type="Address" name="addressReceiver"/>
+          <Argument type="Dimensions" name="dimension"/>
+          <Argument type="int" name="telephone"/>
+        </Method>
+        <Method name="getPackageLocation" returnType="String" visibility="public">
+          <Argument type="int" name="packageNumber"/>
+        </Method>
+        <Method name="getAllSentPackage" returnType="List&lt;Package&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="CourierFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="2313.0" yPosition="331.0">
+      <Fields>
+        <Field name="courier" type="Courier" visibility="package"/>
+        <Field name="session" type="Session" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Courier" name="courier"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getTransportedPackage" returnType="List&lt;CourierData&gt;" visibility="public"/>
+        <Method name="setDeliveryStatus" returnType="void" visibility="public">
+          <Argument type="DeliveryStatus" name="status"/>
+          <Argument type="int" name="packageNumber"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="StoremanFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Fields>
+        <Field name="storeman" type="Storeman" visibility="private"/>
+        <Field name="session" type="Session" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Storeman" name="storeman"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="changePackageCourier" returnType="void" visibility="public">
+          <Argument type="int" name="packageNumber"/>
+          <Argument type="Courier" name="courier"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UserFunc" package="DeliveryCompany.app.functionality" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Fields>
+        <Field name="session" type="Session" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="Login" returnType="User" visibility="public">
+          <Argument type="String" name="username"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="Registry" returnType="// throws Exception RegisterStatus" visibility="public">
+          <Argument type="String" name="username"/>
+          <Argument type="String" name="password"/>
+          <Argument type="String" name="email"/>
+          <Argument type="UserType" name="type"/>
+        </Method>
+        <Method name="getSecurePassword" returnType="String" visibility="private" isStatic="true">
+          <Argument type="String" name="passwordToHash"/>
+        </Method>
+        <Method name="getMembership" returnType="T" visibility="public">
+          <Argument type="User" name="user"/>
+        </Method>
+        <Method name="confirmEmail" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="LoginRegistry" package="DeliveryCompany.app.gui" visibility="public" xPosition="149.0" yPosition="198.0">
+      <Fields>
+        <Field name="window" type="Stage" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="start" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="Login" returnType="void" visibility="private">
+          <Argument type="Stage" name="window"/>
+          <Argument type="String" name="username"/>
+        </Method>
+        <Method name="Registry" returnType="void" visibility="private">
+          <Argument type="Stage" name="window"/>
+          <Argument type="String" name="username"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DatabaseInit" package="DeliveryCompany.database.init" visibility="public" xPosition="791.0" yPosition="312.0">
+      <Fields>
+        <Field name="instance" type="DatabaseInit" visibility="private" isStatic="true"/>
+        <Field name="sessionObj" type="Session" visibility="package" isStatic="true"/>
+        <Field name="SessionFactoryObj" type="SessionFactory" visibility="package" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="buildSession" returnType="SessionFactory" visibility="private"/>
+        <Method name="getSession" returnType="Session" visibility="public"/>
+        <Method name="getInstance" returnType="DatabaseInit" visibility="public" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="Address" package="DeliveryCompany.database.structure" visibility="public" xPosition="2324.0" yPosition="885.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="houseNumber" type="String" visibility="private"/>
+        <Field name="apartmentNumber" type="String" visibility="private"/>
+        <Field name="street" type="String" visibility="private"/>
+        <Field name="postCode" type="String" visibility="private"/>
+        <Field name="city" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="equals" returnType="boolean" visibility="public">
+          <Argument type="Object" name="obj"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getHouseNumber" returnType="String" visibility="public"/>
+        <Method name="setHouseNumber" returnType="void" visibility="public">
+          <Argument type="String" name="houseNumber"/>
+        </Method>
+        <Method name="getApartmentNumber" returnType="String" visibility="public"/>
+        <Method name="setApartmentNumber" returnType="void" visibility="public">
+          <Argument type="String" name="apartmentNumber"/>
+        </Method>
+        <Method name="getStreet" returnType="String" visibility="public"/>
+        <Method name="setStreet" returnType="void" visibility="public">
+          <Argument type="String" name="street"/>
+        </Method>
+        <Method name="getPostCode" returnType="String" visibility="public"/>
+        <Method name="setPostCode" returnType="void" visibility="public">
+          <Argument type="String" name="postCode"/>
+        </Method>
+        <Method name="getCity" returnType="String" visibility="public"/>
+        <Method name="setCity" returnType="void" visibility="public">
+          <Argument type="String" name="city"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Client" package="DeliveryCompany.database.structure" visibility="public" xPosition="1212.0" yPosition="179.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="user" type="User" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getUser" returnType="User" visibility="public"/>
+        <Method name="setUser" returnType="void" visibility="public">
+          <Argument type="User" name="user"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Courier" package="DeliveryCompany.database.structure" visibility="public" xPosition="1520.0" yPosition="420.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="user" type="User" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getUser" returnType="User" visibility="public"/>
+        <Method name="setUser" returnType="void" visibility="public">
+          <Argument type="User" name="user"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="CourierData" package="DeliveryCompany.database.structure" visibility="public" xPosition="1820.0" yPosition="420.0">
+      <Fields>
+        <Field name="ID" type="int" visibility="private"/>
+        <Field name="ID_courier" type="int" visibility="private"/>
+        <Field name="ID_client" type="int" visibility="private"/>
+        <Field name="TelephoneNumber" type="int" visibility="private"/>
+        <Field name="ReceiverFirstName" type="String" visibility="private"/>
+        <Field name="ReceiverLastName" type="String" visibility="private"/>
+        <Field name="ReceiverCity" type="String" visibility="private"/>
+        <Field name="ReceiverPostCode" type="String" visibility="private"/>
+        <Field name="ReceiverStreet" type="String" visibility="private"/>
+        <Field name="ReceiverHouseNumber" type="String" visibility="private"/>
+        <Field name="ReceiverApartmentNumber" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getID" returnType="int" visibility="public"/>
+        <Method name="setID" returnType="void" visibility="public">
+          <Argument type="int" name="ID"/>
+        </Method>
+        <Method name="getID_courier" returnType="int" visibility="public"/>
+        <Method name="setID_courier" returnType="void" visibility="public">
+          <Argument type="int" name="ID_courier"/>
+        </Method>
+        <Method name="getID_client" returnType="int" visibility="public"/>
+        <Method name="setID_client" returnType="void" visibility="public">
+          <Argument type="int" name="ID_client"/>
+        </Method>
+        <Method name="getTelephoneNumber" returnType="int" visibility="public"/>
+        <Method name="setTelephoneNumber" returnType="void" visibility="public">
+          <Argument type="int" name="TelephoneNumber"/>
+        </Method>
+        <Method name="getReceiverFirstName" returnType="String" visibility="public"/>
+        <Method name="setReceiverFirstName" returnType="void" visibility="public">
+          <Argument type="String" name="ReceiverFirstName"/>
+        </Method>
+        <Method name="getReceiverLastName" returnType="String" visibility="public"/>
+        <Method name="setReceiverLastName" returnType="void" visibility="public">
+          <Argument type="String" name="ReceiverLastName"/>
+        </Method>
+        <Method name="getReceiverCity" returnType="String" visibility="public"/>
+        <Method name="setReceiverCity" returnType="void" visibility="public">
+          <Argument type="String" name="ReceiverCity"/>
+        </Method>
+        <Method name="getReceiverPostCode" returnType="String" visibility="public"/>
+        <Method name="setReceiverPostCode" returnType="void" visibility="public">
+          <Argument type="String" name="ReceiverPostCode"/>
+        </Method>
+        <Method name="getReceiverStreet" returnType="String" visibility="public"/>
+        <Method name="setReceiverStreet" returnType="void" visibility="public">
+          <Argument type="String" name="ReceiverStreet"/>
+        </Method>
+        <Method name="getReceiverHouseNumber" returnType="String" visibility="public"/>
+        <Method name="setReceiverHouseNumber" returnType="void" visibility="public">
+          <Argument type="String" name="ReceiverHouseNumber"/>
+        </Method>
+        <Method name="getReceiverApartmentNumber" returnType="String" visibility="public"/>
+        <Method name="setReceiverApartmentNumber" returnType="void" visibility="public">
+          <Argument type="String" name="ReceiverApartmentNumber"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Data" package="DeliveryCompany.database.structure" visibility="public" xPosition="1455.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="firstName" type="String" visibility="private"/>
+        <Field name="lastName" type="String" visibility="private"/>
+        <Field name="address" type="Address" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getAddress" returnType="Address" visibility="public"/>
+        <Method name="setAddress" returnType="void" visibility="public">
+          <Argument type="Address" name="address"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getFirstName" returnType="String" visibility="public"/>
+        <Method name="setFirstName" returnType="void" visibility="public">
+          <Argument type="String" name="firstName"/>
+        </Method>
+        <Method name="getLastName" returnType="String" visibility="public"/>
+        <Method name="setLastName" returnType="void" visibility="public">
+          <Argument type="String" name="lastName"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Dimensions" package="DeliveryCompany.database.structure" visibility="public" xPosition="20.0" yPosition="820.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="width" type="int" visibility="private"/>
+        <Field name="height" type="int" visibility="private"/>
+        <Field name="depth" type="int" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getWidth" returnType="int" visibility="public"/>
+        <Method name="setWidth" returnType="void" visibility="public">
+          <Argument type="int" name="width"/>
+        </Method>
+        <Method name="getHeight" returnType="int" visibility="public"/>
+        <Method name="setHeight" returnType="void" visibility="public">
+          <Argument type="int" name="height"/>
+        </Method>
+        <Method name="getDepth" returnType="int" visibility="public"/>
+        <Method name="setDepth" returnType="void" visibility="public">
+          <Argument type="int" name="depth"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Email" package="DeliveryCompany.database.structure" visibility="public" xPosition="190.0" yPosition="1418.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="email" type="String" visibility="private"/>
+        <Field name="confirmation" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getEmail" returnType="String" visibility="public"/>
+        <Method name="setEmail" returnType="void" visibility="public">
+          <Argument type="String" name="email"/>
+        </Method>
+        <Method name="getConfirmation" returnType="boolean" visibility="public"/>
+        <Method name="setConfirmation" returnType="void" visibility="public">
+          <Argument type="boolean" name="confirmation"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Package" package="DeliveryCompany.database.structure" visibility="public" xPosition="514.0" yPosition="794.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="sender" type="Data" visibility="private"/>
+        <Field name="receiver" type="Data" visibility="private"/>
+        <Field name="location" type="String" visibility="private"/>
+        <Field name="curier" type="Courier" visibility="private"/>
+        <Field name="dimensions" type="Dimensions" visibility="private"/>
+        <Field name="telephone" type="int" visibility="private"/>
+        <Field name="date" type="Date" visibility="private"/>
+        <Field name="client" type="Client" visibility="private"/>
+        <Field name="DeliveredStatus" type="String" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getDeliveredStatus" returnType="String" visibility="public"/>
+        <Method name="setDeliveredStatus" returnType="void" visibility="public">
+          <Argument type="String" name="DeliveredStatus"/>
+        </Method>
+        <Method name="getSender" returnType="Data" visibility="public"/>
+        <Method name="setSender" returnType="void" visibility="public">
+          <Argument type="Data" name="sender"/>
+        </Method>
+        <Method name="getReceiver" returnType="Data" visibility="public"/>
+        <Method name="setReceiver" returnType="void" visibility="public">
+          <Argument type="Data" name="receiver"/>
+        </Method>
+        <Method name="getCurier" returnType="Courier" visibility="public"/>
+        <Method name="setCurier" returnType="void" visibility="public">
+          <Argument type="Courier" name="curier"/>
+        </Method>
+        <Method name="getDimensions" returnType="Dimensions" visibility="public"/>
+        <Method name="setDimensions" returnType="void" visibility="public">
+          <Argument type="Dimensions" name="dimensions"/>
+        </Method>
+        <Method name="getClient" returnType="Client" visibility="public"/>
+        <Method name="setClient" returnType="void" visibility="public">
+          <Argument type="Client" name="client"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+        <Method name="getLocation" returnType="String" visibility="public"/>
+        <Method name="setLocation" returnType="void" visibility="public">
+          <Argument type="String" name="location"/>
+        </Method>
+        <Method name="getTelephone" returnType="int" visibility="public"/>
+        <Method name="setTelephone" returnType="void" visibility="public">
+          <Argument type="int" name="telephone"/>
+        </Method>
+        <Method name="getDate" returnType="Date" visibility="public"/>
+        <Method name="setDate" returnType="void" visibility="public">
+          <Argument type="Date" name="date"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Storeman" package="DeliveryCompany.database.structure" visibility="public" xPosition="1779.0" yPosition="1447.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="user" type="User" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getUser" returnType="User" visibility="public"/>
+        <Method name="setUser" returnType="void" visibility="public">
+          <Argument type="User" name="user"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="id"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="User" package="DeliveryCompany.database.structure" visibility="public" xPosition="1269.0" yPosition="1345.0">
+      <Fields>
+        <Field name="Username" type="String" visibility="private"/>
+        <Field name="Password" type="String" visibility="private"/>
+        <Field name="UserType" type="String" visibility="private"/>
+        <Field name="ID_email" type="Email" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getID_email" returnType="Email" visibility="public"/>
+        <Method name="setID_email" returnType="void" visibility="public">
+          <Argument type="Email" name="ID_email"/>
+        </Method>
+        <Method name="getUsername" returnType="String" visibility="public"/>
+        <Method name="setUsername" returnType="void" visibility="public">
+          <Argument type="String" name="name"/>
+        </Method>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="setPassword" returnType="void" visibility="public">
+          <Argument type="String" name="pass"/>
+        </Method>
+        <Method name="getUserType" returnType="String" visibility="public"/>
+        <Method name="setUserType" returnType="void" visibility="public">
+          <Argument type="String" name="type"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Enum name="DeliveryStatus" package="DeliveryCompany.app.enumerate" visibility="public" xPosition="321.0" yPosition="20.0">
+      <Literals>
+        <Literal name="delivered"/>
+        <Literal name="undelivered"/>
+      </Literals>
+    </Enum>
+    <Enum name="LocationStatus" package="DeliveryCompany.app.enumerate" visibility="public" xPosition="560.0" yPosition="202.0">
+      <Literals>
+        <Literal name="Doreczono"/>
+        <Literal name="PowrotDoMagazynu"/>
+      </Literals>
+    </Enum>
+    <Enum name="RegisterStatus" package="DeliveryCompany.app.enumerate" visibility="public" xPosition="841.0" yPosition="35.0">
+      <Literals>
+        <Literal name="Success"/>
+        <Literal name="UsernameExists"/>
+        <Literal name="EmailExists"/>
+      </Literals>
+    </Enum>
+    <Enum name="UserType" package="DeliveryCompany.app.enumerate" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Literals>
+        <Literal name="Client"/>
+        <Literal name="Courier"/>
+        <Literal name="Storeman"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="address" source="DeliveryCompany.database.structure.Data" target="DeliveryCompany.database.structure.Address" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Courier" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Storeman" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.User" target="DeliveryCompany.database.structure.Email" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Client" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Data" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Dimensions" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Client" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="DeliveryCompany.database.structure.Client" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="DeliveryCompany.database.structure.Storeman" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Address" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.database.structure.Data" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.init.DatabaseInit" target="DeliveryCompany.database.structure.Data" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Courier" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="receiver" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="sender" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Data" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.database.structure.Courier" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Package" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="user" source="DeliveryCompany.database.structure.Courier" target="DeliveryCompany.database.structure.User" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="client" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Client" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="storeman" source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.database.structure.Storeman" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="courier" source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.database.structure.Courier" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.database.structure.Data" target="DeliveryCompany.database.structure.Address" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="client" source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Client" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.UserFunc" target="DeliveryCompany.database.structure.User" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="instance" source="DeliveryCompany.database.init.DatabaseInit" target="DeliveryCompany.database.init.DatabaseInit" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.CourierFunc" target="DeliveryCompany.app.enumerate.DeliveryStatus" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="curier" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Courier" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Client" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ID_email" source="DeliveryCompany.database.structure.User" target="DeliveryCompany.database.structure.Email" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="DeliveryCompany.app.functionality.ClientFunc" target="DeliveryCompany.database.structure.Courier" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="dimensions" source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Dimensions" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="DeliveryCompany.app.functionality.StoremanFunc" target="DeliveryCompany.app.functionality.ClientFunc"/>
+    <UseRelation source="DeliveryCompany.database.structure.Package" target="DeliveryCompany.database.structure.Dimensions" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

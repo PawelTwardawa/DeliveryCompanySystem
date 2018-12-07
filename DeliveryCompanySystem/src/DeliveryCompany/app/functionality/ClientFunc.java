@@ -12,10 +12,9 @@ import DeliveryCompany.database.structure.Courier;
 import DeliveryCompany.database.structure.Data;
 import DeliveryCompany.database.structure.Dimensions;
 import DeliveryCompany.database.structure.User;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import DeliveryCompany.database.structure.Package;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -122,8 +121,9 @@ public class ClientFunc {
         }
     }
     
-    public void SendPackage(Data sender, Address addressSender, Data receiver, Address addressReceiver, Dimensions dimension, int telephone)
+    public long SendPackage(Data sender, Address addressSender, Data receiver, Address addressReceiver, Dimensions dimension, int telephone)
     {
+        long id;
         Date utilDate = new Date();
         Package pack = new Package();
         
@@ -137,9 +137,19 @@ public class ClientFunc {
         pack.setDate(utilDate);
         pack.setCurier(chooseCourier());
         
-        session.beginTransaction();
-        session.save(pack);
-        session.getTransaction().commit(); 
+        try 
+        {
+            session.beginTransaction();
+            id = (long)session.save(pack);
+            session.getTransaction().commit(); 
+            return id;
+        }
+        catch(Exception ex)
+        {
+            return -1;
+        }
+        
+        
     }
     
     public String getPackageLocation(int packageNumber)

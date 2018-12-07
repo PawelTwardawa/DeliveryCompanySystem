@@ -11,5 +11,9 @@ package DeliveryCompany.app.enumerate;
  */
 public enum DeliveryStatus {
     delivered,
-    undelivered
+    undelivered,
+    toPickUp,
+    toDelivery,
+    pickedUp,
+    notPickedUp
 }

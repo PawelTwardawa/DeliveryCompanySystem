@@ -6,5 +6,6 @@
       <generator class="increment"/>
     </id>
     <many-to-one cascade="all" class="DeliveryCompany.database.structure.User" column="Username" name="user"/>
+    <many-to-one cascade="all" class="DeliveryCompany.database.structure.Data" column="ID_data" name="data"/>
   </class>
 </hibernate-mapping>

@@ -49,6 +49,18 @@ public class Address {
         return true;
     }
 
+    public Address() {
+    }
+    
+    
+    public Address(String houseNumber, String apartmentNumber, String street, String postCode, String city) {
+        this.houseNumber = houseNumber;
+        this.apartmentNumber = apartmentNumber;
+        this.street = street;
+        this.postCode = postCode;
+        this.city = city;
+    }
+
     
     
     public int getId() {

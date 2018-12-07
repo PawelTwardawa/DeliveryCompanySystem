@@ -8,6 +8,7 @@ package DeliveryCompany.app.gui;
 import DeliveryCompany.app.enumerate.RegisterStatus;
 import DeliveryCompany.app.enumerate.UserType;
 import DeliveryCompany.app.functionality.UserFunc;
+import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.User;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -34,17 +35,38 @@ import javafx.stage.Stage;
  */
 public class LoginRegistry extends Application{
 
-    Stage window;
+    static Stage window;
+    //Stage window;
     
     
     public static void main(String[] args)
     {
+
+        
+        DatabaseInit.getInstance().getSession();
         launch(args);
+        
+        
+        
+        
+        
+        
+        
     }
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
+        
+        
+        
+        
+        window.setResizable(false);
+        window.setAlwaysOnTop(true);
+        window.setOnCloseRequest(e -> {
+            DatabaseInit.getInstance().getSession().close();
+            System.exit(0);
+        });
         
         //window.setTitle("Login");
         
@@ -56,7 +78,24 @@ public class LoginRegistry extends Application{
         Login(window, "");
         
         
-        //////////////////////////////
+        ///////////////////////////////////////////////////////
+        UserFunc userFunc = new UserFunc();
+        
+        
+        try {
+            //User user = userFunc.Login("kurier1", "password1234");
+            User user = userFunc.Login("daniel", "pass");
+            ClientGUI clientGUI = new ClientGUI(userFunc.getMembership(user));
+           //CourierGUI courierGUI = new CourierGUI(userFunc.getMembership(user));
+            window.close();
+            //clientGUI.Display();
+            //courierGUI.Display();
+            clientGUI.Display();
+            
+        } catch (NoSuchAlgorithmException ex) {
+            System.err.println("NoSuchAlgorithmException");
+        }
+        ///////////////////////////////////////////////////////////
         
         
    }
@@ -79,7 +118,7 @@ public class LoginRegistry extends Application{
         GridPane.setConstraints(labelUsername, 0, 1);
         
         //Input username
-        TextField inputUsername = new TextField(username);
+        TextField inputUsername = new TextField("daniel");//(username);
         GridPane.setConstraints(inputUsername, 1,1, 2, 1);
         
         
@@ -119,6 +158,7 @@ public class LoginRegistry extends Application{
             
             try 
             {
+            
                 UserFunc userFunc = new UserFunc();
                 
                 User user = userFunc.Login(inputUsername.getText(), inputPassword.getText());
@@ -129,12 +169,33 @@ public class LoginRegistry extends Application{
                 else
                 {
                     labelUserError.setText("success");
+                    
+                    switch(UserType.valueOf(user.getUserType()))
+                    {
+                        case Client:
+                        {
+                            ClientGUI clientGUI = new ClientGUI(userFunc.getMembership(user));
+                            window.close();
+                            clientGUI.Display();
+                            break;
+                        }
+                        case Courier:
+                        {
+                            break;
+                        }
+                        case Storeman:
+                        {
+                            break;
+                        }
+                    }
                 }
+                
             } 
             catch (NoSuchAlgorithmException ex) 
             {
                 System.err.println(ex.getStackTrace());
             }
+                
         });
         
         //Button registry
@@ -298,7 +359,7 @@ public class LoginRegistry extends Application{
             Login(window, inputUsername.getText());           
         });
         
-        grid.getChildren().addAll(labelUserError, labelUsername, inputUsername, labelPasswordError, labelConfirmPassword, inputConfirmPassword, labelPassword, inputPassword, labelEmailError, labelmail, inputEmail, buttonRegistry);
+        grid.getChildren().addAll(labelUserError, labelUsername, inputUsername, labelPasswordError, labelPassword, inputPassword, labelConfirmPassword, inputConfirmPassword, labelEmailError, labelmail, inputEmail, buttonRegistry);
         
         //Scene registry
         Scene scene = new Scene(grid, 300, 200); 

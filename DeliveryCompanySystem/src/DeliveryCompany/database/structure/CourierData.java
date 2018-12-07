@@ -14,6 +14,7 @@ public class CourierData {
     private int ID_courier;
     private int ID_client;
     private int TelephoneNumber;
+    private String DeliveryStatus;
     private String ReceiverFirstName;
     private String ReceiverLastName;
     private String ReceiverCity;
@@ -22,6 +23,34 @@ public class CourierData {
     private String ReceiverHouseNumber;
     private String ReceiverApartmentNumber;
 
+    public CourierData()
+    {
+        
+    }
+
+    public CourierData(int ID, int ID_courier, int ID_client, int TelephoneNumber, String DeliveryStatus, String ReceiverFirstName, String ReceiverLastName, String ReceiverCity, String ReceiverPostCode, String ReceiverStreet, String ReceiverHouseNumber, String ReceiverApartmentNumber) {
+        this.ID = ID;
+        this.ID_courier = ID_courier;
+        this.ID_client = ID_client;
+        this.TelephoneNumber = TelephoneNumber;
+        this.DeliveryStatus = DeliveryStatus;
+        this.ReceiverFirstName = ReceiverFirstName;
+        this.ReceiverLastName = ReceiverLastName;
+        this.ReceiverCity = ReceiverCity;
+        this.ReceiverPostCode = ReceiverPostCode;
+        this.ReceiverStreet = ReceiverStreet;
+        this.ReceiverHouseNumber = ReceiverHouseNumber;
+        this.ReceiverApartmentNumber = ReceiverApartmentNumber;
+    }
+     
+    
+    
+    @Override
+    public String toString()
+    {
+        return ID + " " + ReceiverFirstName + " " + ReceiverLastName + " " + ReceiverCity + " " + ReceiverPostCode + " " + ReceiverStreet+ " " + ReceiverHouseNumber + " " + ReceiverApartmentNumber + " " + TelephoneNumber;
+    }
+    
     public int getID() {
         return ID;
     }
@@ -108,6 +137,14 @@ public class CourierData {
 
     public void setReceiverApartmentNumber(String ReceiverApartmentNumber) {
         this.ReceiverApartmentNumber = ReceiverApartmentNumber;
+    }
+    
+    public String getDeliveryStatus() {
+        return DeliveryStatus;
+    }
+
+    public void setDeliveryStatus(String DeliveryStatus) {
+        this.DeliveryStatus = DeliveryStatus;
     }
     
 }

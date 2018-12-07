@@ -14,6 +14,8 @@ import DeliveryCompany.app.enumerate.DeliveryStatus;
 public enum LocationStatus  {
     Doreczono,
     PowrotDoMagazynu,
+    OdebranoOdNadawcy,
+    NieOdebranoOdNadawcy
     
     
     
