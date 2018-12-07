@@ -8,6 +8,7 @@
     <property column="ID_courier" name="ID_courier"/>
     <property column="ID_client" name="ID_client"/>
     <property column="TelephoneNumber" name="TelephoneNumber"/>
+    <property column="DeliveredStatus" name="DeliveryStatus"/>
     <property column="ReceiverFirstName" name="ReceiverFirstName"/>
     <property column="ReceiverLastName" name="ReceiverLastName"/>
     <property column="ReceiverCity" name="ReceiverCity"/>

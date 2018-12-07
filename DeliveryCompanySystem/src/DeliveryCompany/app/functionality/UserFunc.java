@@ -32,7 +32,8 @@ public class UserFunc {
     
     Session session;
 
-    public UserFunc() throws NoSuchAlgorithmException {
+    public UserFunc() //throws NoSuchAlgorithmException {
+    {
         this.session = DatabaseInit.getInstance().getSession();
     }
     
@@ -54,8 +55,46 @@ public class UserFunc {
         return user;
     }
     
-    public RegisterStatus Registry(String username, String password, String email, UserType type) throws Exception
+    public RegisterStatus Registry(String username, String password, String email, UserType type)// throws Exception
     {
+        RegisterStatus status = RegisterStatus.Success;
+        
+        session.beginTransaction();
+        
+        Query q = session.createQuery("FROM Email WHERE email = :e");
+        q.setParameter("e", email);
+        Email emailExist = (Email)q.uniqueResult();
+        
+        q = session.createQuery("FROM User WHERE Username = :u");
+        q.setParameter("u", username);
+        User usernameExist = (User)q.uniqueResult();
+        
+        session.getTransaction().commit();
+        
+        if(emailExist != null)
+            return RegisterStatus.EmailExists;
+
+        if(usernameExist != null)
+            return RegisterStatus.UsernameExists;
+        
+        Email emailObj = new Email();
+        emailObj.setEmail(email);
+        
+        User userObj = new User();
+        userObj.setID_email(emailObj);
+        userObj.setUsername(username);
+        userObj.setPassword(getSecurePassword(password));
+        userObj.setUserType(type.toString());
+            
+        session.beginTransaction();
+        session.save(userObj);
+        session.getTransaction().commit(); 
+        
+        return RegisterStatus.Success;
+        
+        /*
+        RegisterStatus status = RegisterStatus.Success;
+        
         Email emailObj = new Email();
         emailObj.setEmail(email);
         
@@ -70,18 +109,33 @@ public class UserFunc {
             session.beginTransaction();
             session.save(userObj);
             session.getTransaction().commit(); 
+            //session.getTransaction().rollback();
+            
         }
         catch(ConstraintViolationException ex)
         {
+            //session.getTransaction().rollback();
+            
             if(ex.getCause().toString().contains(email))
+                //status = RegisterStatus.EmailExists;
                 return RegisterStatus.EmailExists;
             else if (ex.getCause().toString().contains(username))
+                //status = RegisterStatus.UsernameExists;
                 return RegisterStatus.UsernameExists;
-            else 
-                throw new Exception();
+            //else 
+                //throw new Exception();
+            
+        }
+        finally
+        {
+            //session.getTransaction().commit();
+            //session.getTransaction().rollback();
+            //System.err.println("");
         }
         
         return RegisterStatus.Success;
+        //return status;
+*/
     }
     
     //TODO: zrobic to lepiej
@@ -106,7 +160,7 @@ public class UserFunc {
         return generatedPassword;
     }
     
-    public <T> T getMembership( User user)
+    public <T> T getMembership(User user)
     {
         if(user == null)
             return null;

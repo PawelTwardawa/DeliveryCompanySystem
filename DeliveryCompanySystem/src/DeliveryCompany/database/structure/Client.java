@@ -13,6 +13,15 @@ public class Client {
     private int id;
     //private String username;
     private User user;
+    private Data data;
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
 
     public User getUser() {
         return user;
