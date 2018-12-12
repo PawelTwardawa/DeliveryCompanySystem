@@ -15,5 +15,6 @@ public enum DeliveryStatus {
     toPickUp,
     toDelivery,
     pickedUp,
-    notPickedUp
+    notPickedUp,
+    inWarehouse
 }

@@ -77,26 +77,32 @@ public class LoginRegistry extends Application{
         
         Login(window, "");
         
-        
+        /*
         ///////////////////////////////////////////////////////
         UserFunc userFunc = new UserFunc();
         
         
         try {
             //User user = userFunc.Login("kurier1", "password1234");
-            User user = userFunc.Login("daniel", "pass");
-            ClientGUI clientGUI = new ClientGUI(userFunc.getMembership(user));
+            //User user = userFunc.Login("daniel", "pass");
+            User user = userFunc.Login("magazynier", "pass");
+            //StoremanGUI storemanGUI = new StoremanGUI(userFunc.getMembership(user));
+            //ClientGUI clientGUI = new ClientGUI(userFunc.getMembership(user));
            //CourierGUI courierGUI = new CourierGUI(userFunc.getMembership(user));
             window.close();
             //clientGUI.Display();
             //courierGUI.Display();
-            clientGUI.Display();
+            //clientGUI.Display();
+            //storemanGUI.Display();
+            AdminGUI adminGUI = new AdminGUI();
+            
+            adminGUI.Display();
             
         } catch (NoSuchAlgorithmException ex) {
             System.err.println("NoSuchAlgorithmException");
         }
         ///////////////////////////////////////////////////////////
-        
+        */
         
    }
     
@@ -181,10 +187,23 @@ public class LoginRegistry extends Application{
                         }
                         case Courier:
                         {
+                            CourierGUI courierGUI = new CourierGUI(userFunc.getMembership(user));
+                            window.close();
+                            courierGUI.Display();
                             break;
                         }
                         case Storeman:
                         {
+                            StoremanGUI storemanGUI = new StoremanGUI(userFunc.getMembership(user));
+                            window.close();
+                            storemanGUI.Display();
+                            break;
+                        }
+                        case Admin:
+                        {
+                            AdminGUI adminGUI = new AdminGUI();
+                            window.close();
+                            adminGUI.Display();
                             break;
                         }
                     }
@@ -316,6 +335,7 @@ public class LoginRegistry extends Application{
             {
                 labelEmailError.setText("");
             }
+            
             if(!inputPassword.getText().equals(inputConfirmPassword.getText()))
             {
                 labelPasswordError.setText("Incorrect confirm password");

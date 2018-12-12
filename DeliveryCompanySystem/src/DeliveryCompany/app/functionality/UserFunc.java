@@ -60,10 +60,16 @@ public class UserFunc {
         RegisterStatus status = RegisterStatus.Success;
         
         session.beginTransaction();
-        
-        Query q = session.createQuery("FROM Email WHERE email = :e");
-        q.setParameter("e", email);
-        Email emailExist = (Email)q.uniqueResult();
+        Query q;
+        Email emailExist = null;
+        if(type == UserType.Client)
+        {
+            q = session.createQuery("FROM Email WHERE email = :e");
+            q.setParameter("e", email);
+            emailExist = (Email)q.uniqueResult();
+
+            
+        }
         
         q = session.createQuery("FROM User WHERE Username = :u");
         q.setParameter("u", username);
@@ -71,8 +77,8 @@ public class UserFunc {
         
         session.getTransaction().commit();
         
-        if(emailExist != null)
-            return RegisterStatus.EmailExists;
+        if(emailExist != null && type == UserType.Client)
+                return RegisterStatus.EmailExists;
 
         if(usernameExist != null)
             return RegisterStatus.UsernameExists;
@@ -81,7 +87,10 @@ public class UserFunc {
         emailObj.setEmail(email);
         
         User userObj = new User();
-        userObj.setID_email(emailObj);
+        
+        if(type == UserType.Client)
+            userObj.setID_email(emailObj);
+        
         userObj.setUsername(username);
         userObj.setPassword(getSecurePassword(password));
         userObj.setUserType(type.toString());
