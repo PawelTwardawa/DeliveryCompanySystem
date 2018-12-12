@@ -32,6 +32,25 @@ public class Package {
     private Client client;
     private String DeliveredStatus;
 
+    public Package()
+    {
+        
+    }
+    
+    public Package(Data sender, Data receiver, String location, Courier curier, Dimensions dimensions, int telephone, Date date, Client client, String DeliveredStatus) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.location = location;
+        this.curier = curier;
+        this.dimensions = dimensions;
+        this.telephone = telephone;
+        this.date = date;
+        this.client = client;
+        this.DeliveredStatus = DeliveredStatus;
+    }
+
+    
+    
     public String getDeliveredStatus() {
         return DeliveredStatus;
     }

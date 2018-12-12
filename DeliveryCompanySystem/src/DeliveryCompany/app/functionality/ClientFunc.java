@@ -5,9 +5,11 @@
  */
 package DeliveryCompany.app.functionality;
 
+import DeliveryCompany.app.enumerate.LocationStatus;
 import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.Address;
 import DeliveryCompany.database.structure.Client;
+import DeliveryCompany.database.structure.ClientHistory;
 import DeliveryCompany.database.structure.Courier;
 import DeliveryCompany.database.structure.Data;
 import DeliveryCompany.database.structure.Dimensions;
@@ -131,7 +133,7 @@ public class ClientFunc {
         pack.setReceiver(setData(receiver, addressReceiver));
         pack.setClient(client);
         pack.setDimensions(dimension);
-        pack.setLocation("Do odebrania od nadawcy");
+        pack.setLocation(LocationStatus.DoOdebraniaOdNadawcy.toString());
         pack.setTelephone(telephone);
         //pack.setDate(new java.sql.Date(utilDate.getYear(), utilDate.getMonth(), utilDate.getDay()));
         pack.setDate(utilDate);
@@ -140,19 +142,20 @@ public class ClientFunc {
         try 
         {
             session.beginTransaction();
-            id = (long)session.save(pack);
+            id = Long.parseLong(session.save(pack).toString());
             session.getTransaction().commit(); 
             return id;
         }
         catch(Exception ex)
         {
+            System.err.println(ex.getMessage());
             return -1;
         }
         
         
     }
     
-    public String getPackageLocation(int packageNumber)
+    public String getPackageLocation(long packageNumber)
     {
         session.beginTransaction();
         
@@ -166,16 +169,64 @@ public class ClientFunc {
         return loc;
     }
     
-    public List<Package> getAllSentPackage()
+    public List<ClientHistory> getAllSentPackage()
     {
         session.beginTransaction();
         
-        Query q = session.createQuery("FROM Package WHERE client = :c" );
-        q.setParameter("c", client);
+        Query q = session.createQuery("FROM ClientHistory WHERE ID_client = :c" );
+        q.setParameter("c", client.getId());
         
-        List<Package> pack = q.list();
+        List<ClientHistory> pack = q.list();
 
         session.getTransaction().commit();
         return pack;
     } 
+    
+    public Data changeData(Data data)
+    {
+        if(data.equals(client.getData()))
+            return null;
+        
+        Data newData = setData(data, data.getAddress());
+        
+        session.beginTransaction();
+        
+        long id = Long.parseLong(session.save(newData).toString());
+        
+        //session.getTransaction().commit(); 
+            
+        //session.beginTransaction();
+        
+        Query q  = session.createQuery("UPDATE Client SET data = :d WHERE id = :id");
+        q.setParameter("d",newData );
+        q.setParameter("id", client.getId());
+        
+        int result = q.executeUpdate(); //TODO: usunac inta albo zrobic return
+        
+        session.getTransaction().commit();
+        
+        //session.beginTransaction();
+        
+        //Query q2 = session.createQuery("FROM Client WHERE ID = :id");
+        //q2.setParameter("id", client.getId());
+        
+        //Client client =  (Client)q2.uniqueResult();
+       
+        
+        //session.getTransaction().commit();
+        
+        String name = client.getData().getFirstName();
+        
+        if(result == 1)
+        {
+            //this.client = client;
+            this.client.setData(newData);
+            return newData;
+        }
+        else
+        {
+            return null;
+        }
+        
+    }
 }

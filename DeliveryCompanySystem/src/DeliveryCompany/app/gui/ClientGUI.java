@@ -11,15 +11,18 @@ import DeliveryCompany.app.functionality.CourierFunc;
 import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.Address;
 import DeliveryCompany.database.structure.Client;
+import DeliveryCompany.database.structure.ClientHistory;
 import DeliveryCompany.database.structure.Courier;
 import DeliveryCompany.database.structure.CourierData;
 import DeliveryCompany.database.structure.Data;
 import DeliveryCompany.database.structure.Dimensions;
+import DeliveryCompany.database.structure.Package;
 import com.sun.javafx.scene.control.skin.ComboBoxPopupControl;
 import java.awt.Dimension;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.stream.LongStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventType;
@@ -57,11 +60,15 @@ public class ClientGUI {
     //Display
     private TabPane tabPane;
     private Tab tabNewPackage;
+    private Tab tabFollow;
+    private Tab tabSendingHistory;
+    private Tab tabMyAccount;
     //Scene scene;
        
     
     //newPackageContent
     private GridPane gridNewPackageContent;
+    
     private Label labelSenderData;
     private Label labelSenderFirstName;
     private Label labelSenderLastName;
@@ -107,8 +114,40 @@ public class ClientGUI {
     
     private CheckBox checkBoxChangeSenderData;
     
+    //follow
+     private GridPane gridFollowContent;
+     
+     private Label labelPackageNumber;
+     private Label labelPackageLocation;
+     
+     private TextField textPackageNumber;
+     private TextField textPackageLocation;
+     
+     private Button buttonPackageCheck;
+     
+    //sending history
+     private GridPane gridHistoryContent;
+     ObservableList<ClientHistory> listHistory;
+     
+    // my account
+     private GridPane gridMyAccountContent;
+    private Label labelFirstName;
+    private Label labelLastName;
+    private Label labelCity;
+    private Label labelPostCode;
+    private Label labelStreet;
+    private Label labelHouseNumber;
+    private Label labelApartmentNumber;
     
+    private TextField textFirstName;
+    private TextField textLastName;
+    private TextField textCity;
+    private TextField textPostCode;
+    private TextField textStreet;
+    private TextField textHouseNumber;
+    private TextField textApartmentNumber;
     
+    Button buttonsubmitMyAccount;
     
     
     
@@ -173,21 +212,235 @@ public class ClientGUI {
         tabNewPackage.setOnSelectionChanged(e -> {
            EventType eve =   e.getEventType();
             System.out.println("DeliveryCompany.app.gui.ClientGUI.Display()");
+            setSenderData();
         });
         tabPane.getTabs().add(tabNewPackage);
         
-        //Tab new package
-        Tab tabNew = new Tab("New");
+        //Tab follow
+        tabFollow = new Tab("Follow");
+        tabFollow.setContent(followContent());
         //tabNew.setContent(newPackageContent());
-        tabNew.setOnSelectionChanged(e -> {
+        tabFollow.setOnSelectionChanged(e -> {
             System.out.println("DeliveryCompany.app.gui.ClientGUI.Display()");
         });
-        tabPane.getTabs().add(tabNew);
+        tabPane.getTabs().add(tabFollow);
+        
+        
+        //Tab history
+        tabSendingHistory = new Tab("Sending history");
+        tabSendingHistory.setContent(sendingHistoryContent());
+        //tabNew.setContent(newPackageContent());
+        tabSendingHistory.setOnSelectionChanged(e -> {
+            System.out.println("DeliveryCompany.app.gui.ClientGUI.Display()");
+        });
+        tabPane.getTabs().add(tabSendingHistory);
+        
+        //Tab my account
+        tabMyAccount = new Tab("My account");
+        tabMyAccount.setContent(myAccountContent());
+        //tabNew.setContent(newPackageContent());
+        tabMyAccount.setOnSelectionChanged(e -> {
+            System.out.println("DeliveryCompany.app.gui.ClientGUI.Display()");
+        });
+        tabPane.getTabs().add(tabMyAccount);
         
         
         //Set Scene
         window.setScene(new Scene(tabPane, 1300, 800)); 
         window.show();
+    }
+    
+    private GridPane myAccountContent()
+    {
+        gridMyAccountContent = new GridPane();
+        gridMyAccountContent.setPadding(new Insets(10, 10, 10, 10));
+        gridMyAccountContent.setVgap(8);
+        gridMyAccountContent.setHgap(10);
+        
+        
+        
+        labelFirstName = new Label("First name");
+        GridPane.setConstraints(labelFirstName, 0, 1);
+        gridMyAccountContent.getChildren().add(labelFirstName);
+        
+        labelLastName = new Label("Last name");
+        GridPane.setConstraints(labelLastName, 0, 2);
+        gridMyAccountContent.getChildren().add(labelLastName);
+        
+        labelCity = new Label("City");
+        GridPane.setConstraints(labelCity, 0, 3);
+        gridMyAccountContent.getChildren().add(labelCity);
+        
+        labelPostCode = new Label("Post code");
+        GridPane.setConstraints(labelPostCode, 0, 4);
+        gridMyAccountContent.getChildren().add(labelPostCode);
+        
+        labelStreet = new Label("Street");
+        GridPane.setConstraints(labelStreet, 0, 5);
+        gridMyAccountContent.getChildren().add(labelStreet);
+        
+        labelHouseNumber = new Label("House number");
+        GridPane.setConstraints(labelHouseNumber, 0, 6);
+        gridMyAccountContent.getChildren().add(labelHouseNumber);
+        
+        labelApartmentNumber = new Label("Apartment number");
+        GridPane.setConstraints(labelApartmentNumber, 0, 7);
+        gridMyAccountContent.getChildren().add(labelApartmentNumber);
+        
+        
+        textFirstName = new TextField();
+        GridPane.setConstraints(textFirstName, 1, 1);
+        //textSenderFirstName.setEditable(false);
+        gridMyAccountContent.getChildren().add(textFirstName);
+        
+        
+        textLastName = new TextField();
+        GridPane.setConstraints(textLastName, 1, 2);
+        //textSenderLastName.setEditable(false);
+        gridMyAccountContent.getChildren().add(textLastName);
+        
+        textCity = new TextField();
+        GridPane.setConstraints(textCity, 1, 3);
+        //textSenderCity.setEditable(false);
+        gridMyAccountContent.getChildren().add(textCity);
+        
+        textPostCode = new TextField();
+        GridPane.setConstraints(textPostCode, 1, 4);
+        //textSenderPostCode.setEditable(false);
+        gridMyAccountContent.getChildren().add(textPostCode);
+        
+        textStreet = new TextField();
+        GridPane.setConstraints(textStreet, 1, 5);
+        //textSenderStreet.setEditable(false);
+        gridMyAccountContent.getChildren().add(textStreet);
+        
+        textHouseNumber = new TextField();
+        GridPane.setConstraints(textHouseNumber, 1, 6);
+        //textSenderHouseNumber.setEditable(false);
+        gridMyAccountContent.getChildren().add(textHouseNumber);
+        
+        textApartmentNumber = new TextField();
+        GridPane.setConstraints(textApartmentNumber, 1, 7);
+        //textSenderApartmentNumber.setEditable(false);
+        gridMyAccountContent.getChildren().add(textApartmentNumber);
+        
+        buttonsubmitMyAccount = new Button("Save");
+        GridPane.setConstraints(buttonsubmitMyAccount, 1, 8);
+        gridMyAccountContent.getChildren().add(buttonsubmitMyAccount);
+        buttonsubmitMyAccount.setOnAction( e -> {
+            Data data =  clientFunc.changeData(new Data(textFirstName.getText(), textLastName.getText(), new Address(textHouseNumber.getText(), textApartmentNumber.getText(),textStreet.getText() , textPostCode.getText(), textCity.getText())));
+            
+            if(data != null)
+                this.client.setData(data);
+        
+        });
+        
+        setMyAccountData();
+        
+        return gridMyAccountContent;
+    }
+    
+    private boolean setMyAccountData()
+    {
+        Data data = client.getData();
+        
+        if(data != null)
+        {
+        
+            textFirstName.setText(data.getFirstName());
+            textLastName.setText(data.getLastName());
+            textCity.setText(data.getAddress().getCity());
+            textPostCode.setText(data.getAddress().getPostCode());
+            textStreet.setText(data.getAddress().getStreet());
+            textHouseNumber.setText(data.getAddress().getHouseNumber());
+            textApartmentNumber.setText(data.getAddress().getApartmentNumber());
+            
+            return true;
+        }
+        return false;
+    }
+    
+    private GridPane sendingHistoryContent()
+    {
+        gridHistoryContent = new GridPane();
+        gridHistoryContent.setPadding(new Insets(10, 10, 10, 10));
+        gridHistoryContent.setVgap(8);
+        gridHistoryContent.setHgap(10);
+        
+        listHistory = FXCollections.observableArrayList();
+        listHistory.addAll(clientFunc.getAllSentPackage());
+        
+        TableView sendingHistory = createTable(listHistory);
+        
+        gridHistoryContent.getChildren().add(sendingHistory);
+        
+        return gridHistoryContent;
+    }
+    
+    private GridPane followContent()
+    {
+        gridFollowContent = new GridPane();
+        gridFollowContent.setPadding(new Insets(10, 10, 10, 10));
+        gridFollowContent.setVgap(8);
+        gridFollowContent.setHgap(10);
+        
+        labelPackageNumber = new Label("Package number: ");
+        GridPane.setConstraints(labelPackageNumber, 0, 0);
+        gridFollowContent.getChildren().add(labelPackageNumber);
+        
+        textPackageNumber = new TextField("enter number");
+        GridPane.setConstraints(textPackageNumber, 1, 0);
+        gridFollowContent.getChildren().add(textPackageNumber);
+        
+        buttonPackageCheck = new Button("Find");
+        GridPane.setConstraints(buttonPackageCheck, 2, 0);
+        gridFollowContent.getChildren().add(buttonPackageCheck);
+        buttonPackageCheck.setOnAction(e -> {
+            long id;
+            
+            if(textPackageNumber.equals(""))
+                return;
+            //try(long id = Long.parseLong(textPackageNumber.getText()))
+            try
+            {
+               id =  Long.parseLong(textPackageNumber.getText());
+            }
+            catch(NumberFormatException ex)
+            {
+                System.err.println(ex.getMessage());
+                return;
+            }
+                
+            
+            String packageLocation = clientFunc.getPackageLocation(id);
+            if(packageLocation != null)
+            {
+                labelPackageLocation.setVisible(true);
+                textPackageLocation.setVisible(true);
+                textPackageLocation.setText(packageLocation);
+            }
+            else
+            {
+                textPackageLocation.setText("package not exists");
+                return;
+            }
+        });
+        
+        labelPackageLocation = new Label("Package location: ");
+        labelPackageLocation.setVisible(false);
+        GridPane.setConstraints(labelPackageLocation, 0, 1);
+        gridFollowContent.getChildren().add(labelPackageLocation);
+        
+        textPackageLocation = new TextField();
+        textPackageLocation.setVisible(false);
+        textPackageLocation.setEditable(false);
+        textPackageLocation.setPrefWidth(300);
+        GridPane.setConstraints(textPackageLocation, 1, 1);
+        gridFollowContent.getChildren().add(textPackageLocation);
+        
+        
+        
+        return gridFollowContent;
     }
     
     private GridPane newPackageContent() 
@@ -396,7 +649,7 @@ public class ClientGUI {
             
             labelFormError.setText("");
             
-            if(!validateFormData())
+            if(!validateFormNewPackage())
             {
                 labelFormError.setText("Empty field");
                 return;
@@ -424,15 +677,25 @@ public class ClientGUI {
                 return;
             }
             
-            clientFunc.SendPackage(sender, senderAddress, receiver, receiverAddress, dimension, telephone);
-            labelFormError.setText("Success");
+            long id = clientFunc.SendPackage(sender, senderAddress, receiver, receiverAddress, dimension, telephone);
+            labelFormError.setText("Package number: " + id);
             clearNewPackageField();
+            
+            listHistory.removeAll(listHistory);
+            for(ClientHistory data : clientFunc.getAllSentPackage())
+            {
+                listHistory.add(data);
+            }
         });
         
         if(!setSenderData())
         {
             checkBoxChangeSenderData.setSelected(true);
             setSenderFieldEditable(true);
+        }
+        else 
+        {
+            setSenderFieldEditable(false);
         }
         
         return gridNewPackageContent;
@@ -463,7 +726,7 @@ public class ClientGUI {
             setSenderData();
     }
     
-    private boolean validateFormData()
+    private boolean validateFormNewPackage()
     {
         if(textSenderPostCode.getText().length() > 5)
             return false;
@@ -559,156 +822,7 @@ public class ClientGUI {
         return false;
     }
     
-    /*
-    private GridPane createDetails(TableView tableForDelivery, TableView tableUndelivered)
-    {
-        //GridPane gridDelivered
-        GridPane gridDelivered = new GridPane();
-        gridDelivered.setPadding(new Insets(10, 10, 10, 10));
-        gridDelivered.setVgap(8);
-        gridDelivered.setHgap(10);
-        
-        //label labelFirstName
-        Label labelFirstName = new Label("First Name:");
-        GridPane.setConstraints(labelFirstName, 0, 0);
-        
-        //input name
-        inputFirstName = new TextField();
-        inputFirstName.setEditable(false);
-        GridPane.setConstraints(inputFirstName, 1, 0);
-        
-        //label labelLastName
-        Label labelLastName = new Label("Last Name:");
-        GridPane.setConstraints(labelLastName, 0, 1);
-        
-        //input lastName
-        inputLastName = new TextField();
-        inputLastName.setEditable(false);
-        GridPane.setConstraints(inputLastName, 1, 1);
-        
-        //label labelCity
-        Label labelCity = new Label("City:");
-        GridPane.setConstraints(labelCity, 0, 2);
-        
-        //input name
-        inputCity = new TextField();
-        inputCity.setEditable(false);
-        GridPane.setConstraints(inputCity, 1, 2);
-        
-        //label labelPostCode
-        Label labelPostCode = new Label("Post Code:");
-        GridPane.setConstraints(labelPostCode, 0, 3);
-        
-        //input postCode
-        inputPostCode = new TextField();
-        inputPostCode.setEditable(false);
-        GridPane.setConstraints(inputPostCode, 1, 3);
-        
-        //label labelStreet
-        Label labelStreet = new Label("Street:");
-        GridPane.setConstraints(labelStreet, 0, 4);
-        
-        //input street
-        inputStreet = new TextField();
-        inputStreet.setEditable(false);
-        GridPane.setConstraints(inputStreet, 1, 4);
-        
-        //label labelHouseNumber
-        Label labelHouseNumber = new Label("House number:");
-        GridPane.setConstraints(labelHouseNumber, 0, 5);
-        
-        //input houseNumber
-        inputHouseNumber = new TextField();
-        inputHouseNumber.setEditable(false);
-        GridPane.setConstraints(inputHouseNumber, 1, 5);
-        
-        //label labelApartmentNumber
-        Label labelApartmentNumber = new Label("Apartment number:");
-        GridPane.setConstraints(labelApartmentNumber, 0, 6);
-        
-        //input ApartmentNumber
-        inputApartmentNumber = new TextField();
-        inputApartmentNumber.setEditable(false);
-        GridPane.setConstraints(inputApartmentNumber,1, 6);
-        
-        //label labelTelephone
-        Label labelTelephone = new Label("Telephone:");
-        GridPane.setConstraints(labelTelephone, 0, 7);
-        
-        //input Telephone
-        inputTelephone = new TextField();
-        inputTelephone.setEditable(false);
-        GridPane.setConstraints(inputTelephone, 1, 7);    
-        
-        //label delivered status
-        Label labelDeliveredStatus = new Label("Delivered status:");
-        GridPane.setConstraints(labelDeliveredStatus, 2, 0);
-        
-        //label delivered status error
-        LabelComboBoxDeliveredError = new Label("");
-        GridPane.setConstraints(LabelComboBoxDeliveredError, 3, 1);
-        
-        //ComboBox Delivery status
-        ComboBoxDelivered = new ComboBox<>();
-        //ComboBoxDelivered.getItems().addAll(DeliveryStatus.delivered, DeliveryStatus.undelivered);
-        ComboBoxDelivered.setPromptText("Delivered status");
-        GridPane.setConstraints(ComboBoxDelivered, 3, 0);
-        
-        //button confirm
-        Button buttonConfirm = new Button("Confirm");
-        GridPane.setConstraints(buttonConfirm, 3, 7);
-        GridPane.setHalignment(buttonConfirm, HPos.RIGHT);
-        buttonConfirm.setOnAction((event) -> {
-            buttonConfirmDetails(tableForDelivery, tableUndelivered);
-        });
-          
-        gridDelivered.getChildren().addAll(labelApartmentNumber, labelCity, labelFirstName, labelHouseNumber, labelLastName, labelPostCode, labelStreet, labelTelephone, labelDeliveredStatus, LabelComboBoxDeliveredError);
-        gridDelivered.getChildren().addAll(inputFirstName, inputLastName, inputCity, inputPostCode, inputStreet, inputHouseNumber, inputApartmentNumber, inputTelephone, ComboBoxDelivered, buttonConfirm);   
-        
-        return gridDelivered;
-    }
-    */
-    /*
-    private void buttonConfirmDetails(TableView tableForDelivery, TableView tableUndelivered)
-    {
-        ObservableList<CourierData> allData, selectedData;
-        
-        selectedData = tableForDelivery.getSelectionModel().getSelectedItems();
-        allData = tableForDelivery.getItems();
-        
-        DeliveryStatus status =  ComboBoxDelivered.getValue();
-        
-        if(status == null)
-        {
-            LabelComboBoxDeliveredError.setText("Choose delivery status");
-            return;
-        }
-        else
-        {
-            LabelComboBoxDeliveredError.setText("");
-        }
-        
-        int val = courierFunc.setDeliveryStatus(status, selectedData.get(0).getID());
-        
-        listUndelivered.removeAll(listUndelivered);
-        for(CourierData data : courierFunc.getTransportedPackage(DeliveryStatus.undelivered))
-        {
-            listUndelivered.add(data);
-        }
-        
-        if(val == -1)
-            System.err.println("ERROR UPDATE DELIVERY STATUS");
-        
-        if(val > 1)
-            System.err.println("MULTIPLY PACKAGE ID DURING UPDATE DELIVERY STATUS");
-        
-        if(val == 1)
-        {
-            selectedData.forEach(allData::remove);
-            selectedRow(tableForDelivery);
-        }  
-    }
-    */
+    
     private void selectedRow(TableView table)
     {
         ComboBoxDelivered.setValue(null);
@@ -759,7 +873,7 @@ public class ClientGUI {
         {
             if(list.size() == 0)
             {
-                list.add(new CourierData(-1, -1, -1, -1, "", "", "", "", "", "", "", ""));
+                list.add(new ClientHistory(-1, -1,"", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
                 clearList = true;
             }
             
