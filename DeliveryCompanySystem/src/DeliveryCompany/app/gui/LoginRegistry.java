@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -27,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -60,8 +62,7 @@ public class LoginRegistry extends Application{
         
         
         
-        
-        window.setResizable(false);
+        //window.setResizable(false);
         window.setAlwaysOnTop(true);
         window.setOnCloseRequest(e -> {
             DatabaseInit.getInstance().getSession().close();
@@ -124,7 +125,7 @@ public class LoginRegistry extends Application{
         GridPane.setConstraints(labelUsername, 0, 1);
         
         //Input username
-        TextField inputUsername = new TextField("daniel");//(username);
+        TextField inputUsername = new TextField();//(username);
         GridPane.setConstraints(inputUsername, 1,1, 2, 1);
         
         
@@ -227,9 +228,11 @@ public class LoginRegistry extends Application{
         
         grid.getChildren().addAll(labelUserError, labelUsername, inputUsername, labelPassword, inputPassword, buttonLogin, buttonRegistry);
         
+        
         //Scene login
         //Scene sceneLogin = new Scene(grid, 250, 150); 
         Scene scene = new Scene(grid, 250, 150);
+        //Scene scene = new Scene(grid, Screen.getPrimary().getBounds().getWidth(), grid.getHeight());
         window.setScene(scene); 
         window.show();
         

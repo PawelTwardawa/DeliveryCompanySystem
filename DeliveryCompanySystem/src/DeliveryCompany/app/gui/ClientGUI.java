@@ -41,6 +41,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -527,7 +528,7 @@ public class ClientGUI {
         GridPane.setConstraints(labelDimensionsHeight, 4, 4);
         gridNewPackageContent.getChildren().add(labelDimensionsHeight);
         
-        labelDimensionsDepht = new Label("Width");
+        labelDimensionsDepht = new Label("Depth");
         GridPane.setConstraints(labelDimensionsDepht, 4, 5);
         gridNewPackageContent.getChildren().add(labelDimensionsDepht);
         
@@ -555,6 +556,19 @@ public class ClientGUI {
         
         textSenderPostCode = new TextField();
         GridPane.setConstraints(textSenderPostCode, 1, 4);
+      /* textSenderPostCode.setOnKeyPressed(e -> {
+            
+            KeyCode code = e.getCode();
+            
+            if(textSenderPostCode.getText().length() == 1 && !textSenderPostCode.getText().contains("-") )//!e.getCode().equals("BACK_SPACE"))
+            {
+                textSenderPostCode.setText(textSenderPostCode.getText() + "-");
+            }
+            
+            
+        }); 
+*/
+       
         //textSenderPostCode.setEditable(false);
         gridNewPackageContent.getChildren().add(textSenderPostCode);
         
@@ -649,11 +663,22 @@ public class ClientGUI {
             
             labelFormError.setText("");
             
-            if(!validateFormNewPackage())
+            String validation = validateFormNewPackage();
+            
+            if(validation != null)
+            {
+                labelFormError.setText(validation);
+                return;
+
+            }
+
+            /*
+            if(validateFormNewPackage())
             {
                 labelFormError.setText("Empty field");
                 return;
             }
+*/
             else
             {
                 labelFormError.setText("");
@@ -678,7 +703,10 @@ public class ClientGUI {
             }
             
             long id = clientFunc.SendPackage(sender, senderAddress, receiver, receiverAddress, dimension, telephone);
-            labelFormError.setText("Package number: " + id);
+            if(id == -1)
+                labelFormError.setText("Error during add package");
+            else
+                labelFormError.setText("Package number: " + id);
             clearNewPackageField();
             
             listHistory.removeAll(listHistory);
@@ -726,69 +754,83 @@ public class ClientGUI {
             setSenderData();
     }
     
-    private boolean validateFormNewPackage()
+    private String validateFormNewPackage()
     {
-        if(textSenderPostCode.getText().length() > 5)
-            return false;
+        String[] split = textReceiverPostCode.getText().split("-");
+        if(split[0].length() != 2 || split[1].length() != 3)
+            return "Incorrect receiver post code format";
         
-        if(textReceiverPostCode.getText().length() > 5)
-            return false;
+        split = textSenderPostCode.getText().split("-");
+        if(split[0].length() != 2 || split[1].length() != 3)
+            return "Incorrect sender post code format";
+        
+        if(!textSenderPostCode.getText().contains("-"))
+            return "Incorrect sender post code";
+        
+        if(!textReceiverPostCode.getText().contains("-"))
+            return "Incorrect receiver post code";
+        
+        if(textSenderPostCode.getText().length() != 6)
+            return "Incorrect sender post code length";
+        
+        if(textReceiverPostCode.getText().length() != 6)
+            return "Incorrect receiver post code length";
         
         if(textDimensionsDepht.getText().equals(""))
-            return false;
+            return "Empty dimensions depth";
         
         if(textDimensionsHeight.getText().equals(""))
-            return false;
+            return "Empty dimensions height";
         
         if(textDimensionsWidth.getText().equals(""))
-            return false;
+            return "Empty dimensions width";
         
         if(textReceiverApartmentNumber.getText().equals(""))
-            return false;
+            return "Empty receiver apartment number";
         
         if(textReceiverCity.getText().equals(""))
-            return false;
+            return "Empty receiver city";
         
         if(textReceiverFirstName.getText().equals(""))
-            return false;
+            return "Empty reeiver first name";
         
         if(textReceiverLastName.getText().equals(""))
-            return false;
+            return "Empty receiver last name";
         
         if(textReceiverPostCode.getText().equals(""))
-            return false;
+            return "Empty receiver post code";
         
         if(textReceiverStreet.getText().equals(""))
-            return false;
+            return "Empty receiver street";
         
         if(textReceiverHouseNumber.getText().equals(""))
-            return false;
+            return "Empty receiver house number";
         
         if(textSenderApartmentNumber.getText().equals(""))
-            return false;
+            return "Empty sender apartmetn number";
         
         if(textSenderHouseNumber.getText().equals(""))
-            return false;
+            return "Empty sender house number";
         
         if(textSenderCity.getText().equals(""))
-            return false;
+            return "Empty sender city";
         
         if(textSenderFirstName.getText().equals(""))
-            return false;
+            return "Empty sender first name";
 
         if(textSenderLastName.getText().equals(""))
-            return false;
+            return "Empty sender last name";
         
         if(textSenderPostCode.getText().equals(""))
-            return false;
+            return "Empty post code";
         
         if(textSenderStreet.getText().equals(""))
-            return false;
+            return "Empty sender street";
         
         if(textTelephone.getText().equals(""))
-            return false;
+            return "Empty telephone number";
         
-        return true;
+        return null;
     }
     
     private void setSenderFieldEditable(boolean value)
