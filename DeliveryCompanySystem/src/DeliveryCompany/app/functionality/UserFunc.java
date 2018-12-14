@@ -31,16 +31,41 @@ import org.hibernate.exception.ConstraintViolationException;
 public class UserFunc {
     
     Session session;
+    //
+    DatabaseInit database;
+    //
 
     public UserFunc() //throws NoSuchAlgorithmException {
     {
         this.session = DatabaseInit.getInstance().getSession();
+        //database = new DatabaseInit();
+        //session = database.getSession();
+        //session = null;
     }
     
+    /*
+    private void getSession()
+    {
+        if(session == null)
+            session = DatabaseInit.getInstance().getSession();
+    }
     
+    public void setSession(Session session)
+    {
+        this.session = session;
+    }
+    /*
+    public void setDatabaseInit(DatabaseInit databaseInit)
+    {
+        this.database = databaseInit;
+        this.session = databaseInit.getSession();
+    }
+    */
     
     public User Login(String username, String password) throws NoSuchAlgorithmException
     {
+        //getSession();
+        
         session.beginTransaction();
         
         Query q = session.createQuery("FROM User WHERE Username = :un AND Password = :pa");
@@ -57,6 +82,8 @@ public class UserFunc {
     
     public RegisterStatus Registry(String username, String password, String email, UserType type)// throws Exception
     {
+        //getSession();
+
         RegisterStatus status = RegisterStatus.Success;
         
         session.beginTransaction();

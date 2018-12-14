@@ -52,4 +52,16 @@ public class DatabaseInit {
         }
         return instance;
     }
+    
+    /*
+    public void setInstance(DatabaseInit instance)
+    {
+        this.instance = instance;
+    }
+*/
+    
+    public void setSession(Session session)
+    {
+        sessionObj = session;
+    }
 }

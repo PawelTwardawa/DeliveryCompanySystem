@@ -5,6 +5,7 @@
  */
 package DeliveryCompany.database.structure;
 
+import java.util.Objects;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.JoinColumn;
@@ -73,4 +74,42 @@ public class User {
         ID_email = email;
     }
 */
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.Username);
+        hash = 41 * hash + Objects.hashCode(this.Password);
+        hash = 41 * hash + Objects.hashCode(this.UserType);
+        hash = 41 * hash + Objects.hashCode(this.ID_email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.Username, other.Username)) {
+            return false;
+        }
+        if (!Objects.equals(this.Password, other.Password)) {
+            return false;
+        }
+        if (!Objects.equals(this.UserType, other.UserType)) {
+            return false;
+        }
+        if (!Objects.equals(this.ID_email, other.ID_email)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

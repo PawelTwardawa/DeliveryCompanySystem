@@ -50,7 +50,7 @@ public class ClientFunc {
         this.client = client;
     }
     
-    private Courier chooseCourier()
+    protected Courier chooseCourier()
     {
        session.beginTransaction();
         
@@ -62,7 +62,7 @@ public class ClientFunc {
         return couriers.get(0);
     }
     
-    private Address findAddress(Address address)
+    protected Address findAddress(Address address)
     {
         session.beginTransaction();
         
@@ -80,7 +80,7 @@ public class ClientFunc {
         return addr;
     }
     
-    private Data findData(Data data, Address address)
+    protected Data findData(Data data, Address address)
     {
         session.beginTransaction();
         
@@ -101,7 +101,7 @@ public class ClientFunc {
         return dataOut;
     }
     
-    private Data setData(Data data, Address address)
+    protected Data setData(Data data, Address address)
     {
         Data dataSender = findData(data, address);
         if(dataSender == null)
@@ -211,11 +211,6 @@ public class ClientFunc {
         //q2.setParameter("id", client.getId());
         
         //Client client =  (Client)q2.uniqueResult();
-       
-        
-        //session.getTransaction().commit();
-        
-        String name = client.getData().getFirstName();
         
         if(result == 1)
         {

@@ -788,14 +788,26 @@ public class ClientGUI {
         if(textReceiverApartmentNumber.getText().equals(""))
             return "Empty receiver apartment number";
         
+        if(textReceiverApartmentNumber.getText().length() > 4)
+            return "Too long receiver apartment number";
+        
         if(textReceiverCity.getText().equals(""))
             return "Empty receiver city";
+        
+        if(textReceiverCity.getText().length() > 40)
+            return "Too long receiver city";
         
         if(textReceiverFirstName.getText().equals(""))
             return "Empty reeiver first name";
         
+        if(textReceiverFirstName.getText().length() > 255)
+            return "Too long receiver first name";
+        
         if(textReceiverLastName.getText().equals(""))
             return "Empty receiver last name";
+        
+        if(textReceiverLastName.getText().length() > 255)
+            return "Too long receiver last name";
         
         if(textReceiverPostCode.getText().equals(""))
             return "Empty receiver post code";
@@ -803,23 +815,44 @@ public class ClientGUI {
         if(textReceiverStreet.getText().equals(""))
             return "Empty receiver street";
         
+        if(textReceiverStreet.getText().length() > 80)
+            return "Too long receiver street";
+        
         if(textReceiverHouseNumber.getText().equals(""))
             return "Empty receiver house number";
         
+        if(textReceiverHouseNumber.getText().length() > 5)
+            return "Too long receiver house number";
+        
         if(textSenderApartmentNumber.getText().equals(""))
-            return "Empty sender apartmetn number";
+            return "Empty sender apartment number";
+        
+        if(textSenderApartmentNumber.getText().length() > 4)
+            return "Too long sender apartment number";
         
         if(textSenderHouseNumber.getText().equals(""))
             return "Empty sender house number";
         
+        if(textSenderHouseNumber.getText().length() > 5)
+            return "Too long sender house number";
+        
         if(textSenderCity.getText().equals(""))
             return "Empty sender city";
         
+        if(textSenderCity.getText().length() > 40)
+            return "Too long sender city";
+        
         if(textSenderFirstName.getText().equals(""))
             return "Empty sender first name";
+        
+        if(textSenderFirstName.getText().length() > 255)
+            return "Too long sender last name";
 
         if(textSenderLastName.getText().equals(""))
             return "Empty sender last name";
+        
+        if(textSenderLastName.getText().length() > 255)
+            return "Too long sender last name";
         
         if(textSenderPostCode.getText().equals(""))
             return "Empty post code";
@@ -827,8 +860,14 @@ public class ClientGUI {
         if(textSenderStreet.getText().equals(""))
             return "Empty sender street";
         
+        if(textSenderStreet.getText().length() > 80)
+            return "Too long sender street";
+        
         if(textTelephone.getText().equals(""))
             return "Empty telephone number";
+        
+        if(textTelephone.getText().length() > 9)
+            return "Too long telephone";
         
         return null;
     }

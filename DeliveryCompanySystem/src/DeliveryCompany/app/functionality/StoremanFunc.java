@@ -64,13 +64,14 @@ public class StoremanFunc extends ClientFunc{
     
     public Courier targetCourier(StoremanData data)
     {
-
-       session.beginTransaction();
+        session.beginTransaction();
         
         Query q = session.createQuery("FROM Courier");
         
         List<Courier> couriers = q.list();
         session.getTransaction().commit(); 
+        
+        
         
         return couriers.get(1);
     }
