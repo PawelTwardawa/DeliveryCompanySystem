@@ -7,6 +7,7 @@ package DeliveryCompany.app.functionality;
 
 import DeliveryCompany.app.enumerate.DeliveryStatus;
 import DeliveryCompany.app.enumerate.LocationStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.Courier;
 import DeliveryCompany.database.structure.CourierData;
@@ -27,7 +28,7 @@ public class CourierFunc {
 
     public CourierFunc(Courier courier) {
         this.courier = courier;
-        this.session = DatabaseInit.getInstance().getSession();
+        this.session = DatabaseInit.getInstance().getSession(SessionType.Courier);
     }
     
     //public List<Package> getTransportedPackage()

@@ -6,6 +6,7 @@
 package DeliveryCompany.app.functionality;
 
 import DeliveryCompany.app.enumerate.RegisterStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.enumerate.UserType;
 import static DeliveryCompany.app.enumerate.UserType.Storeman;
 import DeliveryCompany.database.init.DatabaseInit;
@@ -37,7 +38,7 @@ public class UserFunc {
 
     public UserFunc() //throws NoSuchAlgorithmException {
     {
-        this.session = DatabaseInit.getInstance().getSession();
+        this.session = DatabaseInit.getInstance().getSession(SessionType.Login);
         //database = new DatabaseInit();
         //session = database.getSession();
         //session = null;

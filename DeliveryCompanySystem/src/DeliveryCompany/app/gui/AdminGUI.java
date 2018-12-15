@@ -5,6 +5,7 @@
  */
 package DeliveryCompany.app.gui;
 
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.enumerate.UserType;
 import DeliveryCompany.app.functionality.UserFunc;
 import DeliveryCompany.database.init.DatabaseInit;
@@ -27,6 +28,12 @@ import javafx.stage.Stage;
  * @author Paweł
  */
 public class AdminGUI {
+
+    public AdminGUI() {
+        
+    }
+    
+    
     
     private Stage window;
     
@@ -52,7 +59,7 @@ public class AdminGUI {
         //window.setMinHeight(600);
 
         window.setOnCloseRequest(e -> {
-            DatabaseInit.getInstance().getSession().close();
+            DatabaseInit.getInstance().getSession(SessionType.Admin).close();
             System.exit(0);
         });
         

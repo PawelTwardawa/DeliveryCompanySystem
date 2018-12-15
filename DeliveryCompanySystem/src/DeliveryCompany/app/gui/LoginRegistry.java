@@ -6,6 +6,7 @@
 package DeliveryCompany.app.gui;
 
 import DeliveryCompany.app.enumerate.RegisterStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.enumerate.UserType;
 import DeliveryCompany.app.functionality.UserFunc;
 import DeliveryCompany.database.init.DatabaseInit;
@@ -45,7 +46,7 @@ public class LoginRegistry extends Application{
     {
 
         
-        DatabaseInit.getInstance().getSession();
+        DatabaseInit.getInstance().getSession(SessionType.Login);
         launch(args);
         
         
@@ -65,7 +66,7 @@ public class LoginRegistry extends Application{
         //window.setResizable(false);
         window.setAlwaysOnTop(true);
         window.setOnCloseRequest(e -> {
-            DatabaseInit.getInstance().getSession().close();
+            DatabaseInit.getInstance().getSession(SessionType.Login).close();
             System.exit(0);
         });
         

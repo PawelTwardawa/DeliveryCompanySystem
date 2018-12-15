@@ -6,6 +6,7 @@
 package DeliveryCompany.app.functionality;
 
 import DeliveryCompany.app.enumerate.DeliveryStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.Client;
 import DeliveryCompany.database.structure.Storeman;
@@ -28,7 +29,7 @@ public class StoremanFunc extends ClientFunc{
     public StoremanFunc(Storeman storeman) {
         super(null);
         this.storeman = storeman;
-        this.session = DatabaseInit.getInstance().getSession();
+        this.session = DatabaseInit.getInstance().getSession(SessionType.Storeman);
     }
    
     //public void changePackageCourier(int packageNumber, Courier courier)

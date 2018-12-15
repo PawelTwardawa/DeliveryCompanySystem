@@ -6,6 +6,7 @@
 package DeliveryCompany.database.init;
 
 
+import DeliveryCompany.app.enumerate.SessionType;
 import java.awt.Dimension;
 import java.io.Console;
 import java.sql.Date;
@@ -23,13 +24,23 @@ public class DatabaseInit {
     private static DatabaseInit instance;
     
     static Session sessionObj = null;
+    static Session sessionObjAdmin = null;
+    static Session sessionObjLogin = null;
+    static Session sessionObjClient = null;
+    static Session sessionObjCourier = null;
+    static Session sessionObjStoreman = null;
     static SessionFactory SessionFactoryObj;
     
-    //public static SessionFactory buildSession()
     private SessionFactory buildSession()
     {
+        return buildSession("hibernate_Admin.cfg.xml");
+    }
+    
+    //public static SessionFactory buildSession()
+    private SessionFactory buildSession(String conf)
+    {
         Configuration configObj = new Configuration();
-        configObj.configure("hibernate.cfg.xml");
+        configObj.configure(conf);
         
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
         
@@ -37,12 +48,58 @@ public class DatabaseInit {
         return SessionFactoryObj;
     }
     
+    public Session getSession(SessionType type)
+    {
+        switch(type)
+        {
+            case Admin:
+            {
+                if(sessionObjAdmin == null)
+                    sessionObjAdmin = buildSession("hibernate_Admin.cfg.xml").openSession();
+                return sessionObjAdmin;
+            }
+            case Client:
+            {
+                if(sessionObjClient == null)
+                    sessionObjClient = buildSession("hibernate_Client.cfg.xml").openSession();
+                return sessionObjClient;
+            }
+            case Courier:
+            {
+                if(sessionObjCourier == null)
+                    sessionObjCourier = buildSession("hibernate_Courier.cfg.xml").openSession();
+                return sessionObjCourier;
+            }
+            case Login:
+            {
+                if(sessionObjLogin == null)
+                    sessionObjLogin = buildSession("hibernate_Login.cfg.xml").openSession();
+                return sessionObjLogin;
+            }
+            case Storeman:
+            {
+                if(sessionObjStoreman == null)
+                    sessionObjStoreman = buildSession("hibernate_Storeman.cfg.xml").openSession();
+                return sessionObjStoreman;
+            }
+            default:
+            {
+                return null;
+            }
+        }
+    }
+    
+    /*
     public Session getSession()
     {
-        if(sessionObj == null)
-            sessionObj = buildSession().openSession();
-        return sessionObj;
+        
+        //if(sessionObj == null)
+        //    sessionObj = buildSession().openSession();
+        //return sessionObj;
+        
+        return getSession(SessionType.Admin);
     }
+*/
     
     public static DatabaseInit getInstance()
     {

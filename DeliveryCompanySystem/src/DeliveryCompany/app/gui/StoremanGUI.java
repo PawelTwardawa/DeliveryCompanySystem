@@ -6,6 +6,7 @@
 package DeliveryCompany.app.gui;
 
 import DeliveryCompany.app.enumerate.DeliveryStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import static DeliveryCompany.app.enumerate.UserType.Storeman;
 import DeliveryCompany.app.functionality.CourierFunc;
 import DeliveryCompany.app.functionality.StoremanFunc;
@@ -101,7 +102,7 @@ public class StoremanGUI {
         //window.setMinHeight(600);
 
         window.setOnCloseRequest(e -> {
-            DatabaseInit.getInstance().getSession().close();
+            DatabaseInit.getInstance().getSession(SessionType.Storeman).close();
             System.exit(0);
         });
         

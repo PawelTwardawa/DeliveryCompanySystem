@@ -6,6 +6,7 @@
 package DeliveryCompany.app.functionality;
 
 import DeliveryCompany.app.enumerate.LocationStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.Address;
 import DeliveryCompany.database.structure.Client;
@@ -42,7 +43,7 @@ public class ClientFunc {
     public ClientFunc(Client client)
     {
         this.client = client;
-        this.session = DatabaseInit.getInstance().getSession();
+        this.session = DatabaseInit.getInstance().getSession(SessionType.Client);
     }
     
     public void setClient(Client client)

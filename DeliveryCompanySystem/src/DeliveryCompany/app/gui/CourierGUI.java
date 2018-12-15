@@ -6,6 +6,7 @@
 package DeliveryCompany.app.gui;
 
 import DeliveryCompany.app.enumerate.DeliveryStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.functionality.ClientFunc;
 import DeliveryCompany.app.functionality.CourierFunc;
 import DeliveryCompany.database.init.DatabaseInit;
@@ -81,7 +82,7 @@ public class CourierGUI {
         //window.setMinHeight(600);
 
         window.setOnCloseRequest(e -> {
-            DatabaseInit.getInstance().getSession().close();
+            DatabaseInit.getInstance().getSession(SessionType.Courier).close();
             System.exit(0);
         });
         
