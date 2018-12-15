@@ -9,12 +9,10 @@ package DeliveryCompany.app.enumerate;
  *
  * @author Paweł
  */
-public enum DeliveryStatus {
-    delivered,
-    undelivered,
-    toPickUp,
-    toDelivery,
-    pickedUp,
-    notPickedUp,
-    inWarehouse
+public enum SessionType {
+    Login,
+    Client,
+    Courier,
+    Storeman,
+    Admin
 }

@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DeliveryCompany.app.enumerate;
+package DeliveryCompany.app.interfaces;
+
+import DeliveryCompany.database.structure.ClientHistory;
 
 /**
  *
  * @author Paweł
  */
-public enum DeliveryStatus {
-    delivered,
-    undelivered,
-    toPickUp,
-    toDelivery,
-    pickedUp,
-    notPickedUp,
-    inWarehouse
+public interface EditDataEvent {
+    
+    void EditDataCallback(ClientHistory data);
+    
 }

@@ -12,7 +12,8 @@ package DeliveryCompany.app.enumerate;
 public enum UserType {
     Client("Client"),
     Courier("Courier"),
-    Storeman("Storeman");
+    Storeman("Storeman"),
+    Admin("Admin");
     
     private final String type;
     

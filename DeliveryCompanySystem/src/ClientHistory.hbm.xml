@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="DeliveryCompany.database.structure.ClientHistory" table="ClientHistory">
+    <id name="ID">
+      <generator class="increment"/>
+    </id>
+    <property column="ID_client" name="ID_client"/>
+    <property column="Location" name="Location"/>
+    <property column="DeliveredStatus" name="DeliveredStatus"/>
+    <property column="TelephoneNumber" name="TelephoneNumber"/>
+    <property column="SenderFirstName" name="SenderFirstName"/>
+    <property column="SenderLastName" name="SenderLastName"/>
+    <property column="SenderCity" name="SenderCity"/>
+    <property column="SenderPostCode" name="SenderPostCode"/>
+    <property column="SenderStreet" name="SenderStreet"/>
+    <property column="SenderHouseNumber" name="SenderHouseNumber"/>
+    <property column="SenderApartmentNumber" name="SenderApartmentNumber"/>
+    <property column="ReceiverFirstName" name="ReceiverFirstName"/>
+    <property column="ReceiverLastName" name="ReceiverLastName"/>
+    <property column="ReceiverCity" name="ReceiverCity"/>
+    <property column="ReceiverPostCode" name="ReceiverPostCode"/>
+    <property column="ReceiverStreet" name="ReceiverStreet"/>
+    <property column="ReceiverHouseNumber" name="ReceiverHouseNumber"/>
+    <property column="ReceiverApartmentNumber" name="ReceiverApartmentNumber"/>
+  </class>
+</hibernate-mapping>

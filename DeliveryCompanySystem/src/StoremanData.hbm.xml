@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="DeliveryCompany.database.structure.StoremanData" table="StoremanData">
+    <id name="ID">
+      <generator class="increment"/>
+    </id>
+    <property column="ID_courier" name="ID_courier"/>
+    <property column="City" name="City"/>
+    <property column="DeliveredStatus" name="DeliveredStatus"/>
+    <property column="PostCode" name="PostCode"/>
+    <property column="Street" name="Street"/>
+    <property column="HouseNumber" name="HouseNumber"/>
+    <property column="ApartmentNumber" name="ApartmentNumber"/>
+  </class>
+</hibernate-mapping>

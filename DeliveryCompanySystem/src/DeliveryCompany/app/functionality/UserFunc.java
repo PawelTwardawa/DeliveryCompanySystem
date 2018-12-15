@@ -6,6 +6,7 @@
 package DeliveryCompany.app.functionality;
 
 import DeliveryCompany.app.enumerate.RegisterStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.enumerate.UserType;
 import static DeliveryCompany.app.enumerate.UserType.Storeman;
 import DeliveryCompany.database.init.DatabaseInit;
@@ -31,16 +32,41 @@ import org.hibernate.exception.ConstraintViolationException;
 public class UserFunc {
     
     Session session;
+    //
+    DatabaseInit database;
+    //
 
     public UserFunc() //throws NoSuchAlgorithmException {
     {
-        this.session = DatabaseInit.getInstance().getSession();
+        this.session = DatabaseInit.getInstance().getSession(SessionType.Login);
+        //database = new DatabaseInit();
+        //session = database.getSession();
+        //session = null;
     }
     
+    /*
+    private void getSession()
+    {
+        if(session == null)
+            session = DatabaseInit.getInstance().getSession();
+    }
     
+    public void setSession(Session session)
+    {
+        this.session = session;
+    }
+    /*
+    public void setDatabaseInit(DatabaseInit databaseInit)
+    {
+        this.database = databaseInit;
+        this.session = databaseInit.getSession();
+    }
+    */
     
     public User Login(String username, String password) throws NoSuchAlgorithmException
     {
+        //getSession();
+        
         session.beginTransaction();
         
         Query q = session.createQuery("FROM User WHERE Username = :un AND Password = :pa");
@@ -57,13 +83,21 @@ public class UserFunc {
     
     public RegisterStatus Registry(String username, String password, String email, UserType type)// throws Exception
     {
+        //getSession();
+
         RegisterStatus status = RegisterStatus.Success;
         
         session.beginTransaction();
-        
-        Query q = session.createQuery("FROM Email WHERE email = :e");
-        q.setParameter("e", email);
-        Email emailExist = (Email)q.uniqueResult();
+        Query q;
+        Email emailExist = null;
+        if(type == UserType.Client)
+        {
+            q = session.createQuery("FROM Email WHERE email = :e");
+            q.setParameter("e", email);
+            emailExist = (Email)q.uniqueResult();
+
+            
+        }
         
         q = session.createQuery("FROM User WHERE Username = :u");
         q.setParameter("u", username);
@@ -71,8 +105,8 @@ public class UserFunc {
         
         session.getTransaction().commit();
         
-        if(emailExist != null)
-            return RegisterStatus.EmailExists;
+        if(emailExist != null && type == UserType.Client)
+                return RegisterStatus.EmailExists;
 
         if(usernameExist != null)
             return RegisterStatus.UsernameExists;
@@ -81,7 +115,10 @@ public class UserFunc {
         emailObj.setEmail(email);
         
         User userObj = new User();
-        userObj.setID_email(emailObj);
+        
+        if(type == UserType.Client)
+            userObj.setID_email(emailObj);
+        
         userObj.setUsername(username);
         userObj.setPassword(getSecurePassword(password));
         userObj.setUserType(type.toString());
@@ -165,13 +202,15 @@ public class UserFunc {
         if(user == null)
             return null;
         
-        session.beginTransaction();
+        //session.beginTransaction();
         try
         {
             switch(UserType.valueOf(user.getUserType()))
             {
                 case Client:
                 {
+                    session = DatabaseInit.getInstance().getSession(SessionType.Client);
+                    session.beginTransaction();
                     Query q = session.createQuery("FROM Client WHERE user = :u");
                     q.setParameter("u", user);
                     Client obj = (Client)q.uniqueResult();
@@ -182,6 +221,8 @@ public class UserFunc {
                 }
                 case Courier:
                 {
+                    session = DatabaseInit.getInstance().getSession(SessionType.Courier);
+                    session.beginTransaction();
                     Query q = session.createQuery("FROM Courier WHERE user = :u");
                     q.setParameter("u", user);
                     Courier obj = (Courier)q.uniqueResult();
@@ -192,6 +233,8 @@ public class UserFunc {
                 }
                 case Storeman:
                 {
+                    session = DatabaseInit.getInstance().getSession(SessionType.Storeman);
+                    session.beginTransaction();
                     Query q = session.createQuery("FROM Storeman WHERE user = :u");
                     q.setParameter("u", user);
                     Storeman obj = (Storeman)q.uniqueResult();
@@ -202,7 +245,7 @@ public class UserFunc {
                 }
                 default:
                 {
-                    session.getTransaction().commit();
+                    //session.getTransaction().commit();
                 }
             }
         }

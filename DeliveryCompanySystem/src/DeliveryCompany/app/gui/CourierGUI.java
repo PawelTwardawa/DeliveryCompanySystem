@@ -6,6 +6,7 @@
 package DeliveryCompany.app.gui;
 
 import DeliveryCompany.app.enumerate.DeliveryStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.functionality.ClientFunc;
 import DeliveryCompany.app.functionality.CourierFunc;
 import DeliveryCompany.database.init.DatabaseInit;
@@ -81,7 +82,7 @@ public class CourierGUI {
         //window.setMinHeight(600);
 
         window.setOnCloseRequest(e -> {
-            DatabaseInit.getInstance().getSession().close();
+            DatabaseInit.getInstance().getSession(SessionType.Courier).close();
             System.exit(0);
         });
         
@@ -152,6 +153,17 @@ public class CourierGUI {
         //Add tabs to TabPane
         tabPane.getTabs().add(tabForDelivery);
         tabPane.getTabs().add(tabUndelivered);
+        
+        Tab tabLogOut = new Tab("Log out");
+        tabLogOut.setOnSelectionChanged( e -> {
+            if(tabLogOut.isSelected())
+            {
+                this.window.close();
+                LoginRegistry login = new LoginRegistry();
+                login.Display();
+            }
+        });
+        tabPane.getTabs().add(tabLogOut);
          
         //Create scene
         //Scene scene = new Scene(grid, 1300, 800);
