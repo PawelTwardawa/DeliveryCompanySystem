@@ -349,13 +349,39 @@ public class ClientGUI {
         gridMyAccountContent.getChildren().add(textApartmentNumber);
         
         labelMyAccountError = new Label();
-        GridPane.setConstraints(labelMyAccountError, 1, 8);
+        GridPane.setConstraints(labelMyAccountError, 1, 8,2,1);
         gridMyAccountContent.getChildren().add(labelMyAccountError);
         
         buttonsubmitMyAccount = new Button("Save");
         GridPane.setConstraints(buttonsubmitMyAccount, 1, 9);
         gridMyAccountContent.getChildren().add(buttonsubmitMyAccount);
         buttonsubmitMyAccount.setOnAction( e -> {
+            
+            if(!textPostCode.getText().contains("-"))
+            {
+                labelMyAccountError.setText("Incorrect sender post code");
+                return;
+            }
+            
+            if(textPostCode.getText().length() != 6)
+            {
+                labelMyAccountError.setText("Incorrect sender post code length");
+                return;
+            }
+
+            String[] split = textPostCode.getText().split("-");
+            if(split[0].length() != 2 || split[1].length() != 3)
+            {
+                labelMyAccountError.setText("Incorrect receiver post code format");
+                return;
+            }
+
+
+            
+
+
+            
+
             Data data =  clientFunc.changeData(new Data(textFirstName.getText(), textLastName.getText(), new Address(textHouseNumber.getText(), textApartmentNumber.getText(),textStreet.getText() , textPostCode.getText(), textCity.getText())));
             
             if(data != null)
