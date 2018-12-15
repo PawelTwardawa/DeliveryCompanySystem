@@ -5,6 +5,7 @@
  */
 package DeliveryCompany.app.functionality;
 
+import DeliveryCompany.app.enumerate.DeliveryStatus;
 import DeliveryCompany.app.enumerate.LocationStatus;
 import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.database.init.DatabaseInit;
@@ -138,6 +139,7 @@ public class ClientFunc {
         pack.setSender(setData(sender, addressSender));
         pack.setReceiver(setData(receiver, addressReceiver));
         pack.setClient(client);
+        pack.setDeliveredStatus(DeliveryStatus.toPickUp.toString());
         pack.setDimensions(dimension);
         pack.setLocation(LocationStatus.DoOdebraniaOdNadawcy.toString());
         pack.setTelephone(telephone);
@@ -150,6 +152,8 @@ public class ClientFunc {
             session.beginTransaction();
             id = Long.parseLong(session.save(pack).toString());
             session.getTransaction().commit(); 
+            //session.close();
+            //session = DatabaseInit.getInstance().getSession(SessionType.Client);
             return id;
         }
         catch(Exception ex)
