@@ -44,7 +44,9 @@ public class ClientFunc {
     {
         this.client = client;
         this.session = DatabaseInit.getInstance().getSession(SessionType.Client);
+        
     }
+    
     
     public void setClient(Client client)
     {
@@ -89,17 +91,20 @@ public class ClientFunc {
         q.setParameter("fn", data.getFirstName());
         q.setParameter("ln", data.getLastName());
         
-        Data dataOut =  (Data)q.uniqueResult();
+        List<Data> dataOut =  q.list();
         session.getTransaction().commit();
         
         if(dataOut != null)
         {
-            if (!dataOut.getAddress().equals(address))
+            for(Data current : dataOut)
             {
-                return null;
+                if (current.getAddress().equals(address))
+                {
+                    return current;
+                }
             }
         }
-        return dataOut;
+        return null;
     }
     
     protected Data setData(Data data, Address address)
@@ -154,6 +159,57 @@ public class ClientFunc {
         }
         
         
+    }
+    
+    public int cancelSendPackage(int id)
+    {
+        session.beginTransaction();
+        Query q = session.createQuery("DELETE Package WHERE id = :id");
+        q.setParameter("id", id);
+        
+        int result  = q.executeUpdate();
+        session.getTransaction().commit();
+        
+        return result;
+    }
+    
+    public int updateData(int id, Data sender, Data receiver, int telephoneNumber)
+    {
+       
+        
+        Data newDataSnder = setData(sender, sender.getAddress());
+        
+        Data newDataReceiver = setData(receiver, receiver.getAddress());
+        
+        session.beginTransaction();
+        
+        Query q = session.createQuery("FROM Package WHERE id = :id");
+        q.setParameter("id", id);
+        
+        Package pack = (Package)q.uniqueResult();
+        
+        if(!pack.getSender().equals(newDataSnder))
+        {
+            session.save(newDataSnder);
+        }
+        
+        if(!pack.getReceiver().equals(newDataReceiver))
+        {
+            session.save(newDataReceiver);
+        }
+        
+        q  = session.createQuery("UPDATE Package SET sender = :s, receiver = :r, telephone = :t WHERE id = :id");
+        q.setParameter("s",newDataSnder );
+        q.setParameter("r", newDataReceiver);
+        q.setParameter("t",telephoneNumber );
+        q.setParameter("id", id);
+        
+        int result = q.executeUpdate(); //TODO: usunac inta albo zrobic return
+        
+        session.getTransaction().commit();
+        //session.close();
+        //session = DatabaseInit.getInstance().getSession(SessionType.Client);
+        return result;
     }
     
     public String getPackageLocation(long packageNumber)

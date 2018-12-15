@@ -15,6 +15,7 @@ public class ClientHistory {
     int ID;
     int TelephoneNumber;
     String Location;
+    String DeliveredStatus;
     String senderFirstName;
     String senderLastName;
     String senderCity;
@@ -35,10 +36,12 @@ public class ClientHistory {
         
     }
 
-    public ClientHistory(int ID, int TelephoneNumber, String Location, String senderFirstName, String senderLastName, String senderCity, String SenderPostCode, String SenderStreet, String SenderHouseNumber, String SenderApartmentNumber, String ReceiverFirstName, String ReceiverLastName, String ReceiverCity, String ReceiverPostCode, String ReceiverStreet, String ReceiverHouseNumber, String ReceiverApartmentNumber) {
+    public ClientHistory(int ID_client, int ID, int TelephoneNumber, String Location, String DeliveredStatus, String senderFirstName, String senderLastName, String senderCity, String SenderPostCode, String SenderStreet, String SenderHouseNumber, String SenderApartmentNumber, String ReceiverFirstName, String ReceiverLastName, String ReceiverCity, String ReceiverPostCode, String ReceiverStreet, String ReceiverHouseNumber, String ReceiverApartmentNumber) {
+        this.ID_client = ID_client;
         this.ID = ID;
         this.TelephoneNumber = TelephoneNumber;
         this.Location = Location;
+        this.DeliveredStatus = DeliveredStatus;
         this.senderFirstName = senderFirstName;
         this.senderLastName = senderLastName;
         this.senderCity = senderCity;
@@ -53,6 +56,16 @@ public class ClientHistory {
         this.ReceiverStreet = ReceiverStreet;
         this.ReceiverHouseNumber = ReceiverHouseNumber;
         this.ReceiverApartmentNumber = ReceiverApartmentNumber;
+    }
+
+   
+
+    public String getDeliveredStatus() {
+        return DeliveredStatus;
+    }
+
+    public void setDeliveredStatus(String DeliveredStatus) {
+        this.DeliveredStatus = DeliveredStatus;
     }
     
   

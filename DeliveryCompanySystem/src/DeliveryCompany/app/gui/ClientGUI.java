@@ -9,6 +9,7 @@ import DeliveryCompany.app.enumerate.DeliveryStatus;
 import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.functionality.ClientFunc;
 import DeliveryCompany.app.functionality.CourierFunc;
+import DeliveryCompany.app.functionality.UserFunc;
 import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.Address;
 import DeliveryCompany.database.structure.Client;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.stream.LongStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -35,7 +37,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -43,6 +47,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -92,6 +97,7 @@ public class ClientGUI {
     private Label labelDimensionsHeight;
     private Label labelDimensionsDepht;
     private Label labelFormError;
+    private Label labelMyAccountError;
     
     private TextField textSenderFirstName;
     private TextField textSenderLastName;
@@ -342,14 +348,25 @@ public class ClientGUI {
         //textSenderApartmentNumber.setEditable(false);
         gridMyAccountContent.getChildren().add(textApartmentNumber);
         
+        labelMyAccountError = new Label();
+        GridPane.setConstraints(labelMyAccountError, 1, 8);
+        gridMyAccountContent.getChildren().add(labelMyAccountError);
+        
         buttonsubmitMyAccount = new Button("Save");
-        GridPane.setConstraints(buttonsubmitMyAccount, 1, 8);
+        GridPane.setConstraints(buttonsubmitMyAccount, 1, 9);
         gridMyAccountContent.getChildren().add(buttonsubmitMyAccount);
         buttonsubmitMyAccount.setOnAction( e -> {
             Data data =  clientFunc.changeData(new Data(textFirstName.getText(), textLastName.getText(), new Address(textHouseNumber.getText(), textApartmentNumber.getText(),textStreet.getText() , textPostCode.getText(), textCity.getText())));
             
             if(data != null)
+            {
                 this.client.setData(data);
+                labelMyAccountError.setText("sucess");
+            }
+            else
+            {
+                labelMyAccountError.setText("error");
+            }
         
         });
         
@@ -388,9 +405,79 @@ public class ClientGUI {
         listHistory = FXCollections.observableArrayList();
         listHistory.addAll(clientFunc.getAllSentPackage());
         
-        TableView sendingHistory = createTable(listHistory);
+        TableView tableSendingHistory = createTable(listHistory);
         
-        gridHistoryContent.getChildren().add(sendingHistory);
+        ContextMenu menu = new ContextMenu();
+        MenuItem menuEdit = new MenuItem("Edit data");
+        menuEdit.setOnAction(e -> {
+            if(((ClientHistory)tableSendingHistory.getSelectionModel().getSelectedItem()).getDeliveredStatus().equals(DeliveryStatus.toPickUp.toString()))
+            {
+                EditDataGUI edit = new  EditDataGUI((ClientHistory)tableSendingHistory.getSelectionModel().getSelectedItem(), window, clientFunc);
+                edit.Display();  
+                edit.editDataCallback = (data) -> {
+                    
+                    ObservableList<ClientHistory> allData, selectedData;
+        
+                    selectedData = tableSendingHistory.getSelectionModel().getSelectedItems();
+                    allData = tableSendingHistory.getItems();
+                    
+                    selectedData.forEach(allData::remove);
+                    
+                    tableSendingHistory.getItems().add(data);
+                };
+                
+            }
+            else 
+            {
+                MessageBox.Display("Package during transport");
+            }
+        });
+        menu.getItems().add(menuEdit);
+        
+        
+        MenuItem menuCancel = new MenuItem("Cancel package");
+        menuCancel.setOnAction(e -> {
+            if(((ClientHistory)tableSendingHistory.getSelectionModel().getSelectedItem()).getDeliveredStatus().equals(DeliveryStatus.toPickUp.toString()))
+            {
+                int result = clientFunc.cancelSendPackage(((ClientHistory)tableSendingHistory.getSelectionModel().getSelectedItem()).getID());
+                
+                if(result != 1)
+                {
+                    MessageBox.Display("Error during cancel send package");
+                }
+                
+                listHistory.removeAll(listHistory);
+                for(ClientHistory data : clientFunc.getAllSentPackage())
+                {
+                    listHistory.add(data);
+                    
+                }
+            }
+            else 
+            {
+                MessageBox.Display("Package during transport");
+            }
+        });
+        menu.getItems().add(menuCancel);
+        
+        
+        tableSendingHistory.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+           
+            @Override
+            public void handle(MouseEvent t)
+            {
+                if(t.getButton() == MouseButton.SECONDARY)
+                {
+                    menu.show(tableSendingHistory, t.getScreenX(),t.getScreenY());
+                }
+                else
+                {
+                    menu.hide();
+                }
+            }
+        });
+        
+        gridHistoryContent.getChildren().add(tableSendingHistory);
         
         return gridHistoryContent;
     }
@@ -971,14 +1058,14 @@ public class ClientGUI {
         {
             if(list.size() == 0)
             {
-                list.add(new ClientHistory(-1, -1,"", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+                list.add(new ClientHistory(-1 , -1 , -1 , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
                 clearList = true;
             }
             
             Field[] declaredFields = list.get(0).getClass().getDeclaredFields();
             
             for (Field declaredField : declaredFields) {
-                if (!declaredField.getName().contains("ID_")) {
+                if (!declaredField.getName().contains("ID_") || !declaredField.getName().contains("DeliveredStatus") ) {
                     TableColumn col = new TableColumn(declaredField.getName());
                     col.setMinWidth(Double.MIN_NORMAL);
                     col.setCellValueFactory(new PropertyValueFactory<>(declaredField.getName()));

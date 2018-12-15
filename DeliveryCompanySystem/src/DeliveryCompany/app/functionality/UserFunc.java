@@ -202,13 +202,15 @@ public class UserFunc {
         if(user == null)
             return null;
         
-        session.beginTransaction();
+        //session.beginTransaction();
         try
         {
             switch(UserType.valueOf(user.getUserType()))
             {
                 case Client:
                 {
+                    session = DatabaseInit.getInstance().getSession(SessionType.Client);
+                    session.beginTransaction();
                     Query q = session.createQuery("FROM Client WHERE user = :u");
                     q.setParameter("u", user);
                     Client obj = (Client)q.uniqueResult();
@@ -219,6 +221,8 @@ public class UserFunc {
                 }
                 case Courier:
                 {
+                    session = DatabaseInit.getInstance().getSession(SessionType.Courier);
+                    session.beginTransaction();
                     Query q = session.createQuery("FROM Courier WHERE user = :u");
                     q.setParameter("u", user);
                     Courier obj = (Courier)q.uniqueResult();
@@ -229,6 +233,8 @@ public class UserFunc {
                 }
                 case Storeman:
                 {
+                    session = DatabaseInit.getInstance().getSession(SessionType.Storeman);
+                    session.beginTransaction();
                     Query q = session.createQuery("FROM Storeman WHERE user = :u");
                     q.setParameter("u", user);
                     Storeman obj = (Storeman)q.uniqueResult();
@@ -239,7 +245,7 @@ public class UserFunc {
                 }
                 default:
                 {
-                    session.getTransaction().commit();
+                    //session.getTransaction().commit();
                 }
             }
         }

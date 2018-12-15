@@ -54,31 +54,36 @@ public class DatabaseInit {
         {
             case Admin:
             {
-                if(sessionObjAdmin == null)
+                closeSessionsWithout(SessionType.Admin);
+                if(sessionObjAdmin == null || !sessionObjAdmin.isOpen())
                     sessionObjAdmin = buildSession("hibernate_Admin.cfg.xml").openSession();
                 return sessionObjAdmin;
             }
             case Client:
             {
-                if(sessionObjClient == null)
+                closeSessionsWithout(SessionType.Client);
+                if(sessionObjClient == null || !sessionObjClient.isOpen())
                     sessionObjClient = buildSession("hibernate_Client.cfg.xml").openSession();
                 return sessionObjClient;
             }
             case Courier:
             {
-                if(sessionObjCourier == null)
+                closeSessionsWithout(SessionType.Courier);
+                if(sessionObjCourier == null || !sessionObjCourier.isOpen())
                     sessionObjCourier = buildSession("hibernate_Courier.cfg.xml").openSession();
                 return sessionObjCourier;
             }
             case Login:
             {
-                if(sessionObjLogin == null)
+                closeSessionsWithout(SessionType.Login);
+                if(sessionObjLogin == null || !sessionObjLogin.isOpen())
                     sessionObjLogin = buildSession("hibernate_Login.cfg.xml").openSession();
                 return sessionObjLogin;
             }
             case Storeman:
             {
-                if(sessionObjStoreman == null)
+                closeSessionsWithout(SessionType.Storeman);
+                if(sessionObjStoreman == null || !sessionObjStoreman.isOpen())
                     sessionObjStoreman = buildSession("hibernate_Storeman.cfg.xml").openSession();
                 return sessionObjStoreman;
             }
@@ -87,6 +92,29 @@ public class DatabaseInit {
                 return null;
             }
         }
+    }
+    
+    private void closeSessionsWithout(SessionType type)
+    {
+        if(sessionObjAdmin != null)
+            if(sessionObjAdmin.isOpen() && type != SessionType.Admin)
+                sessionObjAdmin.close();
+        
+        if(sessionObjClient != null)
+            if(sessionObjClient.isOpen() && type != SessionType.Client)
+                sessionObjClient.close();
+        
+        if(sessionObjCourier != null)
+            if(sessionObjCourier.isOpen() && type != SessionType.Courier)
+                sessionObjCourier.close();
+        
+        if(sessionObjLogin != null)
+            if(sessionObjLogin.isOpen() && type != SessionType.Login)
+                sessionObjLogin.close();
+        
+        if(sessionObjStoreman != null)
+            if(sessionObjStoreman.isOpen() && type != SessionType.Storeman)
+                sessionObjStoreman.close();
     }
     
     /*

@@ -50,6 +50,7 @@ public class AdminGUI {
     TextField textConfirmPassword;
     
     ComboBox comboBoxUserType;
+   
     
     Button buttonAdd;
     
