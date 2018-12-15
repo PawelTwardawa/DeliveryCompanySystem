@@ -43,6 +43,7 @@ public class AdminGUI {
     Label labelPassword;
     Label labelConfirmPassword;
     Label labelUserType;
+    Label labelError;
     
     TextField textUsername;
     TextField textPassword;
@@ -65,9 +66,27 @@ public class AdminGUI {
         
         window.setTitle( "ADMIN");
         
+        TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         
-        //Set Scene
-        window.setScene(new Scene(adminContent(), 1300, 800)); 
+        Tab pack = new Tab("Add account");
+        pack.setContent(adminContent());
+        tabPane.getTabs().add(pack);
+        
+        Tab tabLogOut = new Tab("Log out");
+        tabLogOut.setOnSelectionChanged( e -> {
+            if(tabLogOut.isSelected())
+            {
+                this.window.close();
+                LoginRegistry login = new LoginRegistry();
+                login.Display();
+            }
+        });
+        tabPane.getTabs().add(tabLogOut);
+        
+        
+        
+        window.setScene(new Scene(tabPane, 1300, 800)); 
         window.show();
     }
     
@@ -119,8 +138,12 @@ public class AdminGUI {
         GridPane.setConstraints(comboBoxUserType, 1, 3);
         grid.getChildren().add(comboBoxUserType);
         
+        labelError = new Label();
+        GridPane.setConstraints(labelError, 1, 4);
+        grid.getChildren().add(labelError);
+        
         buttonAdd = new Button("Add user");
-        GridPane.setConstraints(buttonAdd, 1, 4);
+        GridPane.setConstraints(buttonAdd, 1, 5);
         GridPane.setHalignment(buttonAdd, HPos.RIGHT);
         grid.getChildren().add(buttonAdd);
         buttonAdd.setOnAction(e -> {
@@ -138,7 +161,7 @@ public class AdminGUI {
             {
                 UserFunc userFunc = new UserFunc();
                 
-                userFunc.Registry(textUsername.getText(), textPassword.getText(), "", UserType.valueOf(comboBoxUserType.getValue().toString()));
+                labelError.setText(userFunc.Registry(textUsername.getText(), textPassword.getText(), "", UserType.valueOf(comboBoxUserType.getValue().toString())).toString());
             
             }
 

@@ -108,6 +108,11 @@ public class LoginRegistry extends Application{
         
    }
     
+    public void Display()
+    {
+        Login(window, "");
+    }
+    
     private void Login(Stage window,String username)
     {
         window.setTitle("Login");
@@ -183,7 +188,7 @@ public class LoginRegistry extends Application{
                         case Client:
                         {
                             ClientGUI clientGUI = new ClientGUI(userFunc.getMembership(user));
-                            window.close();
+                            window.close();;
                             clientGUI.Display();
                             break;
                         }

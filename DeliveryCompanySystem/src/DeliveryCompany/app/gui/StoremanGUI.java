@@ -108,10 +108,27 @@ public class StoremanGUI {
         
         window.setTitle( storeman.getUser().getUserType() + ": " + storeman.getUser().getUsername());
         
+        TabPane tabPane = new TabPane();
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        
+        Tab pack = new Tab("Package");
+        pack.setContent(storemanContent());
+        tabPane.getTabs().add(pack);
+        
+        Tab tabLogOut = new Tab("Log out");
+        tabLogOut.setOnSelectionChanged( e -> {
+            if(tabLogOut.isSelected())
+            {
+                this.window.close();
+                LoginRegistry login = new LoginRegistry();
+                login.Display();
+            }
+        });
+        tabPane.getTabs().add(tabLogOut);
         
         
         
-        Scene scene = new Scene(storemanContent(), 1300, 800);
+        Scene scene = new Scene(tabPane, 1300, 800);
 
         
         //Set Scene

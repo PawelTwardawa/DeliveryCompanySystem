@@ -153,6 +153,17 @@ public class CourierGUI {
         //Add tabs to TabPane
         tabPane.getTabs().add(tabForDelivery);
         tabPane.getTabs().add(tabUndelivered);
+        
+        Tab tabLogOut = new Tab("Log out");
+        tabLogOut.setOnSelectionChanged( e -> {
+            if(tabLogOut.isSelected())
+            {
+                this.window.close();
+                LoginRegistry login = new LoginRegistry();
+                login.Display();
+            }
+        });
+        tabPane.getTabs().add(tabLogOut);
          
         //Create scene
         //Scene scene = new Scene(grid, 1300, 800);

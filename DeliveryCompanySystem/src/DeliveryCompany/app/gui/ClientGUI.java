@@ -224,6 +224,10 @@ public class ClientGUI {
         //tabNew.setContent(newPackageContent());
         tabFollow.setOnSelectionChanged(e -> {
             System.out.println("DeliveryCompany.app.gui.ClientGUI.Display()");
+            if(tabFollow.isSelected())
+            {
+                System.out.println("DeliveryCompany.app.gui.ClientGUI.Display()");
+            }
         });
         tabPane.getTabs().add(tabFollow);
         
@@ -245,6 +249,18 @@ public class ClientGUI {
             System.out.println("DeliveryCompany.app.gui.ClientGUI.Display()");
         });
         tabPane.getTabs().add(tabMyAccount);
+        
+        
+        Tab tabLogOut = new Tab("Log out");
+        tabLogOut.setOnSelectionChanged( e -> {
+            if(tabLogOut.isSelected())
+            {
+                this.window.close();
+                LoginRegistry login = new LoginRegistry();
+                login.Display();
+            }
+        });
+        tabPane.getTabs().add(tabLogOut);
         
         
         //Set Scene
