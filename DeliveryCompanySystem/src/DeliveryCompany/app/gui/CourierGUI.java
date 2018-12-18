@@ -117,7 +117,7 @@ public class CourierGUI {
         transportedPackage.addAll(courierFunc.getTransportedPackage(null));
         
         //Table view
-        TableView tableForDelivery = createTable(transportedPackage);
+        TableView<CourierData> tableForDelivery = createTable(transportedPackage);
         tableForDelivery.setOnMouseClicked((event) -> {
             selectedRow(tableForDelivery);
         });
@@ -174,7 +174,7 @@ public class CourierGUI {
         window.show();
     }
     
-    private GridPane createDetails(TableView tableForDelivery, TableView tableUndelivered)
+    private GridPane createDetails(TableView<CourierData> tableForDelivery, TableView tableUndelivered)
     {
         //GridPane gridDelivered
         GridPane gridDelivered = new GridPane();
@@ -282,8 +282,9 @@ public class CourierGUI {
         return gridDelivered;
     }
     
-    private void buttonConfirmDetails(TableView tableForDelivery, TableView tableUndelivered)
+    private void buttonConfirmDetails(TableView<CourierData> tableForDelivery, TableView tableUndelivered)
     {
+        @SuppressWarnings("unchecked")
         ObservableList<CourierData> allData, selectedData;
         
         selectedData = tableForDelivery.getSelectionModel().getSelectedItems();
@@ -357,11 +358,11 @@ public class CourierGUI {
         inputApartmentNumber.setText(((CourierData)selectedItem.get(0)).getReceiverApartmentNumber());
     }
     
-    private TableView createTable(ObservableList list)
+    private TableView<CourierData> createTable(ObservableList<CourierData> list)
     {
         boolean clearList = false;
         
-        TableView table = new TableView();
+        TableView<CourierData> table = new TableView<>();
         table.prefWidthProperty().bind(window.widthProperty());
         table.prefHeightProperty().bind(window.heightProperty());
         table.setEditable(false);
@@ -380,7 +381,7 @@ public class CourierGUI {
             
             for (Field declaredField : declaredFields) {
                 if (!declaredField.getName().contains("ID_")) {
-                    TableColumn col = new TableColumn(declaredField.getName());
+                    TableColumn<CourierData, String> col = new TableColumn<>(declaredField.getName());
                     col.setMinWidth(Double.MIN_NORMAL);
                     col.setCellValueFactory(new PropertyValueFactory<>(declaredField.getName()));
                     table.getColumns().add(col);

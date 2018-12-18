@@ -8,9 +8,34 @@ package DeliveryCompany.app.gui;
 import DeliveryCompany.app.enumerate.RegisterStatus;
 import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.enumerate.UserType;
+import DeliveryCompany.app.enumerate.DeliveryStatus;
+import DeliveryCompany.app.enumerate.LocationStatus;
 import DeliveryCompany.app.functionality.UserFunc;
+import DeliveryCompany.app.functionality.ClientFunc;
+import DeliveryCompany.app.functionality.CourierFunc;
+import DeliveryCompany.app.functionality.StoremanFunc;
 import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.User;
+import DeliveryCompany.database.structure.Address;
+import DeliveryCompany.database.structure.Client;
+import DeliveryCompany.database.structure.ClientHistory;
+import DeliveryCompany.database.structure.Courier;
+import DeliveryCompany.database.structure.CourierData;
+import DeliveryCompany.database.structure.Data;
+import DeliveryCompany.database.structure.Dimensions;
+import DeliveryCompany.database.structure.Email;
+import DeliveryCompany.database.structure.Package;
+import DeliveryCompany.database.structure.Storeman;
+import DeliveryCompany.database.structure.StoremanData;
+
+import DeliveryCompany.app.gui.AdminGUI;
+import DeliveryCompany.app.gui.ClientGUI;
+import DeliveryCompany.app.gui.CourierGUI;
+import DeliveryCompany.app.gui.EditDataGUI;
+import DeliveryCompany.app.gui.MessageBox;
+import DeliveryCompany.app.gui.StoremanGUI;
+
+
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +51,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -41,6 +68,17 @@ public class LoginRegistry extends Application{
     static Stage window;
     //Stage window;
     
+    
+    //login
+    Label labelUserError;
+    Label labelUsername;
+    Label labelPassword;
+    
+    TextField inputUsername;
+    TextField inputPassword;
+    
+    Button buttonLogin;
+    Button buttonRegistry;
     
     public static void main(String[] args)
     {
@@ -123,33 +161,73 @@ public class LoginRegistry extends Application{
         grid.setHgap(10);
         
         //Label username error
-        Label labelUserError = new Label("");
+        labelUserError = new Label("");
         GridPane.setConstraints(labelUserError, 1, 0 , 2, 1);
         
         //Label username
-        Label labelUsername = new Label("Username");
+        labelUsername = new Label("Username");
         GridPane.setConstraints(labelUsername, 0, 1);
         
         //Input username
-        TextField inputUsername = new TextField();//(username);
+        inputUsername = new TextField();//(username);
         GridPane.setConstraints(inputUsername, 1,1, 2, 1);
+        inputUsername.setOnKeyPressed(((event) -> {
+            pressEnter(event);
+        }));
         
         
         //Label password
-        Label labelPassword = new Label("Password");
+        labelPassword = new Label("Password");
         GridPane.setConstraints(labelPassword, 0, 2);
         
         //Input password
-        TextField inputPassword = new PasswordField();
+        inputPassword = new PasswordField();
         GridPane.setConstraints(inputPassword, 1,2, 2, 1);
+        inputPassword.setOnKeyPressed(((event) -> {
+            pressEnter(event);
+        }));
           
         //Button login
-        Button buttonLogin = new Button("Login");
+        buttonLogin = new Button("Login");
         GridPane.setConstraints(buttonLogin, 1, 3);
         buttonLogin.setOnAction(e -> {
             //TODO: logowanie
 
-            if(inputUsername.getText().equals(""))
+            loginSubmit();
+                
+        });
+        
+        //Button registry
+        buttonRegistry = new Button("Registry");
+        GridPane.setConstraints(buttonRegistry, 2, 3);
+        buttonRegistry.setOnAction(e -> {
+            Registry(window, inputUsername.getText());
+        });
+        
+        
+        grid.getChildren().addAll(labelUserError, labelUsername, inputUsername, labelPassword, inputPassword, buttonLogin, buttonRegistry);
+        
+        
+        //Scene login
+        //Scene sceneLogin = new Scene(grid, 250, 150); 
+        Scene scene = new Scene(grid, 250, 150);
+        //Scene scene = new Scene(grid, Screen.getPrimary().getBounds().getWidth(), grid.getHeight());
+        window.setScene(scene); 
+        window.show();
+        
+    }
+    
+    private void pressEnter(KeyEvent e)
+    {
+        if(e.getCode().equals(KeyCode.ENTER))
+        {
+            loginSubmit();
+        }
+    }
+    
+    private void loginSubmit()
+    {
+        if(inputUsername.getText().equals(""))
             {
                 labelUserError.setText("Empty username");
                 return;
@@ -187,21 +265,21 @@ public class LoginRegistry extends Application{
                     {
                         case Client:
                         {
-                            ClientGUI clientGUI = new ClientGUI(userFunc.getMembership(user));
+                            ClientGUI clientGUI = new ClientGUI((Client)userFunc.getMembership(user));
                             window.close();;
                             clientGUI.Display();
                             break;
                         }
                         case Courier:
                         {
-                            CourierGUI courierGUI = new CourierGUI(userFunc.getMembership(user));
+                            CourierGUI courierGUI = new CourierGUI((Courier)userFunc.getMembership(user));
                             window.close();
                             courierGUI.Display();
                             break;
                         }
                         case Storeman:
                         {
-                            StoremanGUI storemanGUI = new StoremanGUI(userFunc.getMembership(user));
+                            StoremanGUI storemanGUI = new StoremanGUI((Storeman)userFunc.getMembership(user));
                             window.close();
                             storemanGUI.Display();
                             break;
@@ -221,27 +299,6 @@ public class LoginRegistry extends Application{
             {
                 System.err.println(ex.getStackTrace());
             }
-                
-        });
-        
-        //Button registry
-        Button buttonRegistry = new Button("Registry");
-        GridPane.setConstraints(buttonRegistry, 2, 3);
-        buttonRegistry.setOnAction(e -> {
-            Registry(window, inputUsername.getText());
-        });
-        
-        
-        grid.getChildren().addAll(labelUserError, labelUsername, inputUsername, labelPassword, inputPassword, buttonLogin, buttonRegistry);
-        
-        
-        //Scene login
-        //Scene sceneLogin = new Scene(grid, 250, 150); 
-        Scene scene = new Scene(grid, 250, 150);
-        //Scene scene = new Scene(grid, Screen.getPrimary().getBounds().getWidth(), grid.getHeight());
-        window.setScene(scene); 
-        window.show();
-        
     }
     
     private void Registry(Stage window, String username)

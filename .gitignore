@@ -24,3 +24,5 @@ hs_err_pid*
 /DeliveryCompanySystem/nbproject/private/
 /DeliveryCompanySystem/build/
 /DeliveryCompanySystem/dist/
+/DeployTest/nbproject/private/
+/DeployTest/build/

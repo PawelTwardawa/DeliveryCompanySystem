@@ -145,7 +145,7 @@ public class StoremanGUI {
         
         listPackage = FXCollections.observableArrayList();
         listPackage.addAll(storemanFunc.getPackageInWarehouse());
-        TableView tablePackage = createTable(listPackage);
+        TableView<StoremanData> tablePackage = createTable(listPackage);
         GridPane.setConstraints(tablePackage, 0, 0);
         tablePackage.setOnMouseClicked(e -> {
             selectedRow(tablePackage);
@@ -162,7 +162,7 @@ public class StoremanGUI {
         return gridContent;
     }
     
-    private GridPane createDetails(TableView tablePackage)
+    private GridPane createDetails(TableView<StoremanData> tablePackage)
     {
         //GridPane gridDelivered
         GridPane gridDelivered = new GridPane();
@@ -272,9 +272,8 @@ public class StoremanGUI {
         return gridDelivered;
     }
     
-    private void buttonConfirm(TableView tablePackage)
+    private void buttonConfirm(TableView<StoremanData> tablePackage)
     {
-        
         ObservableList<StoremanData> allData, selectedData;
         
         selectedData = tablePackage.getSelectionModel().getSelectedItems();
@@ -324,11 +323,11 @@ public class StoremanGUI {
 
     }
     
-    private TableView createTable(ObservableList list)
+    private TableView<StoremanData> createTable(ObservableList<StoremanData> list)
     {
         boolean clearList = false;
         
-        TableView table = new TableView();
+        TableView<StoremanData> table = new TableView<>();
         table.prefWidthProperty().bind(window.widthProperty());
         table.prefHeightProperty().bind(window.heightProperty());
         table.setEditable(false);
@@ -347,7 +346,7 @@ public class StoremanGUI {
             
             for (Field declaredField : declaredFields) {
                 if (!declaredField.getName().contains("DeliveredStatus")) {
-                    TableColumn col = new TableColumn(declaredField.getName());
+                    TableColumn<StoremanData, String> col = new TableColumn<>(declaredField.getName());
                     col.setMinWidth(Double.MIN_NORMAL);
                     col.setCellValueFactory(new PropertyValueFactory<>(declaredField.getName()));
                     table.getColumns().add(col);

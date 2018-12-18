@@ -49,7 +49,7 @@ public class AdminGUI {
     TextField textPassword;
     TextField textConfirmPassword;
     
-    ComboBox comboBoxUserType;
+    ComboBox<UserType> comboBoxUserType;
    
     
     Button buttonAdd;
@@ -134,7 +134,8 @@ public class AdminGUI {
         GridPane.setConstraints(labelPassword, 0, 3);
         grid.getChildren().add(labelPassword);
         
-        comboBoxUserType = new ComboBox();
+        
+        comboBoxUserType = new ComboBox<>();
         comboBoxUserType.getItems().addAll(UserType.Courier, UserType.Storeman);
         GridPane.setConstraints(comboBoxUserType, 1, 3);
         grid.getChildren().add(comboBoxUserType);

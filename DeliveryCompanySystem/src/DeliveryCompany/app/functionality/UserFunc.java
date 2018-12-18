@@ -13,6 +13,7 @@ import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.Client;
 import DeliveryCompany.database.structure.Courier;
 import DeliveryCompany.database.structure.Email;
+import DeliveryCompany.database.structure.Membership;
 import DeliveryCompany.database.structure.Storeman;
 import DeliveryCompany.database.structure.User;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
@@ -65,8 +66,6 @@ public class UserFunc {
     
     public User Login(String username, String password) throws NoSuchAlgorithmException
     {
-        //getSession();
-        
         session.beginTransaction();
         
         Query q = session.createQuery("FROM User WHERE Username = :un AND Password = :pa");
@@ -75,7 +74,6 @@ public class UserFunc {
         
         User user =  (User)q.uniqueResult();
         
-
         session.getTransaction().commit();
         
         return user;
@@ -83,8 +81,6 @@ public class UserFunc {
     
     public RegisterStatus Registry(String username, String password, String email, UserType type)// throws Exception
     {
-        //getSession();
-
         RegisterStatus status = RegisterStatus.Success;
         
         session.beginTransaction();
@@ -95,8 +91,6 @@ public class UserFunc {
             q = session.createQuery("FROM Email WHERE email = :e");
             q.setParameter("e", email);
             emailExist = (Email)q.uniqueResult();
-
-            
         }
         
         q = session.createQuery("FROM User WHERE Username = :u");
@@ -128,51 +122,6 @@ public class UserFunc {
         session.getTransaction().commit(); 
         
         return RegisterStatus.Success;
-        
-        /*
-        RegisterStatus status = RegisterStatus.Success;
-        
-        Email emailObj = new Email();
-        emailObj.setEmail(email);
-        
-        User userObj = new User();
-        userObj.setID_email(emailObj);
-        userObj.setUsername(username);
-        userObj.setPassword(getSecurePassword(password));
-        userObj.setUserType(type.toString());
-        try
-        {
-            
-            session.beginTransaction();
-            session.save(userObj);
-            session.getTransaction().commit(); 
-            //session.getTransaction().rollback();
-            
-        }
-        catch(ConstraintViolationException ex)
-        {
-            //session.getTransaction().rollback();
-            
-            if(ex.getCause().toString().contains(email))
-                //status = RegisterStatus.EmailExists;
-                return RegisterStatus.EmailExists;
-            else if (ex.getCause().toString().contains(username))
-                //status = RegisterStatus.UsernameExists;
-                return RegisterStatus.UsernameExists;
-            //else 
-                //throw new Exception();
-            
-        }
-        finally
-        {
-            //session.getTransaction().commit();
-            //session.getTransaction().rollback();
-            //System.err.println("");
-        }
-        
-        return RegisterStatus.Success;
-        //return status;
-*/
     }
     
     //TODO: zrobic to lepiej
@@ -197,7 +146,8 @@ public class UserFunc {
         return generatedPassword;
     }
     
-    public <T> T getMembership(User user)
+    //public <T> T getMembership(User user)
+    public Membership getMembership(User user)
     {
         if(user == null)
             return null;
@@ -213,11 +163,12 @@ public class UserFunc {
                     session.beginTransaction();
                     Query q = session.createQuery("FROM Client WHERE user = :u");
                     q.setParameter("u", user);
+                    @SuppressWarnings("unchecked")
                     Client obj = (Client)q.uniqueResult();
-
+                    
                     session.getTransaction().commit();
-
-                    return (T) obj;
+                    
+                    return /*(T)*/ obj;
                 }
                 case Courier:
                 {
@@ -225,11 +176,12 @@ public class UserFunc {
                     session.beginTransaction();
                     Query q = session.createQuery("FROM Courier WHERE user = :u");
                     q.setParameter("u", user);
+                    @SuppressWarnings("unchecked")
                     Courier obj = (Courier)q.uniqueResult();
 
                     session.getTransaction().commit();
 
-                    return (T) obj;
+                    return  obj;
                 }
                 case Storeman:
                 {
@@ -237,11 +189,12 @@ public class UserFunc {
                     session.beginTransaction();
                     Query q = session.createQuery("FROM Storeman WHERE user = :u");
                     q.setParameter("u", user);
+                    @SuppressWarnings("unchecked")
                     Storeman obj = (Storeman)q.uniqueResult();
 
                     session.getTransaction().commit();
 
-                    return (T) obj;
+                    return obj;
                 }
                 default:
                 {

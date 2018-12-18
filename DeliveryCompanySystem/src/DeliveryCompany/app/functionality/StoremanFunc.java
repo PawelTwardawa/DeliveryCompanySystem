@@ -21,13 +21,12 @@ import org.hibernate.Session;
  * @author Paweł
  */
 //TODO: zrobic to inaczej
-public class StoremanFunc extends ClientFunc{
+public class StoremanFunc{
     
     private Storeman storeman;
-    Session session;
+    private Session session;
     
     public StoremanFunc(Storeman storeman) {
-        super(null);
         this.storeman = storeman;
         this.session = DatabaseInit.getInstance().getSession(SessionType.Storeman);
     }
@@ -38,8 +37,8 @@ public class StoremanFunc extends ClientFunc{
         Courier courier = targetCourier(data);
         session.beginTransaction();
         
-        Query q = session.createQuery("UPDATE Package SET curier = :c, DeliveredStatus =:s  WHERE id = :id");
-        q.setParameter("c", courier);
+        Query q = session.createQuery("UPDATE StoremanData SET ID_courier = :c, DeliveredStatus =:s  WHERE ID = :id");
+        q.setParameter("c", courier.getId());
         q.setParameter("s", DeliveryStatus.toDelivery.toString());
         q.setParameter("id", data.getID());
         
@@ -57,6 +56,7 @@ public class StoremanFunc extends ClientFunc{
         Query q = session.createQuery("FROM StoremanData WHERE DeliveredStatus = :s");
         q.setParameter("s", DeliveryStatus.inWarehouse.toString());
         
+        @SuppressWarnings("unchecked")
         List<StoremanData> data = q.list();
         session.getTransaction().commit(); 
         
@@ -69,6 +69,7 @@ public class StoremanFunc extends ClientFunc{
         
         Query q = session.createQuery("FROM Courier");
         
+        @SuppressWarnings("unchecked")
         List<Courier> couriers = q.list();
         session.getTransaction().commit(); 
         

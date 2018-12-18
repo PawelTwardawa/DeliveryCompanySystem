@@ -46,7 +46,7 @@ public class CourierFuncTest {
         Mockito.when(session.getTransaction()).thenReturn(Mockito.mock(Transaction.class));
         
     }
-    
+    /*
     @Test
     public void setDeliveryStatusTestDelivered()
     {
@@ -134,7 +134,7 @@ public class CourierFuncTest {
         Assert.assertEquals(statCap.getAllValues().get(1), LocationStatus.NieOdebranoOdNadawcy.toString());
         
     }
-
+*/
     @Test
     public void setDeliveryStatusTestUnknowDeliveredStatus()
     {

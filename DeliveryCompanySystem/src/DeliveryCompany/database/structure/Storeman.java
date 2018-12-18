@@ -9,7 +9,7 @@ package DeliveryCompany.database.structure;
  *
  * @author Paweł
  */
-public class Storeman {
+public class Storeman extends Membership{
     private int id;
     //private int username;
     
