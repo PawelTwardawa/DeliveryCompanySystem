@@ -913,13 +913,13 @@ public class ClientGUI {
         
         if(textDimensionsWidth.getText().equals(""))
             return "Empty dimensions width";
-        
+        /*
         if(textReceiverApartmentNumber.getText().equals(""))
             return "Empty receiver apartment number";
         
         if(textReceiverApartmentNumber.getText().length() > 4)
             return "Too long receiver apartment number";
-        
+        */
         if(textReceiverCity.getText().equals(""))
             return "Empty receiver city";
         
@@ -952,13 +952,13 @@ public class ClientGUI {
         
         if(textReceiverHouseNumber.getText().length() > 5)
             return "Too long receiver house number";
-        
+        /*
         if(textSenderApartmentNumber.getText().equals(""))
             return "Empty sender apartment number";
         
         if(textSenderApartmentNumber.getText().length() > 4)
             return "Too long sender apartment number";
-        
+        */
         if(textSenderHouseNumber.getText().equals(""))
             return "Empty sender house number";
         

@@ -51,6 +51,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -66,6 +68,17 @@ public class LoginRegistry extends Application{
     static Stage window;
     //Stage window;
     
+    
+    //login
+    Label labelUserError;
+    Label labelUsername;
+    Label labelPassword;
+    
+    TextField inputUsername;
+    TextField inputPassword;
+    
+    Button buttonLogin;
+    Button buttonRegistry;
     
     public static void main(String[] args)
     {
@@ -148,33 +161,73 @@ public class LoginRegistry extends Application{
         grid.setHgap(10);
         
         //Label username error
-        Label labelUserError = new Label("");
+        labelUserError = new Label("");
         GridPane.setConstraints(labelUserError, 1, 0 , 2, 1);
         
         //Label username
-        Label labelUsername = new Label("Username");
+        labelUsername = new Label("Username");
         GridPane.setConstraints(labelUsername, 0, 1);
         
         //Input username
-        TextField inputUsername = new TextField();//(username);
+        inputUsername = new TextField();//(username);
         GridPane.setConstraints(inputUsername, 1,1, 2, 1);
+        inputUsername.setOnKeyPressed(((event) -> {
+            pressEnter(event);
+        }));
         
         
         //Label password
-        Label labelPassword = new Label("Password");
+        labelPassword = new Label("Password");
         GridPane.setConstraints(labelPassword, 0, 2);
         
         //Input password
-        TextField inputPassword = new PasswordField();
+        inputPassword = new PasswordField();
         GridPane.setConstraints(inputPassword, 1,2, 2, 1);
+        inputPassword.setOnKeyPressed(((event) -> {
+            pressEnter(event);
+        }));
           
         //Button login
-        Button buttonLogin = new Button("Login");
+        buttonLogin = new Button("Login");
         GridPane.setConstraints(buttonLogin, 1, 3);
         buttonLogin.setOnAction(e -> {
             //TODO: logowanie
 
-            if(inputUsername.getText().equals(""))
+            loginSubmit();
+                
+        });
+        
+        //Button registry
+        buttonRegistry = new Button("Registry");
+        GridPane.setConstraints(buttonRegistry, 2, 3);
+        buttonRegistry.setOnAction(e -> {
+            Registry(window, inputUsername.getText());
+        });
+        
+        
+        grid.getChildren().addAll(labelUserError, labelUsername, inputUsername, labelPassword, inputPassword, buttonLogin, buttonRegistry);
+        
+        
+        //Scene login
+        //Scene sceneLogin = new Scene(grid, 250, 150); 
+        Scene scene = new Scene(grid, 250, 150);
+        //Scene scene = new Scene(grid, Screen.getPrimary().getBounds().getWidth(), grid.getHeight());
+        window.setScene(scene); 
+        window.show();
+        
+    }
+    
+    private void pressEnter(KeyEvent e)
+    {
+        if(e.getCode().equals(KeyCode.ENTER))
+        {
+            loginSubmit();
+        }
+    }
+    
+    private void loginSubmit()
+    {
+        if(inputUsername.getText().equals(""))
             {
                 labelUserError.setText("Empty username");
                 return;
@@ -246,27 +299,6 @@ public class LoginRegistry extends Application{
             {
                 System.err.println(ex.getStackTrace());
             }
-                
-        });
-        
-        //Button registry
-        Button buttonRegistry = new Button("Registry");
-        GridPane.setConstraints(buttonRegistry, 2, 3);
-        buttonRegistry.setOnAction(e -> {
-            Registry(window, inputUsername.getText());
-        });
-        
-        
-        grid.getChildren().addAll(labelUserError, labelUsername, inputUsername, labelPassword, inputPassword, buttonLogin, buttonRegistry);
-        
-        
-        //Scene login
-        //Scene sceneLogin = new Scene(grid, 250, 150); 
-        Scene scene = new Scene(grid, 250, 150);
-        //Scene scene = new Scene(grid, Screen.getPrimary().getBounds().getWidth(), grid.getHeight());
-        window.setScene(scene); 
-        window.show();
-        
     }
     
     private void Registry(Stage window, String username)
