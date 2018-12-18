@@ -9,7 +9,7 @@ package DeliveryCompany.database.structure;
  *
  * @author Paweł
  */
-public class Client {
+public class Client extends Membership{
     private int id;
     //private String username;
     private User user;

@@ -7,6 +7,7 @@ package DeliveryCompany.app;
 
 
 import DeliveryCompany.app.enumerate.DeliveryStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.enumerate.UserType;
 import DeliveryCompany.app.functionality.ClientFunc;
 import DeliveryCompany.app.functionality.CourierFunc;
@@ -49,18 +50,22 @@ public class DeliveryCompanySystem {
         
         System.out.print("start");
         
-        /*
-        sessionObj = DatabaseInit.getInstance().getSession();
+        
+        //sessionObj = DatabaseInit.getInstance().getSession(SessionType.Client);
         //sessionObj.beginTransaction();
         
         UserFunc uf = new UserFunc();
-        //System.out.println(uf.Registry("anna", "password1234", "anna@email.com", UserType.Client));
+        for(int i = 0; i < 1000000; i++)
+        {
+            System.out.println(uf.Registry("username" + i, "pass", "email" + i +"@email.com", UserType.Client));
+        }
         
-        User user = uf.Login("adam", "password1234");
+        
+        //User user = uf.Login("adam", "password1234");
         
         
         
-        
+        /*
         System.out.println(((Client)uf.getMembership(user)).getUser().getUserType());
         
         System.out.println(user.getUsername());

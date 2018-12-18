@@ -8,9 +8,34 @@ package DeliveryCompany.app.gui;
 import DeliveryCompany.app.enumerate.RegisterStatus;
 import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.enumerate.UserType;
+import DeliveryCompany.app.enumerate.DeliveryStatus;
+import DeliveryCompany.app.enumerate.LocationStatus;
 import DeliveryCompany.app.functionality.UserFunc;
+import DeliveryCompany.app.functionality.ClientFunc;
+import DeliveryCompany.app.functionality.CourierFunc;
+import DeliveryCompany.app.functionality.StoremanFunc;
 import DeliveryCompany.database.init.DatabaseInit;
 import DeliveryCompany.database.structure.User;
+import DeliveryCompany.database.structure.Address;
+import DeliveryCompany.database.structure.Client;
+import DeliveryCompany.database.structure.ClientHistory;
+import DeliveryCompany.database.structure.Courier;
+import DeliveryCompany.database.structure.CourierData;
+import DeliveryCompany.database.structure.Data;
+import DeliveryCompany.database.structure.Dimensions;
+import DeliveryCompany.database.structure.Email;
+import DeliveryCompany.database.structure.Package;
+import DeliveryCompany.database.structure.Storeman;
+import DeliveryCompany.database.structure.StoremanData;
+
+import DeliveryCompany.app.gui.AdminGUI;
+import DeliveryCompany.app.gui.ClientGUI;
+import DeliveryCompany.app.gui.CourierGUI;
+import DeliveryCompany.app.gui.EditDataGUI;
+import DeliveryCompany.app.gui.MessageBox;
+import DeliveryCompany.app.gui.StoremanGUI;
+
+
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -187,21 +212,21 @@ public class LoginRegistry extends Application{
                     {
                         case Client:
                         {
-                            ClientGUI clientGUI = new ClientGUI(userFunc.getMembership(user));
+                            ClientGUI clientGUI = new ClientGUI((Client)userFunc.getMembership(user));
                             window.close();;
                             clientGUI.Display();
                             break;
                         }
                         case Courier:
                         {
-                            CourierGUI courierGUI = new CourierGUI(userFunc.getMembership(user));
+                            CourierGUI courierGUI = new CourierGUI((Courier)userFunc.getMembership(user));
                             window.close();
                             courierGUI.Display();
                             break;
                         }
                         case Storeman:
                         {
-                            StoremanGUI storemanGUI = new StoremanGUI(userFunc.getMembership(user));
+                            StoremanGUI storemanGUI = new StoremanGUI((Storeman)userFunc.getMembership(user));
                             window.close();
                             storemanGUI.Display();
                             break;

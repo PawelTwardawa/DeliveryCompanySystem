@@ -54,19 +54,19 @@ public class ClientFunc {
         this.client = client;
     }
     
-    protected Courier chooseCourier()
+    private Courier chooseCourier()
     {
        session.beginTransaction();
         
         Query q = session.createQuery("FROM Courier");
-        
-        List<Courier> couriers = q.list();
+        @SuppressWarnings("unchecked")
+        List<Courier> couriers = (List<Courier>)q.list();
         session.getTransaction().commit(); 
         
         return couriers.get(0);
     }
     
-    protected Address findAddress(Address address)
+    private Address findAddress(Address address)
     {
         session.beginTransaction();
         
@@ -79,19 +79,18 @@ public class ClientFunc {
         
         Address addr =  (Address)q.uniqueResult();
         
-        
         session.getTransaction().commit();
         return addr;
     }
     
-    protected Data findData(Data data, Address address)
+    private Data findData(Data data, Address address)
     {
         session.beginTransaction();
         
         Query q = session.createQuery("FROM Data WHERE firstName = :fn AND lastName = :ln");
         q.setParameter("fn", data.getFirstName());
         q.setParameter("ln", data.getLastName());
-        
+        @SuppressWarnings("unchecked")
         List<Data> dataOut =  q.list();
         session.getTransaction().commit();
         
@@ -108,7 +107,7 @@ public class ClientFunc {
         return null;
     }
     
-    protected Data setData(Data data, Address address)
+    private Data setData(Data data, Address address)
     {
         Data dataSender = findData(data, address);
         if(dataSender == null)
@@ -161,8 +160,6 @@ public class ClientFunc {
             System.err.println(ex.getMessage());
             return -1;
         }
-        
-        
     }
     
     public int cancelSendPackage(int id)
@@ -236,7 +233,7 @@ public class ClientFunc {
         
         Query q = session.createQuery("FROM ClientHistory WHERE ID_client = :c" );
         q.setParameter("c", client.getId());
-        
+        @SuppressWarnings("unchecked")
         List<ClientHistory> pack = q.list();
 
         session.getTransaction().commit();

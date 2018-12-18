@@ -36,7 +36,11 @@ public class DatabaseInit {
         return buildSession("hibernate_Admin.cfg.xml");
     }
     
-    //public static SessionFactory buildSession()
+    /***
+     * configuruje i nawiazuje polaczenia z baza danych o wskazanej konfiguracji
+     * @param conf plik z konfiguracja
+     * @return zwraca utowrzona sesje
+     */
     private SessionFactory buildSession(String conf)
     {
         Configuration configObj = new Configuration();
@@ -48,6 +52,11 @@ public class DatabaseInit {
         return SessionFactoryObj;
     }
     
+    /**
+     * odpowiada za utorzenie odpowiedniej sesji (zaleznie od typu zuytkownika) oraz otwarcie jej
+     * @param type okresla uzytkownika ktory ma polaczyc sie z baza
+     * @return zwraca sesje 
+     */
     public Session getSession(SessionType type)
     {
         switch(type)

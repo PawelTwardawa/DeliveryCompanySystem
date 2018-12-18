@@ -55,6 +55,7 @@ public class CourierFunc {
         
         //List<Package> pack = q.list();
         //List<CourierData> pack = q.list();
+        @SuppressWarnings("unchecked")
         List<CourierData> pack = q.list();
 
         session.getTransaction().commit();

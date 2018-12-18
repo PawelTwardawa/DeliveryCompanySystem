@@ -387,7 +387,7 @@ public class ClientGUI {
             if(data != null)
             {
                 this.client.setData(data);
-                labelMyAccountError.setText("sucess");
+                labelMyAccountError.setText("success");
             }
             else
             {
@@ -431,7 +431,7 @@ public class ClientGUI {
         listHistory = FXCollections.observableArrayList();
         listHistory.addAll(clientFunc.getAllSentPackage());
         
-        TableView tableSendingHistory = createTable(listHistory);
+        TableView<ClientHistory> tableSendingHistory = createTable(listHistory);
         
         ContextMenu menu = new ContextMenu();
         MenuItem menuEdit = new MenuItem("Edit data");
@@ -441,9 +441,8 @@ public class ClientGUI {
                 EditDataGUI edit = new  EditDataGUI((ClientHistory)tableSendingHistory.getSelectionModel().getSelectedItem(), window, clientFunc);
                 edit.Display();  
                 edit.editDataCallback = (data) -> {
-                    
                     ObservableList<ClientHistory> allData, selectedData;
-        
+                    
                     selectedData = tableSendingHistory.getSelectionModel().getSelectedItems();
                     allData = tableSendingHistory.getItems();
                     
@@ -1069,11 +1068,11 @@ public class ClientGUI {
         inputApartmentNumber.setText(((CourierData)selectedItem.get(0)).getReceiverApartmentNumber());
     }
     
-    private TableView createTable(ObservableList list)
+    private TableView<ClientHistory> createTable(ObservableList<ClientHistory> list)
     {
         boolean clearList = false;
         
-        TableView table = new TableView();
+        TableView<ClientHistory> table = new TableView<>();
         table.prefWidthProperty().bind(window.widthProperty());
         table.prefHeightProperty().bind(window.heightProperty());
         table.setEditable(false);
@@ -1084,6 +1083,7 @@ public class ClientGUI {
         {
             if(list.size() == 0)
             {
+                
                 list.add(new ClientHistory(-1 , -1 , -1 , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
                 clearList = true;
             }
@@ -1092,7 +1092,7 @@ public class ClientGUI {
             
             for (Field declaredField : declaredFields) {
                 if (!declaredField.getName().contains("ID_") || !declaredField.getName().contains("DeliveredStatus") ) {
-                    TableColumn col = new TableColumn(declaredField.getName());
+                    TableColumn<ClientHistory, String> col = new TableColumn<>(declaredField.getName()); //new TableColumn(declaredField.getName());
                     col.setMinWidth(Double.MIN_NORMAL);
                     col.setCellValueFactory(new PropertyValueFactory<>(declaredField.getName()));
                     table.getColumns().add(col);

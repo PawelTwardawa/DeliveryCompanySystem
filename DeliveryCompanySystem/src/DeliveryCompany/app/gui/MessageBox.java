@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import sun.font.GraphicComponent;
 
 /**
  *
