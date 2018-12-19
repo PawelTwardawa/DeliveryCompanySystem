@@ -83,8 +83,8 @@ public class LoginRegistry extends Application{
     public static void main(String[] args)
     {
 
-        
         DatabaseInit.getInstance().getSession(SessionType.Login);
+        
         launch(args);
         
         
@@ -99,7 +99,9 @@ public class LoginRegistry extends Application{
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
         
-        
+        //Loader.Display();
+        //DatabaseInit.getInstance().getSession(SessionType.Login);
+        //Loader.Hide();
         
         //window.setResizable(false);
         window.setAlwaysOnTop(true);
@@ -108,41 +110,8 @@ public class LoginRegistry extends Application{
             System.exit(0);
         });
         
-        //window.setTitle("Login");
-        
-             
-       
-        //window.setScene( Login(""));
-        //window.show();
         
         Login(window, "");
-        
-        /*
-        ///////////////////////////////////////////////////////
-        UserFunc userFunc = new UserFunc();
-        
-        
-        try {
-            //User user = userFunc.Login("kurier1", "password1234");
-            //User user = userFunc.Login("daniel", "pass");
-            User user = userFunc.Login("magazynier", "pass");
-            //StoremanGUI storemanGUI = new StoremanGUI(userFunc.getMembership(user));
-            //ClientGUI clientGUI = new ClientGUI(userFunc.getMembership(user));
-           //CourierGUI courierGUI = new CourierGUI(userFunc.getMembership(user));
-            window.close();
-            //clientGUI.Display();
-            //courierGUI.Display();
-            //clientGUI.Display();
-            //storemanGUI.Display();
-            AdminGUI adminGUI = new AdminGUI();
-            
-            adminGUI.Display();
-            
-        } catch (NoSuchAlgorithmException ex) {
-            System.err.println("NoSuchAlgorithmException");
-        }
-        ///////////////////////////////////////////////////////////
-        */
         
    }
     
