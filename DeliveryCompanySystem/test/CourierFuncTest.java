@@ -36,17 +36,19 @@ public class CourierFuncTest {
     @Before
     public void setUp()
     {
-
         session = Mockito.mock(Session.class);
         
         database = Mockito.spy(new DatabaseInit());
+        
         database.setSession(session);
+        
+        Mockito.when(session.isOpen()).thenReturn(Boolean.TRUE);
         
         Mockito.when(session.beginTransaction()).thenReturn(null);
         Mockito.when(session.getTransaction()).thenReturn(Mockito.mock(Transaction.class));
         
     }
-    /*
+    
     @Test
     public void setDeliveryStatusTestDelivered()
     {
@@ -60,7 +62,8 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        cf.setDeliveryStatus(DeliveryStatus.delivered, 0);
+        Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.delivered, 0),1);
+
         
         Mockito.verify(q, Mockito.times(3)).setParameter(statCap1.capture(), statCap.capture());
         
@@ -82,7 +85,8 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        cf.setDeliveryStatus(DeliveryStatus.undelivered, 0);
+        Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.undelivered, 0),1);
+
         
         Mockito.verify(q, Mockito.times(3)).setParameter(statCap1.capture(), statCap.capture());
         
@@ -104,7 +108,7 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        cf.setDeliveryStatus(DeliveryStatus.pickedUp, 0);
+        Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.pickedUp, 0),1);
         
         Mockito.verify(q, Mockito.times(3)).setParameter(statCap1.capture(), statCap.capture());
         
@@ -126,7 +130,7 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        cf.setDeliveryStatus(DeliveryStatus.notPickedUp, 0);
+        Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.notPickedUp, 0),1);
         
         Mockito.verify(q, Mockito.times(3)).setParameter(statCap1.capture(), statCap.capture());
         
@@ -134,7 +138,7 @@ public class CourierFuncTest {
         Assert.assertEquals(statCap.getAllValues().get(1), LocationStatus.NieOdebranoOdNadawcy.toString());
         
     }
-*/
+
     @Test
     public void setDeliveryStatusTestUnknowDeliveredStatus()
     {
@@ -149,8 +153,7 @@ public class CourierFuncTest {
         
         CourierFunc cf = new CourierFunc(new Courier());
         Assert.assertEquals(cf.setDeliveryStatus( null, 0), -1);
-        
-        
+  
     }
     
 }

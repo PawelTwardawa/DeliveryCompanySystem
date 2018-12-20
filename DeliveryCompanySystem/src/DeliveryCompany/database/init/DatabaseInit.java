@@ -157,5 +157,11 @@ public class DatabaseInit {
     public void setSession(Session session)
     {
         sessionObj = session;
+        sessionObj = session;
+        sessionObjAdmin = session;
+        sessionObjLogin = session;
+        sessionObjClient = session;
+        sessionObjCourier = session;
+        sessionObjStoreman = session;
     }
 }

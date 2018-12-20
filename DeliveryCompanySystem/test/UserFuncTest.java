@@ -6,6 +6,7 @@
 
 
 import DeliveryCompany.app.enumerate.RegisterStatus;
+import DeliveryCompany.app.enumerate.SessionType;
 import DeliveryCompany.app.enumerate.UserType;
 import DeliveryCompany.app.functionality.UserFunc;
 import DeliveryCompany.database.init.DatabaseInit;
@@ -30,6 +31,8 @@ import org.mockito.*;
 import static org.mockito.Matchers.any;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import simulateDatabase.Database;
+import simulateDatabase.simQuery;
 
 /**
  *
@@ -53,78 +56,75 @@ public class UserFuncTest {
     @Before
     public void setUp()
     {
-
         session = Mockito.mock(Session.class);
         
         database = Mockito.spy(new DatabaseInit());
+        
         database.setSession(session);
+        
+        Mockito.when(session.isOpen()).thenReturn(Boolean.TRUE);
         
         Mockito.when(session.beginTransaction()).thenReturn(null);
         Mockito.when(session.getTransaction()).thenReturn(Mockito.mock(Transaction.class));
         
     }
-    /*
+    
     @Test
     public void loginTestNotNull() throws NoSuchAlgorithmException
-    {
-        User user = new User();
-        user.setUsername("pawel");
-        user.setPassword("pass");
-        user.setUserType(UserType.Client.toString());
+    {       
         
         Query q = Mockito.mock(Query.class);
         
-        Mockito.when(session.createQuery(any(String.class))).thenReturn(q);
-        Mockito.when(q.uniqueResult()).thenReturn(user);
-        //Mockito.when(session.beginTransaction()).thenReturn(null);
-        //Mockito.when(session.getTransaction()).thenReturn(Mockito.mock(Transaction.class));
-        
-        
+        Mockito.when(session.createQuery(any(String.class))).thenReturn(new simQuery("User"));
+        //Mockito.when(q.uniqueResult()).thenReturn(user);
+
         UserFunc userFunc = new UserFunc();
         
-        Assert.assertNotNull(userFunc.Login("pawel", "pass"));
+        User resultUser = userFunc.Login("pawel", "pass");
+        
+        Assert.assertNotNull(resultUser);
         
     }
-*/
+
     
     @Test
     public void loginTestNull() throws NoSuchAlgorithmException
     {
+        User user = new User();
+        user.setUsername("pawel");
+        user.setPassword("pass");
         
         Query q = Mockito.mock(Query.class);
         
-        Mockito.when(session.createQuery(any(String.class))).thenReturn(q);
-        Mockito.when(q.uniqueResult()).thenReturn(null);
-        //Mockito.when(session.beginTransaction()).thenReturn(null);
-        //Mockito.when(session.getTransaction()).thenReturn(Mockito.mock(Transaction.class));
-        
-        
+        Mockito.when(session.createQuery(any(String.class))).thenReturn(new simQuery("User"));
+        //Mockito.when(q.uniqueResult()).thenReturn(user);
+
         UserFunc userFunc = new UserFunc();
         
-        Assert.assertNull(userFunc.Login("pawel", "pass"));
+        User resultUser = userFunc.Login("pawell", "pass");
+        
+        Assert.assertNull(resultUser);
         
     }
-    /*
+    
     @Test
     public void registryClientTestEmailExists()
     {
 
-        Email email = new Email();
-        email.setEmail("email");
 
         Query queryEmail = Mockito.mock(Query.class);
-        
-        Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(queryEmail);
-        Mockito.when(queryEmail.uniqueResult()).thenReturn(email);
+        Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(new simQuery("Email"));
+        //Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(queryEmail);
+        //Mockito.when(queryEmail.uniqueResult()).thenReturn(email);
         
         Query queryUser = Mockito.mock(Query.class);
         
-        Mockito.when(session.createQuery("FROM User WHERE Username = :u")).thenReturn(queryUser);
+        Mockito.when(session.createQuery("FROM User WHERE Username = :u")).thenReturn(new simQuery("UserEmail"));
         Mockito.when(queryUser.uniqueResult()).thenReturn(null);
         
         UserFunc userFunc = new UserFunc();
         
-       Assert.assertEquals(userFunc.Registry("pawel", "pass", "email@email.com", UserType.Client), RegisterStatus.EmailExists);
+        Assert.assertEquals(userFunc.Registry("pawell", "pass", "email@email.com", UserType.Client), RegisterStatus.EmailExists);
         
     }
     
@@ -134,24 +134,18 @@ public class UserFuncTest {
 
 
         Query queryEmail = Mockito.mock(Query.class);
-        
-        Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(queryEmail);
-        Mockito.when(queryEmail.uniqueResult()).thenReturn(null);
-        
-        
-        User user = new User();
-        user.setUsername("pawel");
-        user.setPassword("pass");
-        user.setUserType(UserType.Client.toString());
+        Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(new simQuery("Email"));
+        //Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(queryEmail);
+        //Mockito.when(queryEmail.uniqueResult()).thenReturn(email);
         
         Query queryUser = Mockito.mock(Query.class);
         
-        Mockito.when(session.createQuery("FROM User WHERE Username = :u")).thenReturn(queryUser);
-        Mockito.when(queryUser.uniqueResult()).thenReturn(user);
+        Mockito.when(session.createQuery("FROM User WHERE Username = :u")).thenReturn(new simQuery("UserEmail"));
+        Mockito.when(queryUser.uniqueResult()).thenReturn(null);
         
         UserFunc userFunc = new UserFunc();
         
-        Assert.assertEquals(userFunc.Registry("pawel", "pass", "email@email.com", UserType.Client), RegisterStatus.UsernameExists);
+       Assert.assertEquals(userFunc.Registry("pawel", "pass", "emaill@email.com", UserType.Client), RegisterStatus.UsernameExists);
         
     }
     
@@ -159,21 +153,19 @@ public class UserFuncTest {
     public void registryClientTestSuccess()
     {
 
-
         Query queryEmail = Mockito.mock(Query.class);
-        
-        Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(queryEmail);
-        Mockito.when(queryEmail.uniqueResult()).thenReturn(null);
-        
+        Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(new simQuery("Email"));
+        //Mockito.when(session.createQuery("FROM Email WHERE email = :e")).thenReturn(queryEmail);
+        //Mockito.when(queryEmail.uniqueResult()).thenReturn(email);
         
         Query queryUser = Mockito.mock(Query.class);
         
-        Mockito.when(session.createQuery("FROM User WHERE Username = :u")).thenReturn(queryUser);
+        Mockito.when(session.createQuery("FROM User WHERE Username = :u")).thenReturn(new simQuery("UserEmail"));
         Mockito.when(queryUser.uniqueResult()).thenReturn(null);
         
         UserFunc userFunc = new UserFunc();
         
-        Assert.assertEquals(userFunc.Registry("pawel", "pass", "email@email.com", UserType.Client), RegisterStatus.Success);
+       Assert.assertEquals(userFunc.Registry("pawell", "pass", "emaill@email.com", UserType.Client), RegisterStatus.Success);
         
     }
     
@@ -184,7 +176,7 @@ public class UserFuncTest {
         
         Query query = Mockito.mock(Query.class);
         
-        Mockito.when(session.createQuery("FROM Client WHERE user = :u")).thenReturn(query);
+        Mockito.when(session.createQuery(any(String.class))).thenReturn(query);
         Mockito.when(query.uniqueResult()).thenReturn(client);
         
         User user = new User();
@@ -206,7 +198,7 @@ public class UserFuncTest {
         
         Query query = Mockito.mock(Query.class);
         
-        Mockito.when(session.createQuery("FROM Courier WHERE user = :u")).thenReturn(query);
+        Mockito.when(session.createQuery(any(String.class))).thenReturn(query);
         Mockito.when(query.uniqueResult()).thenReturn(courier);
         
         User user = new User();
@@ -221,14 +213,14 @@ public class UserFuncTest {
         Assert.assertTrue(userFunc.getMembership(user) instanceof Courier);
     }
     
-    @Test
+    
     public void getMembershipTestReturnStoreman()
     {
         Storeman storeman = new Storeman();
         
         Query query = Mockito.mock(Query.class);
         
-        Mockito.when(session.createQuery("FROM Storeman WHERE user = :u")).thenReturn(query);
+        Mockito.when(session.createQuery(any(String.class))).thenReturn(query);
         Mockito.when(query.uniqueResult()).thenReturn(storeman);
         
         User user = new User();
@@ -239,8 +231,30 @@ public class UserFuncTest {
         UserFunc userFunc = new UserFunc();
         
         //Assert.assertEquals(userFunc.getMembership(user), );
-        Assert.assertNotNull(userFunc.getMembership(user));
+        //Assert.assertNotNull(userFunc.getMembership(user));
         Assert.assertTrue(userFunc.getMembership(user) instanceof Storeman);
     }
-*/
+    
+    @Test(expected = ClassCastException.class)
+    public void getMembershipTestException()
+    {
+        Storeman storeman = new Storeman();
+        
+        Query query = Mockito.mock(Query.class);
+        
+        Mockito.when(session.createQuery(any(String.class))).thenReturn(query);
+        Mockito.when(query.uniqueResult()).thenReturn(storeman);
+        
+        User user = new User();
+        user.setUsername("pawel");
+        user.setPassword("pass");
+        user.setUserType(UserType.Client.toString());
+        
+        UserFunc userFunc = new UserFunc();
+        
+        //Assert.assertEquals(userFunc.getMembership(user), );
+        //Assert.assertNotNull(userFunc.getMembership(user));
+        Assert.assertTrue(userFunc.getMembership(user) instanceof Storeman);
+    }
+
 }
