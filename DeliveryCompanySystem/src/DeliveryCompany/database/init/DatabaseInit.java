@@ -7,6 +7,7 @@ package DeliveryCompany.database.init;
 
 
 import DeliveryCompany.app.enumerate.SessionType;
+import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
 import java.awt.Dimension;
 import java.io.Console;
 import java.sql.Date;
@@ -47,6 +48,8 @@ public class DatabaseInit {
         configObj.configure(conf);
         
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
+         
+        
         
         SessionFactoryObj = configObj.buildSessionFactory(serviceRegistryObj);
         return SessionFactoryObj;

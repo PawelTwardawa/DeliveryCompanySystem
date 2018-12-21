@@ -6,9 +6,15 @@
 package DeliveryCompany.app.gui;
 
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -18,23 +24,37 @@ public class Loader{
     
     private static Stage window;
     
-    public static void Display()
+    private VBox createContent()
     {
-        /*
+        String url = getClass().getResource("loading.gif").toExternalForm();
+        ImageView progress = new ImageView(url);
+        progress.setFitWidth(200);
+        progress.setFitHeight(200);
         
-            Platform.runLater(() ->{
-                
-                window = new Stage();
-                
-                
-                window.setScene(new Scene(new TabPane(), 100, 100)); 
-                window.show();
-            });
-            */
+        VBox vBox = new VBox();
+        vBox.setSpacing(10.0);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().addAll( progress);
+        //vBox.setStyle("-fx-background-color: transparent;");
+        
+        return vBox;
+    }
+    
+    public void Display()
+    {
+        window = new Stage();
+        window.initStyle(StageStyle.TRANSPARENT);
+        
+        Scene scene = new Scene(createContent());
+        scene.setFill(Color.TRANSPARENT);
+        
+        window.setScene(scene);
+        
+        window.show();
         
     }
     
-    public static void Hide()
+    public void Hide()
     {
         window.close();
     }

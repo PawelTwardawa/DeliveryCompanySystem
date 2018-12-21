@@ -34,13 +34,21 @@ import DeliveryCompany.app.gui.CourierGUI;
 import DeliveryCompany.app.gui.EditDataGUI;
 import DeliveryCompany.app.gui.MessageBox;
 import DeliveryCompany.app.gui.StoremanGUI;
+import com.mysql.jdbc.CommunicationsException;
+import java.net.NoRouteToHostException;
 
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Button;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.application.Preloader;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
@@ -54,6 +62,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -65,9 +74,11 @@ import javafx.stage.Stage;
  */
 public class LoginRegistry extends Application{
 
-    static Stage window;
-    //Stage window;
+    BooleanProperty ready = new SimpleBooleanProperty(false);
     
+    static Stage window;
+    private static LoginPreloader preloader;
+    private static Loader loader;
     
     //login
     Label labelUserError;
@@ -80,24 +91,51 @@ public class LoginRegistry extends Application{
     Button buttonLogin;
     Button buttonRegistry;
     
+    
     public static void main(String[] args)
     {
-
-        DatabaseInit.getInstance().getSession(SessionType.Login);
+        loader = new Loader();
+        //preloader = new LoginPreloader();
+        //DatabaseInit.getInstance().getSession(SessionType.Login);
         
+        
+        
+        //launch(args);
         launch(args);
         
-        
-        
-        
-        
-        
-        
     }
+    
+    private void longStart() {
+        Task task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try
+                {
+                    DatabaseInit.getInstance().getSession(SessionType.Login);
+                }
+                catch(Exception e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
+                //Thread.sleep(500);
+                // indicar que la carga ha terminado, 100% completa
+                ready.setValue(Boolean.TRUE);
+
+                return null;
+            }
+        };
+        new Thread(task).start();
+    }
+    
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
+        
+        loader.Display();
+        
+        longStart();
         
         //Loader.Display();
         //DatabaseInit.getInstance().getSession(SessionType.Login);
@@ -110,8 +148,15 @@ public class LoginRegistry extends Application{
             System.exit(0);
         });
         
-        
-        Login(window, "");
+        ready.addListener((ov, t, t1) -> {
+            if (Boolean.TRUE.equals(t1)) {
+                Platform.runLater(() -> {
+                    Login(window, "");
+                    loader.Hide();
+                });
+            }
+        });
+        //Login(window, "");
         
    }
     

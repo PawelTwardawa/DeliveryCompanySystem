@@ -62,7 +62,7 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.delivered, 0),1);
+        /**/Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.delivered, 0),1);
 
         
         Mockito.verify(q, Mockito.times(3)).setParameter(statCap1.capture(), statCap.capture());
@@ -85,7 +85,7 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.undelivered, 0),1);
+        /**/Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.undelivered, 0),1);
 
         
         Mockito.verify(q, Mockito.times(3)).setParameter(statCap1.capture(), statCap.capture());
@@ -108,7 +108,7 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.pickedUp, 0),1);
+        /**/Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.pickedUp, 0),1);
         
         Mockito.verify(q, Mockito.times(3)).setParameter(statCap1.capture(), statCap.capture());
         
@@ -130,7 +130,7 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.notPickedUp, 0),1);
+        /**/Assert.assertEquals(cf.setDeliveryStatus(DeliveryStatus.notPickedUp, 0),1);
         
         Mockito.verify(q, Mockito.times(3)).setParameter(statCap1.capture(), statCap.capture());
         
@@ -152,7 +152,7 @@ public class CourierFuncTest {
         
         
         CourierFunc cf = new CourierFunc(new Courier());
-        Assert.assertEquals(cf.setDeliveryStatus( null, 0), -1);
+        /**/Assert.assertEquals(cf.setDeliveryStatus( null, 0), -1);
   
     }
     

@@ -31,7 +31,6 @@ import org.mockito.*;
 import static org.mockito.Matchers.any;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import simulateDatabase.Database;
 import simulateDatabase.simQuery;
 
 /**
@@ -80,7 +79,7 @@ public class UserFuncTest {
 
         UserFunc userFunc = new UserFunc();
         
-        User resultUser = userFunc.Login("pawel", "pass");
+        /**/User resultUser = userFunc.Login("pawel", "pass");
         
         Assert.assertNotNull(resultUser);
         
@@ -101,7 +100,7 @@ public class UserFuncTest {
 
         UserFunc userFunc = new UserFunc();
         
-        User resultUser = userFunc.Login("pawell", "pass");
+        /**/User resultUser = userFunc.Login("pawell", "pass");
         
         Assert.assertNull(resultUser);
         
@@ -124,7 +123,7 @@ public class UserFuncTest {
         
         UserFunc userFunc = new UserFunc();
         
-        Assert.assertEquals(userFunc.Registry("pawell", "pass", "email@email.com", UserType.Client), RegisterStatus.EmailExists);
+        /**/Assert.assertEquals(userFunc.Registry("pawell", "pass", "email@email.com", UserType.Client), RegisterStatus.EmailExists);
         
     }
     
@@ -145,7 +144,7 @@ public class UserFuncTest {
         
         UserFunc userFunc = new UserFunc();
         
-       Assert.assertEquals(userFunc.Registry("pawel", "pass", "emaill@email.com", UserType.Client), RegisterStatus.UsernameExists);
+        /**/Assert.assertEquals(userFunc.Registry("pawel", "pass", "emaill@email.com", UserType.Client), RegisterStatus.UsernameExists);
         
     }
     
@@ -165,7 +164,7 @@ public class UserFuncTest {
         
         UserFunc userFunc = new UserFunc();
         
-       Assert.assertEquals(userFunc.Registry("pawell", "pass", "emaill@email.com", UserType.Client), RegisterStatus.Success);
+        /**/ Assert.assertEquals(userFunc.Registry("pawell", "pass", "emaill@email.com", UserType.Client), RegisterStatus.Success);
         
     }
     
@@ -182,7 +181,7 @@ public class UserFuncTest {
         User user = new User();
         user.setUsername("pawel");
         user.setPassword("pass");
-        user.setUserType(UserType.Client.toString());
+        /**/user.setUserType(UserType.Client.toString());
         
         UserFunc userFunc = new UserFunc();
         
@@ -204,7 +203,7 @@ public class UserFuncTest {
         User user = new User();
         user.setUsername("pawel");
         user.setPassword("pass");
-        user.setUserType(UserType.Courier.toString());
+        /**/user.setUserType(UserType.Courier.toString());
         
         UserFunc userFunc = new UserFunc();
         
@@ -226,7 +225,7 @@ public class UserFuncTest {
         User user = new User();
         user.setUsername("pawel");
         user.setPassword("pass");
-        user.setUserType(UserType.Storeman.toString());
+        /**/user.setUserType(UserType.Storeman.toString());
         
         UserFunc userFunc = new UserFunc();
         
@@ -248,7 +247,7 @@ public class UserFuncTest {
         User user = new User();
         user.setUsername("pawel");
         user.setPassword("pass");
-        user.setUserType(UserType.Client.toString());
+        /**/user.setUserType(UserType.Client.toString());
         
         UserFunc userFunc = new UserFunc();
         

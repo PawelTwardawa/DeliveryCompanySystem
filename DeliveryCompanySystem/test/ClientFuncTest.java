@@ -22,8 +22,10 @@ import org.hibernate.Transaction;
 import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import org.junit.Before;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 import simulateDatabase.simQuery;
 
@@ -69,10 +71,11 @@ public class ClientFuncTest {
         
         Mockito.when(session.createQuery("FROM Data WHERE firstName = :fn AND lastName = :ln")).thenReturn(new simQuery("Data"));
         Mockito.when(session.createQuery("FROM Courier")).thenReturn(new simQuery("Courier"));
+        Mockito.when(session.save(any())).thenReturn(1);
         
-        Address senderAddress = new Address("100", "10", "ulica", "00-000", "miasto");
+        /**/Address senderAddress = new Address("100", "10", "ulica", "00-000", "miasto");
         senderAddress.setId(0);
-        Data senderData = new Data("pawell", "kowalski", senderAddress);
+        /**/ Data senderData = new Data("pawel", "kowalski", senderAddress);
         senderData.setId(0);
         
         Address receiverAddress = new Address("10", "10", "ulica", "00-000", "miasto");
@@ -82,6 +85,8 @@ public class ClientFuncTest {
         
         ClientFunc cf = new ClientFunc(new Client());
         cf.SendPackage(senderData, senderAddress, receiverData, receiverAddress, new Dimensions(1, 1, 1), 346457123);
+        
+        
         
         Mockito.verify(session, Mockito.times(1)).save(userCap.capture());
         
@@ -101,10 +106,11 @@ public class ClientFuncTest {
         
         Mockito.when(session.createQuery("FROM Data WHERE firstName = :fn AND lastName = :ln")).thenReturn(new simQuery("Data"));
         Mockito.when(session.createQuery("FROM Courier")).thenReturn(new simQuery("Courier"));
+        Mockito.when(session.save(any())).thenReturn(1);
         
-        Address senderAddress = new Address("10", "10", "ulica", "00-000", "miasto");
+        /**/Address senderAddress = new Address("10", "10", "ulica", "00-000", "miasto");
         senderAddress.setId(0);
-        Data senderData = new Data("pawel", "kowalski", senderAddress);
+        /**/Data senderData = new Data("pawel", "kowalski", senderAddress);
         senderData.setId(0);
         
         Address receiverAddress = new Address("10", "10", "ulica", "00-000", "miasto");
@@ -133,10 +139,11 @@ public class ClientFuncTest {
         
         Mockito.when(session.createQuery("FROM Data WHERE firstName = :fn AND lastName = :ln")).thenReturn(new simQuery("Data"));
         Mockito.when(session.createQuery("FROM Courier")).thenReturn(new simQuery("Courier"));
+        Mockito.when(session.save(any())).thenReturn(1);
         
-        Address senderAddress = new Address("10", "10", "ulica", "00-000", "miasto");
+        /**/Address senderAddress = new Address("10", "10", "ulica", "00-000", "miasto");
         senderAddress.setId(0);
-        Data senderData = new Data("pawell", "kowalski", senderAddress);
+        /**/Data senderData = new Data("pawell", "kowalski", senderAddress);
         senderData.setId(0);
         
         Address receiverAddress = new Address("10", "10", "ulica", "00-000", "miasto");
