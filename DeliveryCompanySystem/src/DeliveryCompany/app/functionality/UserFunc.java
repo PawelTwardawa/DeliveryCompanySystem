@@ -176,7 +176,7 @@ public class UserFunc {
                     session.beginTransaction();
                     Query q = session.createQuery("FROM Courier WHERE user = :u");
                     q.setParameter("u", user);
-                    @SuppressWarnings("unchecked")
+                    //@SuppressWarnings("unchecked")
                     Courier obj = (Courier)q.uniqueResult();
 
                     session.getTransaction().commit();
