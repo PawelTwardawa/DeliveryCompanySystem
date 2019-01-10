@@ -65,6 +65,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -177,7 +178,7 @@ public class LoginRegistry extends Application{
         //Label username error
         labelUserError = new Label("");
         GridPane.setConstraints(labelUserError, 1, 0 , 2, 1);
-        
+        labelUserError.setTextFill(Color.web("#ff0000"));
         //Label username
         labelUsername = new Label("Username");
         GridPane.setConstraints(labelUsername, 0, 1);
@@ -188,7 +189,6 @@ public class LoginRegistry extends Application{
         inputUsername.setOnKeyPressed(((event) -> {
             pressEnter(event);
         }));
-        
         
         //Label password
         labelPassword = new Label("Password");
@@ -263,7 +263,6 @@ public class LoginRegistry extends Application{
             
             try 
             {
-            
                 UserFunc userFunc = new UserFunc();
                 
                 User user = userFunc.Login(inputUsername.getText(), inputPassword.getText());
@@ -306,8 +305,7 @@ public class LoginRegistry extends Application{
                             break;
                         }
                     }
-                }
-                
+                }   
             } 
             catch (NoSuchAlgorithmException ex) 
             {

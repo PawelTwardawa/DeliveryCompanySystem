@@ -26,3 +26,8 @@ hs_err_pid*
 /DeliveryCompanySystem/dist/
 /DeployTest/nbproject/private/
 /DeployTest/build/
+DeliveryCompanySystem/src/hibernate_Admin.cfg.xml
+DeliveryCompanySystem/src/hibernate_Client.cfg.xml
+DeliveryCompanySystem/src/hibernate_Courier.cfg.xml
+DeliveryCompanySystem/src/hibernate_Login.cfg.xml
+DeliveryCompanySystem/src/hibernate_Storeman.cfg.xml

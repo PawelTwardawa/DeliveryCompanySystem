@@ -163,7 +163,7 @@ public class UserFunc {
                     session.beginTransaction();
                     Query q = session.createQuery("FROM Client WHERE user = :u");
                     q.setParameter("u", user);
-                    @SuppressWarnings("unchecked")
+                    //@SuppressWarnings("unchecked")
                     Client obj = (Client)q.uniqueResult();
                     
                     session.getTransaction().commit();
@@ -189,7 +189,7 @@ public class UserFunc {
                     session.beginTransaction();
                     Query q = session.createQuery("FROM Storeman WHERE user = :u");
                     q.setParameter("u", user);
-                    @SuppressWarnings("unchecked")
+                    //@SuppressWarnings("unchecked")
                     Storeman obj = (Storeman)q.uniqueResult();
 
                     session.getTransaction().commit();

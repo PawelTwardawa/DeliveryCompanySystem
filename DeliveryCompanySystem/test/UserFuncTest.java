@@ -164,7 +164,7 @@ public class UserFuncTest {
         
         UserFunc userFunc = new UserFunc();
         
-        /**/ Assert.assertEquals(userFunc.Registry("pawell", "pass", "emaill@email.com", UserType.Client), RegisterStatus.Success);
+        /**/ Assert.assertEquals(userFunc.Registry("pawel", "pass", "emaill@email.com", UserType.Client), RegisterStatus.Success);
         
     }
     
@@ -212,7 +212,7 @@ public class UserFuncTest {
         Assert.assertTrue(userFunc.getMembership(user) instanceof Courier);
     }
     
-    
+    @Test
     public void getMembershipTestReturnStoreman()
     {
         Storeman storeman = new Storeman();
@@ -247,7 +247,7 @@ public class UserFuncTest {
         User user = new User();
         user.setUsername("pawel");
         user.setPassword("pass");
-        /**/user.setUserType(UserType.Client.toString());
+        /**/user.setUserType(UserType.Storeman.toString()); // storeman
         
         UserFunc userFunc = new UserFunc();
         
