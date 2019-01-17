@@ -1,0 +1,8 @@
+---
+Suite
+---
+!1 Test suite X
+!contents -R2 -g -p -f -h
+
+"Testy akceptacyjne systemu firmy kurierskiej"
+!path C:\Projects\JAVA\DeliveryCompanySystem\DeliveryCompanySystem\build\classes

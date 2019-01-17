@@ -1,0 +1,8 @@
+---
+Test
+---
+!|testyfitnessefixture.TestPackageLocation|
+|id          |getPackageLocation?         |
+|1           |Doreczono                   |
+|2           |Odebrano od nadawcy         |
+|3           |null                        |

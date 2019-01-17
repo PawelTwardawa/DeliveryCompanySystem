@@ -25,6 +25,8 @@ import javassist.bytecode.stackmap.BasicBlock;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
+import simulateDatabase.simQuery;
+import simulateDatabase.simQueryAkc;
 
 /**
  *
@@ -39,7 +41,11 @@ public class UserFunc {
 
     public UserFunc() //throws NoSuchAlgorithmException {
     {
-        this.session = DatabaseInit.getInstance().getSession(SessionType.Login);
+        //this.session = DatabaseInit.getInstance().getSession(SessionType.Login);
+        
+        
+        
+        
         //database = new DatabaseInit();
         //session = database.getSession();
         //session = null;
@@ -66,6 +72,14 @@ public class UserFunc {
     
     public User Login(String username, String password) throws NoSuchAlgorithmException
     {
+        simQueryAkc q = new simQueryAkc("User");//= session.createQuery("FROM User WHERE Username = :un AND Password = :pa");
+        q.setParameter("un", username);
+        q.setParameter("pa", getSecurePassword(password));
+        
+        User user =  (User)q.uniqueResult();
+        
+        
+        /*
         session.beginTransaction();
         
         Query q = session.createQuery("FROM User WHERE Username = :un AND Password = :pa");
@@ -75,12 +89,52 @@ public class UserFunc {
         User user =  (User)q.uniqueResult();
         
         session.getTransaction().commit();
+        */
         
         return user;
     }
     
     public RegisterStatus Registry(String username, String password, String email, UserType type)// throws Exception
     {
+        RegisterStatus status = RegisterStatus.Success;
+        
+        simQueryAkc q = new simQueryAkc("Email");
+        Email emailExist = null;
+        if(type == UserType.Client)
+        {
+            //q = session.createQuery("FROM Email WHERE email = :e");
+            q.setParameter("e", email);
+            emailExist = (Email)q.uniqueResult();
+        }
+        
+        //q = session.createQuery("FROM User WHERE Username = :u");
+        q = new simQueryAkc("UserEmail");
+        q.setParameter("u", username);
+        User usernameExist = (User)q.uniqueResult();
+        
+        //session.getTransaction().commit();
+        
+        if(emailExist != null && type == UserType.Client)
+                return RegisterStatus.EmailExists;
+
+        if(usernameExist != null)
+            return RegisterStatus.UsernameExists;
+        
+        Email emailObj = new Email();
+        emailObj.setEmail(email);
+        
+        User userObj = new User();
+        
+        if(type == UserType.Client)
+            userObj.setID_email(emailObj);
+        
+        userObj.setUsername(username);
+        userObj.setPassword(getSecurePassword(password));
+        userObj.setUserType(type.toString());
+        
+        return RegisterStatus.Success;
+        
+        /*
         RegisterStatus status = RegisterStatus.Success;
         
         session.beginTransaction();
@@ -122,6 +176,7 @@ public class UserFunc {
         session.getTransaction().commit(); 
         
         return RegisterStatus.Success;
+        */
     }
     
     //TODO: zrobic to lepiej

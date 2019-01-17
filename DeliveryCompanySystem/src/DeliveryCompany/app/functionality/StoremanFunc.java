@@ -15,6 +15,7 @@ import DeliveryCompany.database.structure.StoremanData;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import simulateDatabase.simQueryAkc;
 
 /**
  *
@@ -51,6 +52,16 @@ public class StoremanFunc{
     public List<StoremanData> getPackageInWarehouse()
     {
         
+        
+        simulateDatabase.simQueryAkc q = new simQueryAkc("getPackage");
+        q.setParameter("s", DeliveryStatus.inWarehouse.toString());
+        
+        @SuppressWarnings("unchecked")
+        List<StoremanData> data = q.list();
+        
+        return data;
+        
+        /*
         session.beginTransaction();
         
         Query q = session.createQuery("FROM StoremanData WHERE DeliveredStatus = :s");
@@ -61,6 +72,7 @@ public class StoremanFunc{
         session.getTransaction().commit(); 
         
         return data;
+*/
     }
     
     public Courier targetCourier(StoremanData data)

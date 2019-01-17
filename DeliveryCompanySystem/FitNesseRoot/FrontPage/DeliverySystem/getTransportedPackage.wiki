@@ -1,0 +1,8 @@
+---
+Test
+---
+!|testyfitnessefixture.TestTransportedPackage|
+|status          |getTransportedPackage?     |
+|null            |4                          |
+|delivered       |2                          |
+|undelivered     |0                          |

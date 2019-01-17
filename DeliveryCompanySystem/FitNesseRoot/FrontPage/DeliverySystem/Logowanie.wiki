@@ -1,0 +1,7 @@
+---
+Test
+---
+!|testyfitnessefixture.TestLogin|
+|username   |password  |Login?  |
+|pawel      |pass      |true    |
+|justyna    |pass      |false   |

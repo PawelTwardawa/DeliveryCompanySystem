@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import simulateDatabase.simQuery;
+import simulateDatabase.simQueryAkc;
 
 /**
  *
@@ -28,12 +30,35 @@ public class CourierFunc {
 
     public CourierFunc(Courier courier) {
         this.courier = courier;
-        this.session = DatabaseInit.getInstance().getSession(SessionType.Courier);
+        //this.session = DatabaseInit.getInstance().getSession(SessionType.Courier);
     }
     
     //public List<Package> getTransportedPackage()
     public List<CourierData> getTransportedPackage(DeliveryStatus status)
+    {
+        
+        simQueryAkc q;
+        if(status == null)
         {
+            q = new simQueryAkc("getTransportedPackage");
+            
+        }
+        else
+        {
+            q = new simQueryAkc("getTransportedPackage");
+            q.setParameter("s", status.toString());
+        }
+        q.setParameter("c", courier.getId());
+        
+        
+        //List<Package> pack = q.list();
+        //List<CourierData> pack = q.list();
+        @SuppressWarnings("unchecked")
+        List<CourierData> pack = q.list();
+
+        return pack;
+        
+        /*
         session.beginTransaction();
         
         //Query q = session.createQuery("FROM Package WHERE courier = :c" );
@@ -60,6 +85,7 @@ public class CourierFunc {
 
         session.getTransaction().commit();
         return pack;
+        */
     }
     
     public int setDeliveryStatus(DeliveryStatus status, int packageNumber)

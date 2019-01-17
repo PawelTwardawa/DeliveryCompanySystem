@@ -1,0 +1,8 @@
+---
+Test
+---
+!|testyfitnessefixture.TestRegistry              |
+|username|password|email          |Registry?     |
+|justyna |pass    |adres@email.com|Success       |
+|pawel   |pass    |pa@tw.com      |UsernameExists|
+|justyna |pass    |email@email.com|EmailExists   |

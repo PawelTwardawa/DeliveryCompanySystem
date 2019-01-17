@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import simulateDatabase.simQueryAkc;
 
 /**
  *
@@ -44,7 +45,7 @@ public class ClientFunc {
     public ClientFunc(Client client)
     {
         this.client = client;
-        this.session = DatabaseInit.getInstance().getSession(SessionType.Client);
+        //this.session = DatabaseInit.getInstance().getSession(SessionType.Client);
         
     }
     
@@ -215,6 +216,14 @@ public class ClientFunc {
     
     public String getPackageLocation(long packageNumber)
     {
+        
+        simQueryAkc q = new simQueryAkc("Location");
+        q.setParameter("id", packageNumber);
+        
+        String loc =  (String)q.uniqueResult();
+        
+        return loc;
+        /*
         session.beginTransaction();
         
         Query q = session.createQuery("SELECT location FROM Package WHERE ID = :id");
@@ -225,6 +234,7 @@ public class ClientFunc {
         
         session.getTransaction().commit();
         return loc;
+*/
     }
     
     public List<ClientHistory> getAllSentPackage()

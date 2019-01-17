@@ -1,0 +1,7 @@
+|FrontPage.DeliverySystem.getTransportedPackage||16:35:53 Cz, sty 17, 2019|
+|FrontPage.DeliverySystem.getPackageInWarehouse||16:27:12 Cz, sty 17, 2019|
+|FrontPage.DeliverySystem.GetPackageLocation||15:58:33 Cz, sty 17, 2019|
+|FrontPage.DeliverySystem.Rejestracja||15:06:25 Cz, sty 17, 2019|
+|FrontPage.DeliverySystem.Logowanie||14:44:26 Cz, sty 17, 2019|
+|FrontPage.DeliverySystem.SetUp||13:58:46 Cz, sty 17, 2019|
+|FrontPage.DeliverySystem||13:43:34 Cz, sty 17, 2019|
